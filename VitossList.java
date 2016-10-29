@@ -1,7 +1,7 @@
 package VitossList;
 
 /**
- * Created by Vitoss on 06.10.2016.
+ * Created by Vitoss on 29.10.2016.
  */
 public class VitossList {
 
