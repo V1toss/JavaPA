@@ -6,12 +6,12 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
  
-  <name>Lesson_3</name>
+  <name>Part_1_Lesson_3</name>
   <url>http://maven.apache.org</url>
  
 <parent>
 	<groupId>JavaPA</groupId>
-	<artifactId>lessons</artifactId>
+	<artifactId>part_1</artifactId>
 	<version>1.0-SNAPSHOT</version>
 </parent>
 </project>
