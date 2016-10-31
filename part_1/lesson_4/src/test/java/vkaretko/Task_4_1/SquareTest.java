@@ -9,7 +9,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Тест-класс для тестирования объекта "Square".
+ * Тест-класс для тестирования класса "Square".
  *
  * @author Karetko Victor
  * @version 1.00
