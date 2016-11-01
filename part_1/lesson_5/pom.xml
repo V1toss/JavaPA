@@ -1,10 +1,10 @@
 <project>
-  <modelVersion>4.0.0</modelVersion> 
-  <groupId>part_1</groupId>
-  <artifactId>part_1</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging> 
-  <name>part_1</name>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>vkaretko</groupId>
+   <artifactId>lesson_5</artifactId>
+   <packaging>jar</packaging>
+   <name>part_1_lesson_5</name>
+   <version>1.0</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,17 +35,9 @@
 
   </dependencies>
 
-  <parent>
-     <groupId>JavaPA</groupId>
-     <artifactId>JavaPA</artifactId>
-     <version>1.0-SNAPSHOT</version>
-  </parent>
-
-  <modules>
-      <module>lesson_1</module>
-      <module>lesson_2</module>
-      <module>lesson_3</module>
-      <module>lesson_4</module>
-      <module>lesson_5</module>
-  </modules>
+<parent>
+   <groupId>part_1</groupId>
+   <artifactId>part_1</artifactId>
+   <version>1.0-SNAPSHOT</version>
+</parent>
 </project>
