@@ -34,16 +34,15 @@ public class Triangle {
      * @return площадь треугольника
      */
     public double area() {
-        double  result = 0,
-                sideAB = this.a.distanceTo(b),
-                sideBC = this.b.distanceTo(c),
-                sideAC = this.a.distanceTo(c),
-                halfP = (sideAB + sideAC + sideBC)/2.0d;
+        double result = 0;
+        double sideAB = this.a.distanceTo(b);
+        double sideBC = this.b.distanceTo(c);
+        double sideAC = this.a.distanceTo(c);
+        double halfP = (sideAB + sideAC + sideBC)/2.0d;
 
         if ((sideAB < (sideBC + sideAC)) && (sideBC < (sideAC + sideAB)) && (sideAC < (sideBC + sideAC))) {
             result = Math.sqrt(halfP * (halfP - sideAB) * (halfP - sideAC) * (halfP - sideBC));
-        }
-        else {
+        } else {
             System.out.println("Треугольника не существует");
         }
         return result;
