@@ -18,9 +18,9 @@ public class MaxSide {
    public double max (double... sideLengths) {      
        double maxLength = 0;
        for (double length : sideLengths) {
-	   	   if (length > maxLength) {
-	   	  	 maxLength = length;
-	   	   }
+	    if (length > maxLength) {
+	   	maxLength = length;
+	    }
        }
        return maxLength;
    }
