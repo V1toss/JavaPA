@@ -12,7 +12,7 @@ package vkaretko.Task_3_2;
 public class MaxSide {
     /**
      * Метод для определения самой длинной стороны
-     * @param sideLenghts список всех длин сторон
+     * @param sideLengths список всех длин сторон
      * @return самая длинная сторона
      */
    public double max (double... sideLengths) {      
