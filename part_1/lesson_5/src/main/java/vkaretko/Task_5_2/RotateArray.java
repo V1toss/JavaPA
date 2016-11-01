@@ -3,7 +3,7 @@ package vkaretko.Task_5_2;
 /**
  * Part 1. Base syntax
  * Lesson 5. Arrays
- * Task 1. Create a program for rotate two-dimensional arrays
+ * Task 2. Create a program for rotate two-dimensional arrays
  *
  * @author Karetko Victor
  * @version 1.00
