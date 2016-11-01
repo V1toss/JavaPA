@@ -1,7 +1,6 @@
 package vkaretko.Task_3_2;
 
 import org.junit.Test;
-import vkaretko.Task_3_1.Point;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
