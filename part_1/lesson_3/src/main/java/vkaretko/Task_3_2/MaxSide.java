@@ -1,7 +1,5 @@
 package vkaretko.Task_3_2;
 
-import vkaretko.Task_3_1.Point;
-
 /**
  * Часть 1. Базовый синтаксис.
  * Урок 3.2. Создать метод вычисления максимально числа.
@@ -14,17 +12,16 @@ import vkaretko.Task_3_1.Point;
 public class MaxSide {
     /**
      * Метод для определения самой длинной стороны треугольник
-     * @param a точка a
-     * @param b точка b
-     * @param c точка c
+     * @param sideLenghts список всех длин сторон фигуры
      * @return самая длинная сторона
      */
-   public double max (Point a, Point b, Point c) {
-       double sideAB = a.distanceTo(b);
-       double sideBC = b.distanceTo(c);
-       double sideAC = a.distanceTo(c);
-
-       return (sideAB > sideBC && sideAB > sideAC) ? sideAB : (sideBC > sideAC) ? sideBC : sideAC;
-
+   public double max (double... sideLengths) {      
+       double maxLength = 0;
+       for (double length : sideLengths) {
+	   	   if (length > maxLength) {
+	   	  	 maxLength = length;
+	   	   }
+       }
+       return maxLength;
    }
 }
