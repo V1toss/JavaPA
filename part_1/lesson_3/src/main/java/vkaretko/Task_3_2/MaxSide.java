@@ -20,9 +20,9 @@ public class MaxSide {
      * @return самая длинная сторона
      */
    public double max (Point a, Point b, Point c) {
-       double sideAB = a.distanceTo(b),
-              sideBC = b.distanceTo(c),
-              sideAC = a.distanceTo(c);
+       double sideAB = a.distanceTo(b);
+       double sideBC = b.distanceTo(c);
+       double sideAC = a.distanceTo(c);
 
        return (sideAB > sideBC && sideAB > sideAC) ? sideAB : (sideBC > sideAC) ? sideBC : sideAC;
 
