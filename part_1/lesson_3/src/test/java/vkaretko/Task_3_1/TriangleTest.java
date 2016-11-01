@@ -16,18 +16,18 @@ import static org.junit.Assert.assertThat;
 public class TriangleTest {
     @Test
     public void whenAddThreeCorrectPointsResultFifty() {
-        Point a = new Point(0d,0d),
-              b = new Point(10d,0d),
-              c = new Point(0d,10d);
+        Point a = new Point(0d,0d);
+        Point b = new Point(10d,0d);
+        Point c = new Point(0d,10d);
         Triangle tri = new Triangle(a,b,c);
         assertThat(tri.area(), is(50d));
     }
 
     @Test
     public void whenAddThreePointsAndOneSideMoreThenTwoOthersResultZero() {
-        Point a = new Point(0d,0d),
-              b = new Point(30d,0d),
-              c = new Point(60d,0d);
+        Point a = new Point(0d,0d);
+        Point b = new Point(30d,0d);
+        Point c = new Point(60d,0d);
         Triangle tri = new Triangle(a,b,c);
         assertThat(tri.area(), is(0d));
     }
