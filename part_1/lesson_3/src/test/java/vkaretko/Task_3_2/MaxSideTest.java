@@ -16,10 +16,7 @@ import static org.junit.Assert.assertThat;
 public class MaxSideTest {
     @Test
     public void whenAddThreePointsLengthOfMaxSideIsTwenty() {
-        Point a = new Point(0d,0d);
-        Point b = new Point(20d,0d);
-        Point c = new Point(10d,10d);
         MaxSide maxSide = new MaxSide();
-        assertThat(maxSide.max(a,b,c), is(20d));
+        assertThat(maxSide.max(10d,20d,15d), is(20d));
     }
 }
