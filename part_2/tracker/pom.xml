@@ -3,7 +3,7 @@
    <groupId>vkaretko</groupId>
    <artifactId>tracker</artifactId>
    <packaging>jar</packaging>
-   <name>part_2_lesson_2</name>
+   <name>tracker</name>
    <version>1.0</version>
 
   <properties>

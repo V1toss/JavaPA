@@ -35,6 +35,12 @@
 
   </dependencies>
 
+<parent>
+    <groupId>JavaPA</groupId>
+    <artifactId>JavaPA</artifactId>
+     <version>1.0-SNAPSHOT</version>
+</parent>
+
   <modules>
       <module>lesson_1</module>
       <module>lesson_2</module>

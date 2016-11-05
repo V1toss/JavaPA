@@ -1,31 +1,16 @@
 <project>
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>vkaretko</groupId>
-   <artifactId>lesson_1</artifactId>
-   <packaging>jar</packaging>
-   <name>part_1_lesson_1</name>
-   <version>1.0</version>
+  <modelVersion>4.0.0</modelVersion> 
+  <groupId>JavaPA</groupId>
+  <artifactId>JavaPA</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging> 
+  <name>JavaPA</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-
-<parent>
-    <groupId>part_1</groupId>
-    <artifactId>part_1</artifactId>
-     <version>1.0-SNAPSHOT</version>
-</parent>
-
- <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
@@ -39,4 +24,18 @@
       </plugin>
     </plugins>
   </build>
+
+ <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <modules>
+      <module>part_1</module>
+      <module>part_2</module>
+  </modules>
 </project>

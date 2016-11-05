@@ -16,38 +16,33 @@ import static org.junit.Assert.assertThat;
  */
 public class TrackerTest {
     @Test
-    public void whenAddedNewItemThenResultArrayWithSameItem() {
+    public void whenAddedNewItemThenResultInTrackerZeroPositionIsSameItem() {
         Tracker tracker = new Tracker();
-        Item[] testItemArray = new Item[1];
         Item item = new Task("test1","testDescription",123L);
-        testItemArray[0] = item;
         tracker.add(item);
-        assertThat(tracker.getAll(), is(testItemArray));
+        assertThat(tracker.getAll()[0], is(item));
     }
 
     @Test
-    public void whenAddTaskAndEditToBugThenResultArrayWithBug() {
+    public void whenAddTaskAndEditItWithAnotherTaskThenResultAnotherTask() {
         Tracker tracker = new Tracker();
-        Item[] testItemArray = new Item[1];
         Item itemTask = new Task("test1","testDescription",123L);
-        Item itemBug = new Bug("test2","testDescription2",1234L);
+        Item itemTaskEdited = new Task("test2","testDescription2",1234L);
         tracker.add(itemTask);
-        tracker.edit(itemTask,itemBug);
-        testItemArray[0] = itemBug;
-        assertThat(tracker.getAll(), is(testItemArray));
+        itemTaskEdited.setId(itemTask.getId());
+        tracker.edit(itemTaskEdited);
+        assertThat(tracker.getAll()[0], is(itemTaskEdited));
     }
 
     @Test
-    public void whenAddTwoTasksAndDeleteFirstTaskThenResultArrayWithSecondTask() {
+    public void whenAddTwoTasksAndDeleteFirstTaskByIdThenResultArrayWithSecondTask() {
         Tracker tracker = new Tracker();
-        Item[] testItemArray = new Item[2];
         Item itemFirst = new Task("test1","testDescription",123L);
         Item itemSecond = new Task("test2","testDescription2",1234L);
         tracker.add(itemFirst);
         tracker.add(itemSecond);
-        tracker.delete(itemFirst);
-        testItemArray[1] = itemSecond;
-        assertThat(tracker.getAll(), is(testItemArray));
+        tracker.delete(tracker.getAll()[0].getId());
+        assertThat(tracker.getAll()[0], is(itemSecond));
     }
 
     @Test
@@ -71,15 +66,13 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenAddCommentToTaskThenResultArrayOfCommentsWithOneAddedComment() {
+    public void whenAddCommentToTaskThenResultInCommentsArrayAtZeroPositionIsSameComment() {
         Tracker tracker = new Tracker();
         Item item = new Task("test1","testDescription",123L);
-        Comment[] testComments = new Comment[10];
         Comment comment = new Comment("Test comment");
-        testComments[0] = comment;
         tracker.add(item);
-        tracker.addComment(item, comment);
-        assertThat(item.getComments(), is(testComments));
+        tracker.addComment(tracker.getAll()[0].getId(), comment);
+        assertThat(tracker.getAll()[0].getComments()[0], is(comment));
     }
 
 }
