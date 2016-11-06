@@ -81,9 +81,8 @@ public class StubInputTest {
         Tracker tracker = new Tracker();
         Item item = new Item("name","desc", 123L);
         tracker.add(item);
-        Input input = new StubInput(new String[]{"5", "name", "y"});
+        Input input = new StubInput(new String[]{"6", tracker.getAll()[0].getId(), "test comment", "y"});
         new StartUI(input, tracker).init();
-        assertThat(item.getName(), is ("name"));
-        assertThat(item.getDescription(), is ("desc"));
+        assertThat(tracker.getAll()[0].getComments()[0].getComment(), is ("test comment"));
     }
 }
