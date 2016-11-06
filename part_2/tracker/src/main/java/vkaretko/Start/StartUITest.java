@@ -22,13 +22,11 @@ public class StartUITest {
     public static void main(String[] args) {
 
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[] {
-                "0", "name", "desc", "y"});
+        Input input = new StubInput(new String[] {"0", "name", "desc", "y"});
         new StartUI(input, tracker).init();
         String id = tracker.getAll()[0].getId();
 
-        input = new StubInput(new String[] {
-                "1", "y"});
+        input = new StubInput(new String[] {"1", "y"});
         new StartUI(input, tracker).init();
 
         input = new StubInput(new String[] {
@@ -38,22 +36,15 @@ public class StartUITest {
         input = new StubInput(new String[] {
                 "0", "second item", "description", "n", "3", id, "n", "1", "y"});
         new StartUI(input, tracker).init();
-
-        input = new StubInput(new String[] {
-                "0", "second item", "description", "n", "3", id, "n", "1", "y"});
-        new StartUI(input, tracker).init();
         id = tracker.getAll()[0].getId();
 
-        input = new StubInput(new String[] {
-                "4", id, "y"});
+        input = new StubInput(new String[] {"4", id, "y"});
         new StartUI(input, tracker).init();
 
-        input = new StubInput(new String[] {
-                "6", id, "test comment", "n", "1", "y"});
+        input = new StubInput(new String[] {"6", id, "test comment", "n", "1", "y"});
         new StartUI(input, tracker).init();
 
-        input = new StubInput(new String[] {
-                "7"});
+        input = new StubInput(new String[] {"7"});
         new StartUI(input, tracker).init();
     }
 }
