@@ -35,7 +35,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>vkaretko.Start.StartUi</mainClass>
+                  <mainClass>vkaretko.start.StartUi</mainClass>
                 </transformer>
               </transformers>
             </configuration>
