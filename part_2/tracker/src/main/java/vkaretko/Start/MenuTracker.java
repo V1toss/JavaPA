@@ -1,6 +1,7 @@
-package vkaretko.Start;
+package vkaretko.start;
 
-import vkaretko.Models.*;
+import vkaretko.models.*;
+import vkaretko.templates.BaseAction;
 
 /**
  * Part 2. OOP
@@ -8,7 +9,7 @@ import vkaretko.Models.*;
  * Task 1. Implement all inner classes in MenuTracker.
  *
  * @author Karetko Victor
- * @version 1.02
+ * @version 1.03
  * @since 05.11.2016
  */
 public class MenuTracker {
@@ -16,6 +17,8 @@ public class MenuTracker {
     private Input input;
     private Tracker tracker;
     public UserAction[] actions = new UserAction[8];
+    private int position = 0;
+    public enum actionKey {ADD, SHOW, EDIT, DELETE, FIND_BY_ID, FIND_BY_NAME, ADD_COMMENT}
 
     /**
      * Constructor of MenuTracker
@@ -51,24 +54,25 @@ public class MenuTracker {
      * Method for filling action list
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = new MenuTracker.ShowItems();
-        this.actions[2] = this.new EditItem();
-        this.actions[3] = this.new DeleteItem();
-        this.actions[4] = this.new FindItemById();
-        this.actions[5] = this.new FindItemByName();
-        this.actions[6] = this.new AddComment();
-        this.actions[7] = this.new ExitProgram();
+        this.actions[position++] = this.new AddItem("Add the new Item.", actionKey.ADD.ordinal());
+        this.actions[position++] = new MenuTracker.ShowItems("Show all items.", actionKey.SHOW.ordinal());
+        this.actions[position++] = this.new EditItem("Edit item.",actionKey.EDIT.ordinal());
+        this.actions[position++] = this.new DeleteItem("Delete item.",actionKey.DELETE.ordinal());
+        this.actions[position++] = this.new FindItemById("Find item by Id.",actionKey.FIND_BY_ID.ordinal());
+        this.actions[position++] = this.new FindItemByName("Find item by name.", actionKey.FIND_BY_NAME.ordinal());
+        this.actions[position++] = this.new AddComment("Add comment to item.", actionKey.ADD_COMMENT.ordinal());
+    }
 
+    public void addAction(UserAction action) {
+        this.actions[position++] = action;
     }
 
     /**
      * Inner class for executing "Add the new item" action
      */
-    private class AddItem implements UserAction {
-        @Override
-        public int key() {
-            return 0;
+    private class AddItem extends BaseAction {
+        private AddItem(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -77,20 +81,14 @@ public class MenuTracker {
             String desc = input.ask("Please enter the task's desk: ");
             tracker.add(new Task(name, desc, System.currentTimeMillis()));
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add the new item.");
-        }
     }
 
     /**
      * Inner static class for executing "Show all items" action
      */
-    private static class ShowItems implements UserAction {
-        @Override
-        public int key() {
-            return 1;
+    private static class ShowItems extends BaseAction {
+        private ShowItems(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -105,20 +103,14 @@ public class MenuTracker {
                 }
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show all items.");
-        }
     }
 
     /**
      * Inner class for executing "Edit item" action
      */
-    private class EditItem implements UserAction {
-        @Override
-        public int key() {
-            return 2;
+    private class EditItem extends BaseAction {
+        private EditItem(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -130,20 +122,14 @@ public class MenuTracker {
             task.setId(id);
             tracker.edit(task);
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Edit item.");
-        }
     }
 
     /**
      * Inner class for executing "Delete item" action
      */
-    private class DeleteItem implements UserAction {
-        @Override
-        public int key() {
-            return 3;
+    private class DeleteItem extends BaseAction {
+        private DeleteItem(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -151,20 +137,14 @@ public class MenuTracker {
             String id = input.ask("Please, enter the task's id: ");
             tracker.delete(id);
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Delete item.");
-        }
     }
 
     /**
      * Inner class for executing "Find item by Id" action
      */
-    private class FindItemById implements UserAction {
-        @Override
-        public int key() {
-            return 4;
+    private class FindItemById extends BaseAction {
+        private FindItemById(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -174,20 +154,14 @@ public class MenuTracker {
             System.out.println(String.format("%s. %s %s", item.getId(), item.getName(), item.getDescription()));
 
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by Id.");
-        }
     }
 
     /**
      * Inner class for executing "Find item by name" action
      */
-    private class FindItemByName implements UserAction {
-        @Override
-        public int key() {
-            return 5;
+    private class FindItemByName extends BaseAction {
+        private FindItemByName(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -197,20 +171,14 @@ public class MenuTracker {
             System.out.println(String.format("%s. %s %s", item.getId(), item.getName(), item.getDescription()));
 
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by name.");
-        }
     }
 
     /**
      * Inner class for executing "Add comment to item" action
      */
-    private class AddComment implements UserAction {
-        @Override
-        public int key() {
-            return 6;
+    private class AddComment extends BaseAction {
+        private AddComment(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
         }
 
         @Override
@@ -220,29 +188,6 @@ public class MenuTracker {
             Comment comment = new Comment(commentRead);
             tracker.addComment(id, comment);
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add comment to item.");
-        }
     }
-
-    private class ExitProgram implements UserAction {
-        @Override
-        public int key() {
-            return 7;
-        }
-
-        @Override
-        public void execute(Input input, Tracker tracker) {
-            tracker.exit();
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Exit program");
-        }
-    }
-
 
 }

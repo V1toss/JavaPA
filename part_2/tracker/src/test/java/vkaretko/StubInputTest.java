@@ -1,8 +1,8 @@
 package vkaretko;
 
 import org.junit.Test;
-import vkaretko.Models.Item;
-import vkaretko.Start.*;
+import vkaretko.models.Item;
+import vkaretko.start.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -19,23 +19,29 @@ import static org.junit.Assert.assertThat;
  * @since 05.11.2016
  */
 public class StubInputTest {
+
+    private int firstElementOfArray = 0;
+    private enum actionKey {ADD, SHOW, EDIT, DELETE, FIND_BY_ID, FIND_BY_NAME, ADD_COMMENT}
+
     @Test
     public void whenUserAddNewItemThenResultAddedItemInTracker() {
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[]{"0", "name", "desc", "y"});
+        Input input = new StubInput(new String[]{String.valueOf(actionKey.ADD.ordinal()), "name", "desc", "y"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getName(), is ("name"));
-        assertThat(tracker.getAll()[0].getDescription(), is ("desc"));
+        assertThat(tracker.getAll()[firstElementOfArray].getName(), is ("name"));
+        assertThat(tracker.getAll()[firstElementOfArray].getDescription(), is ("desc"));
     }
 
     @Test
     public void whenUserEditItemThenResultEditedItemInTracker() {
         Tracker tracker = new Tracker();
         tracker.add(new Item("name","desc", 123L));
-        Input input = new StubInput(new String[]{"2", tracker.getAll()[0].getId(), "name2", "desc2", "y"});
+        Input input = new StubInput(new String[]{
+                String.valueOf(actionKey.EDIT.ordinal()),
+                tracker.getAll()[firstElementOfArray].getId(),"name2", "desc2", "y"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getName(), is ("name2"));
-        assertThat(tracker.getAll()[0].getDescription(), is ("desc2"));
+        assertThat(tracker.getAll()[firstElementOfArray].getName(), is ("name2"));
+        assertThat(tracker.getAll()[firstElementOfArray].getDescription(), is ("desc2"));
     }
 
     @Test
@@ -43,10 +49,11 @@ public class StubInputTest {
         Tracker tracker = new Tracker();
         tracker.add(new Item("name","desc", 123L));
         tracker.add(new Item("name2","desc2", 1234L));
-        Input input = new StubInput(new String[]{"3", tracker.getAll()[0].getId(), "y"});
+        Input input = new StubInput(new String[]{
+                String.valueOf(actionKey.DELETE.ordinal()), tracker.getAll()[firstElementOfArray].getId(), "y"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.getAll()[0].getName(), is ("name2"));
-        assertThat(tracker.getAll()[0].getDescription(), is ("desc2"));
+        assertThat(tracker.getAll()[firstElementOfArray].getName(), is ("name2"));
+        assertThat(tracker.getAll()[firstElementOfArray].getDescription(), is ("desc2"));
     }
 
     @Test
@@ -57,7 +64,7 @@ public class StubInputTest {
         tracker.add(itemToFind);
         tracker.add(itemOther);
         String id = itemToFind.getId();
-        Input input = new StubInput(new String[]{"4", id, "y"});
+        Input input = new StubInput(new String[]{String.valueOf(actionKey.FIND_BY_ID.ordinal()), id, "y"});
         new StartUI(input, tracker).init();
         assertThat(itemToFind.getName(), is ("name"));
         assertThat(itemToFind.getDescription(), is ("desc"));
@@ -70,7 +77,7 @@ public class StubInputTest {
         Item itemOther = new Item("name2","desc2", 1234L);
         tracker.add(itemToFind);
         tracker.add(itemOther);
-        Input input = new StubInput(new String[]{"5", "name", "y"});
+        Input input = new StubInput(new String[]{String.valueOf(actionKey.FIND_BY_NAME.ordinal()), "name", "y"});
         new StartUI(input, tracker).init();
         assertThat(itemToFind.getName(), is ("name"));
         assertThat(itemToFind.getDescription(), is ("desc"));
@@ -81,7 +88,9 @@ public class StubInputTest {
         Tracker tracker = new Tracker();
         Item item = new Item("name","desc", 123L);
         tracker.add(item);
-        Input input = new StubInput(new String[]{"6", tracker.getAll()[0].getId(), "test comment", "y"});
+        Input input = new StubInput(new String[]{
+                String.valueOf(actionKey.ADD_COMMENT.ordinal()),
+                tracker.getAll()[firstElementOfArray].getId(), "test comment", "y"});
         new StartUI(input, tracker).init();
         assertThat(tracker.getAll()[0].getComments()[0].getComment(), is ("test comment"));
     }

@@ -1,4 +1,4 @@
-package vkaretko.Models;
+package vkaretko.models;
 
 /**
  * Base class for creating Items, like Tasks and Bug-reports

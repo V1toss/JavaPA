@@ -1,4 +1,4 @@
-package vkaretko.Start;
+package vkaretko.start;
 
 /**
  * Interface for User Actions
@@ -10,11 +10,6 @@ package vkaretko.Start;
 public interface UserAction {
 
     /**
-     * Abstract method for return key of action
-     */
-    int key();
-
-    /**
      * Abstract method for executing actions
      *
      * @param input input stream from user
@@ -24,6 +19,7 @@ public interface UserAction {
 
     /**
      * Abstract method for print information about action in menu
+     * @return name of menu line
      */
     String info();
 }

@@ -1,6 +1,6 @@
-package vkaretko.Start;
+package vkaretko.start;
 
-import vkaretko.Models.*;
+import vkaretko.models.*;
 
 import java.util.Random;
 

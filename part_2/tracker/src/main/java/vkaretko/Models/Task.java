@@ -1,4 +1,4 @@
-package vkaretko.Models;
+package vkaretko.models;
 
 /**
  * Class for creating Tasks

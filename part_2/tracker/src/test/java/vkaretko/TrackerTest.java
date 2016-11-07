@@ -1,8 +1,8 @@
 package vkaretko;
 
 import org.junit.Test;
-import vkaretko.Models.*;
-import vkaretko.Start.Tracker;
+import vkaretko.models.*;
+import vkaretko.start.Tracker;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -15,12 +15,14 @@ import static org.junit.Assert.assertThat;
  * @since 04.11.2016
  */
 public class TrackerTest {
+    private int firstElementOfArray = 0;
+
     @Test
     public void whenAddedNewItemThenResultInTrackerZeroPositionIsSameItem() {
         Tracker tracker = new Tracker();
         Item item = new Task("test1","testDescription",123L);
         tracker.add(item);
-        assertThat(tracker.getAll()[0], is(item));
+        assertThat(tracker.getAll()[firstElementOfArray], is(item));
     }
 
     @Test
@@ -31,7 +33,7 @@ public class TrackerTest {
         tracker.add(itemTask);
         itemTaskEdited.setId(itemTask.getId());
         tracker.edit(itemTaskEdited);
-        assertThat(tracker.getAll()[0], is(itemTaskEdited));
+        assertThat(tracker.getAll()[firstElementOfArray], is(itemTaskEdited));
     }
 
     @Test
@@ -41,8 +43,8 @@ public class TrackerTest {
         Item itemSecond = new Task("test2","testDescription2",1234L);
         tracker.add(itemFirst);
         tracker.add(itemSecond);
-        tracker.delete(tracker.getAll()[0].getId());
-        assertThat(tracker.getAll()[0], is(itemSecond));
+        tracker.delete(tracker.getAll()[firstElementOfArray].getId());
+        assertThat(tracker.getAll()[firstElementOfArray], is(itemSecond));
     }
 
     @Test
@@ -71,8 +73,8 @@ public class TrackerTest {
         Item item = new Task("test1","testDescription",123L);
         Comment comment = new Comment("Test comment");
         tracker.add(item);
-        tracker.addComment(tracker.getAll()[0].getId(), comment);
-        assertThat(tracker.getAll()[0].getComments()[0], is(comment));
+        tracker.addComment(tracker.getAll()[firstElementOfArray].getId(), comment);
+        assertThat(tracker.getAll()[firstElementOfArray].getComments()[firstElementOfArray], is(comment));
     }
 
 }

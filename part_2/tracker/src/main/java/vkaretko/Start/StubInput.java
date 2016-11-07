@@ -1,4 +1,4 @@
-package vkaretko.Start;
+package vkaretko.start;
 
 /**
  * Class for simulating user inputs in program
@@ -18,5 +18,21 @@ public class StubInput implements Input {
 
     public String ask (String question) {
         return answers[position++];
+    }
+
+    public int ask (String question, int[] range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range");
+        }
     }
 }

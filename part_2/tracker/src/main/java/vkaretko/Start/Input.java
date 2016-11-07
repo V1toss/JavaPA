@@ -1,8 +1,7 @@
-package vkaretko.Start;
+package vkaretko.start;
 
 /**
  * Interface Input
- * Implemented by classes ConsoleInput and StubInput
  *
  * @author Karetko Victor
  * @version 1.00
@@ -10,4 +9,6 @@ package vkaretko.Start;
  */
 public interface Input {
     String ask(String question);
+
+    int ask (String question, int[] range);
 }
