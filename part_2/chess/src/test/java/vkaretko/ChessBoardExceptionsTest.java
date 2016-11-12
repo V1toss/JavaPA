@@ -59,8 +59,7 @@ public class ChessBoardExceptionsTest {
     public void whenMovePawnTwoTimesThroughTwoCellsThenResultPawnException() {
         board.moveFigure(1, startCol, startRow - 1, startCol);
         board.moveFigure(2, startCol, startRow + 1, startCol);
-        assertThat(out.toString(),
-                is("Pawn can move 2 steps only when first move\r\n"));
+        assertThat(out.toString(), is("Pawn can move 2 steps only when first move\r\n"));
     }
 
     /**
@@ -122,10 +121,10 @@ public class ChessBoardExceptionsTest {
      * Method checks exception when Pawn go wrong way.
      */
     @Test
-    public void whenMovePawnWrongWayThenResultPawnWrongDirectionException() {
+    public void whenMovePawnWrongThenResultPawnWrongMoveException() {
         ChessFigure pawn = new Pawn(true);
         board.getChessBoard()[startRow][startCol].setFigure(pawn);
-        board.moveFigure(startRow, startCol, startRow, startCol + 1);
+        board.moveFigure(startRow, startCol, startRow - 1, startCol);
         assertThat(out.toString(), is("Wrong direction of move\r\n"));
     }
 

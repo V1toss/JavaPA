@@ -99,10 +99,7 @@ public class Move {
                 ((Pawn) (srcCell.getFigure())).setFirstMove(false);
                 setFigureInDestCell();
             }
-        } else {
-            throw new ChessBoardException(String.format("Wrong move of %s", srcCell.getFigure().getName()));
         }
-
     }
 
     /**

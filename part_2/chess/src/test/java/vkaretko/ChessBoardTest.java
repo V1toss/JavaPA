@@ -64,6 +64,28 @@ public class ChessBoardTest {
     }
 
     /**
+     * Method checks Bishop move Left Top diagonal.
+     */
+    @Test
+    public void whenMoveBishopLeftTopThenResultBishopInOtherCell() {
+        ChessFigure bishop = new Bishop(true);
+        board.getChessBoard()[startRow][startCol].setFigure(bishop);
+        board.moveFigure(startRow, startCol, startRow + 1, startCol - 1);
+        assertThat(bishop, is(board.getChessBoard()[startRow + 1][startCol - 1].getFigure()));
+    }
+
+    /**
+     * Method checks Bishop move Right Down diagonal.
+     */
+    @Test
+    public void whenMoveBishopRightDownThenResultBishopInOtherCell() {
+        ChessFigure bishop = new Bishop(true);
+        board.getChessBoard()[startRow][startCol].setFigure(bishop);
+        board.moveFigure(startRow, startCol, startRow - 1, startCol + 1);
+        assertThat(bishop, is(board.getChessBoard()[startRow - 1][startCol + 1].getFigure()));
+    }
+
+    /**
      * Method checks King move.
      */
     @Test
@@ -104,9 +126,18 @@ public class ChessBoardTest {
         ChessFigure rook = new Rook(true);
         board.getChessBoard()[startRow][startCol].setFigure(rook);
         board.moveFigure(startRow, startCol, startRow, startCol + 2);
-        assertThat(rook, is(board.getChessBoard()[startCol][startCol + 2].getFigure()));
+        assertThat(rook, is(board.getChessBoard()[startRow][startCol + 2].getFigure()));
     }
 
-
+    /**
+     * Method checks Rook backward move.
+     */
+    @Test
+    public void whenMoveRookBackwardThenResultRookInOtherCell() {
+        ChessFigure rook = new Rook(true);
+        board.getChessBoard()[startRow + 1][startCol].setFigure(rook);
+        board.moveFigure(startRow + 1, startCol, startRow - 1, startCol);
+        assertThat(rook, is(board.getChessBoard()[startRow - 1][startCol].getFigure()));
+    }
 
 }
