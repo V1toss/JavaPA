@@ -84,7 +84,7 @@ public class ChessBoard {
         try {
             checkCell(srcCol, srcRow, dstCol, dstRow);
             Move move = new Move(board, srcRow, srcCol, dstRow, dstCol);
-            move.makeMove();
+            board[srcRow][srcCol].getFigure().makeMove(move);
         } catch (ChessBoardException cbe) {
             System.out.println(cbe.getMessage());
         }

@@ -1,6 +1,8 @@
 package vkaretko.figures;
 
+import vkaretko.game.ChessBoardException;
 import vkaretko.game.ChessFigure;
+import vkaretko.game.Move;
 
 /**
  * Class of Queen figure.
@@ -42,5 +44,15 @@ public class Queen extends ChessFigure {
      */
     public boolean isWhite() {
         return white;
+    }
+
+    /**
+     * Method moving Queen.
+     * @param move move of Queen
+     * @throws ChessBoardException if move is wrong
+     */
+    @Override
+    public void makeMove(Move move) throws ChessBoardException {
+        move.moveQueen();
     }
 }

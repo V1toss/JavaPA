@@ -1,11 +1,8 @@
 package vkaretko.game;
 
-import vkaretko.figures.Bishop;
 import vkaretko.figures.King;
 import vkaretko.figures.Knight;
 import vkaretko.figures.Pawn;
-import vkaretko.figures.Queen;
-import vkaretko.figures.Rook;
 
 /**
  * Class of figure moves.
@@ -60,30 +57,10 @@ public class Move {
     }
 
     /**
-     * Method checks instance of figure classes and execute move methods.
-     * @throws ChessBoardException throws exceptions further from called methods
-     */
-    public void makeMove() throws ChessBoardException {
-        if (srcCell.getFigure() instanceof Pawn) {
-            movePawn();
-        } else if (srcCell.getFigure() instanceof Bishop) {
-            moveBishop();
-        } else if (srcCell.getFigure() instanceof King) {
-            moveKing();
-        } else if (srcCell.getFigure() instanceof Queen) {
-            moveQueen();
-        } else if (srcCell.getFigure() instanceof Rook) {
-            moveRook();
-        } else if (srcCell.getFigure() instanceof Knight) {
-            moveKnight();
-        }
-    }
-
-    /**
      * Method move Pawn figure.
      * @throws ChessBoardException if wrong direction of move or more steps of pawn in second turn
      */
-    private void movePawn() throws ChessBoardException {
+    public void movePawn() throws ChessBoardException {
         int pawnStep = 1;
         int maxFirstStep = 2;
         if ((srcCell.getFigure().isWhite() && (dstRow < srcRow)
@@ -108,7 +85,7 @@ public class Move {
      * Method move Rook figure.
      * @throws ChessBoardException if twrong move
      */
-    private void moveRook() throws ChessBoardException {
+    public void moveRook() throws ChessBoardException {
         if (isVerticalDirection()) {
             moveStepVertical();
         } else if (isHorizontalDirection()) {
@@ -122,7 +99,7 @@ public class Move {
      * Method move King figure.
      * @throws ChessBoardException if wrong move
      */
-    private void moveKing() throws ChessBoardException {
+    public void moveKing() throws ChessBoardException {
         int maxStep = ((King) srcCell.getFigure()).getMaxStep();
 
         if (isVerticalDirection() && Math.abs(srcRow - dstRow) == maxStep) {
@@ -140,7 +117,7 @@ public class Move {
      * Method move Queen figure.
      * @throws ChessBoardException if wrong move
      */
-    private void moveQueen() throws ChessBoardException {
+    public void moveQueen() throws ChessBoardException {
         if (isVerticalDirection()) {
             moveStepVertical();
         } else if (isDiagonalDirection()) {
@@ -156,7 +133,7 @@ public class Move {
      * Method move Knight figure.
      * @throws ChessBoardException if wrong move
      */
-    private void moveKnight() throws ChessBoardException {
+    public void moveKnight() throws ChessBoardException {
         int knightSteps = ((Knight) srcCell.getFigure()).getSteps();
         if (!isVerticalDirection() && !isHorizontalDirection() && !isDiagonalDirection()
                 && (Math.abs(srcRow - dstRow) + Math.abs(srcCol - dstCol) == knightSteps)) {
@@ -170,7 +147,7 @@ public class Move {
      * Method move Bishop figure.
      * @throws ChessBoardException if wrong move
      */
-    private void moveBishop() throws ChessBoardException {
+    public void moveBishop() throws ChessBoardException {
         if (isDiagonalDirection()) {
             moveStepDiag();
         } else {

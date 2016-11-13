@@ -19,4 +19,10 @@ public abstract class ChessFigure {
      */
     public abstract boolean isWhite();
 
+    /**
+     * Method moving figure.
+     * @param move move of figure
+     * @throws ChessBoardException if move is wrong
+     */
+    public abstract void makeMove(Move move) throws ChessBoardException;
 }

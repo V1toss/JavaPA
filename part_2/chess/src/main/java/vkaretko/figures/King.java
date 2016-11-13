@@ -1,6 +1,8 @@
 package vkaretko.figures;
 
+import vkaretko.game.ChessBoardException;
 import vkaretko.game.ChessFigure;
+import vkaretko.game.Move;
 
 /**
  * Class of King figure.
@@ -54,5 +56,15 @@ public class King extends ChessFigure {
      */
     public int getMaxStep() {
         return this.maxStep;
+    }
+
+    /**
+     * Method moving King.
+     * @param move move of King
+     * @throws ChessBoardException if move is wrong
+     */
+    @Override
+    public void makeMove(Move move) throws ChessBoardException {
+        move.moveKing();
     }
 }

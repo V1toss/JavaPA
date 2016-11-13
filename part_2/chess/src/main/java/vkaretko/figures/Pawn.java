@@ -1,6 +1,8 @@
 package vkaretko.figures;
 
+import vkaretko.game.ChessBoardException;
 import vkaretko.game.ChessFigure;
+import vkaretko.game.Move;
 
 /**
  * Class of Pawn figure.
@@ -61,5 +63,15 @@ public class Pawn extends ChessFigure {
      */
     public void setFirstMove(Boolean firstMove) {
         isFirstMove = firstMove;
+    }
+
+    /**
+     * Method moving Pawn.
+     * @param move move of Pawn
+     * @throws ChessBoardException if move is wrong
+     */
+    @Override
+    public void makeMove(Move move) throws ChessBoardException {
+        move.movePawn();
     }
 }
