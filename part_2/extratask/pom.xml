@@ -1,0 +1,14 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>vkaretko</groupId>
+   <artifactId>extratask</artifactId>
+   <packaging>jar</packaging>
+   <name>BracketCHeck</name>
+   <version>1.0</version>
+
+<parent>
+   <groupId>part_2</groupId>
+   <artifactId>part_2</artifactId>
+   <version>1.0-SNAPSHOT</version>
+</parent>
+</project>
