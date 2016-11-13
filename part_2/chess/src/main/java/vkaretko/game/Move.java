@@ -61,7 +61,7 @@ public class Move {
 
     /**
      * Method checks instance of figure classes and execute move methods.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException throws exceptions further from called methods
      */
     public void makeMove() throws ChessBoardException {
         if (srcCell.getFigure() instanceof Pawn) {
@@ -81,7 +81,7 @@ public class Move {
 
     /**
      * Method move Pawn figure.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if wrong direction of move or more steps of pawn in second turn
      */
     private void movePawn() throws ChessBoardException {
         int pawnStep = 1;
@@ -106,7 +106,7 @@ public class Move {
 
     /**
      * Method move Rook figure.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if twrong move
      */
     private void moveRook() throws ChessBoardException {
         if (isVerticalDirection()) {
@@ -120,7 +120,7 @@ public class Move {
 
     /**
      * Method move King figure.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if wrong move
      */
     private void moveKing() throws ChessBoardException {
         int maxStep = ((King) srcCell.getFigure()).getMaxStep();
@@ -138,7 +138,7 @@ public class Move {
 
     /**
      * Method move Queen figure.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if wrong move
      */
     private void moveQueen() throws ChessBoardException {
         if (isVerticalDirection()) {
@@ -154,7 +154,7 @@ public class Move {
 
     /**
      * Method move Knight figure.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if wrong move
      */
     private void moveKnight() throws ChessBoardException {
         int knightSteps = ((Knight) srcCell.getFigure()).getSteps();
@@ -168,7 +168,7 @@ public class Move {
 
     /**
      * Method move Bishop figure.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if wrong move
      */
     private void moveBishop() throws ChessBoardException {
         if (isDiagonalDirection()) {
@@ -204,7 +204,7 @@ public class Move {
 
     /**
      * Method for diagonal move.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if another figure on movement line
      */
     public void moveStepDiag() throws ChessBoardException {
         if (dstRow > srcRow && dstCol > srcCol) {
@@ -247,7 +247,7 @@ public class Move {
 
     /**
      * Method for vertical move.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if another figure on movement line
      */
     private void moveStepVertical() throws ChessBoardException {
         if (dstRow > srcRow) {
@@ -274,7 +274,7 @@ public class Move {
 
     /**
      * Method for horizontal move.
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if another figure on movement line
      */
     private void moveStepHorizontal() throws ChessBoardException {
         if (dstCol > srcCol) {

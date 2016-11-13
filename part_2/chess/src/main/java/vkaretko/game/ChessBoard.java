@@ -74,6 +74,7 @@ public class ChessBoard {
 
     /**
      * Method to initiate moving figures.
+     * Also catches all exceptions and print their message.
      * @param srcRow source row
      * @param srcCol source column
      * @param dstRow destination row
@@ -95,7 +96,7 @@ public class ChessBoard {
      * @param srcCol source column
      * @param dstRow destination row
      * @param dstCol destination column
-     * @throws ChessBoardException if there problem
+     * @throws ChessBoardException if cell coordinates are wrong
      */
     private void checkCell(int srcCol, int srcRow, int dstCol, int dstRow) throws ChessBoardException {
         if ((srcRow == dstRow) && (srcCol == dstCol)) {
