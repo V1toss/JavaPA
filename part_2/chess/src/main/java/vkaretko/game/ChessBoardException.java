@@ -7,7 +7,7 @@ package vkaretko.game;
  * @version 1.00
  * @since 04.11.2016
  */
-public class ChessBoardException extends RuntimeException {
+public class ChessBoardException extends Exception {
     /**
      * Constructor of ChessBoardException class.
      * @param msg message of exception

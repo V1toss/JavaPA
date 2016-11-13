@@ -95,8 +95,9 @@ public class ChessBoard {
      * @param srcCol source column
      * @param dstRow destination row
      * @param dstCol destination column
+     * @throws ChessBoardException if there problem
      */
-    private void checkCell(int srcCol, int srcRow, int dstCol, int dstRow) {
+    private void checkCell(int srcCol, int srcRow, int dstCol, int dstRow) throws ChessBoardException {
         if ((srcRow == dstRow) && (srcCol == dstCol)) {
             throw new ChessBoardException("Same cell");
         }
