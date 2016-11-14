@@ -3,7 +3,7 @@
    <groupId>vkaretko</groupId>
    <artifactId>io</artifactId>
    <packaging>jar</packaging>
-   <name>par_3_io</name>
+   <name>part_3_io</name>
    <version>1.0</version>
   
 <parent>
