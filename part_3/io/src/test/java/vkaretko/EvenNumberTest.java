@@ -2,6 +2,7 @@ package vkaretko;
 
 import org.junit.Test;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -20,8 +21,12 @@ public class EvenNumberTest {
     @Test
     public void whenEvenNumberTwoInStreamThenResultTrue() {
         EvenNumber number = new EvenNumber();
-        ByteArrayInputStream stream = new ByteArrayInputStream("2".getBytes());
-        assertThat(number.isNumber(stream), is(true));
+        try (ByteArrayInputStream stream = new ByteArrayInputStream("2".getBytes())) {
+            assertThat(number.isNumber(stream), is(true));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     /**
@@ -30,7 +35,10 @@ public class EvenNumberTest {
     @Test
     public void whenOddNumberThreeInStreamThenResultFalse() {
         EvenNumber number = new EvenNumber();
-        ByteArrayInputStream stream = new ByteArrayInputStream("3".getBytes());
-        assertThat(number.isNumber(stream), is(false));
+        try (ByteArrayInputStream stream = new ByteArrayInputStream("3".getBytes())) {
+            assertThat(number.isNumber(stream), is(false));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -22,12 +23,16 @@ public class AbuseTest {
      */
     @Test
     public void whenCheckLineWithAbuseWordsThenResultLineWithoutAbusedWords() {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        ByteArrayInputStream input = new ByteArrayInputStream("mygoodlittlebadson".getBytes());
         String[] wordFilter = {"good", "bad"};
         Abuse abuse = new Abuse();
-        abuse.dropAbuses(input, output, wordFilter);
-        assertThat(output.toString(), is("mylittleson"));
+
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("mygoodlittlebadson".getBytes())) {
+            abuse.dropAbuses(input, output, wordFilter);
+            assertThat(output.toString(), is("mylittleson"));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     /**
@@ -35,12 +40,16 @@ public class AbuseTest {
      */
     @Test
     public void whenCheckLineWithSpacesThenResultLineWithoutSpaces() {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        ByteArrayInputStream input = new ByteArrayInputStream("my good little bad son".getBytes());
         String[] wordFilter = {" ", "goo", "my"};
         Abuse abuse = new Abuse();
-        abuse.dropAbuses(input, output, wordFilter);
-        assertThat(output.toString(), is("dlittlebadson"));
+
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("my good little bad son".getBytes())) {
+            abuse.dropAbuses(input, output, wordFilter);
+            assertThat(output.toString(), is("dlittlebadson"));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     /**
@@ -48,11 +57,14 @@ public class AbuseTest {
      */
     @Test
     public void whenCheckLineWithEmptyFilterThenResultSameLine() {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        ByteArrayInputStream input = new ByteArrayInputStream("my good little bad son".getBytes());
         String[] wordFilter = {};
         Abuse abuse = new Abuse();
-        abuse.dropAbuses(input, output, wordFilter);
-        assertThat(output.toString(), is("my good little bad son"));
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("my good little bad son".getBytes())) {
+            abuse.dropAbuses(input, output, wordFilter);
+            assertThat(output.toString(), is("my good little bad son"));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }
