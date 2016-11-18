@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Palindrome {
 
     /**
-     * Method check word for palindrome and call print.
+     * Method checks word for palindrome.
      */
     public void init() {
         final int MAX_LENGTH_OF_WORD = 5;
