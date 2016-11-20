@@ -14,5 +14,6 @@
 
   <modules>
       <module>io</module>
+      <module>sockets</module>
   </modules>
 </project>
