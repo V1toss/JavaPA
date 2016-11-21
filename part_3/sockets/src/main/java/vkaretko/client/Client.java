@@ -30,15 +30,18 @@ public class Client {
     private void connectToServer() throws IOException {
         System.out.println(String.format("Connect to server: %s", servAddress));
         try (Socket socket = new Socket(servAddress, servPort);
-             DataInputStream in = new DataInputStream(socket.getInputStream());
-             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Connection established, to show commands type -help\r\nEnter command:");
             while (true) {
                 String lineToSend = reader.readLine();
-                out.writeUTF(lineToSend);
-                String answer = in.readUTF();
+                out.println(lineToSend);
+                String answer = in.readLine();
                 System.out.println(answer);
+                while (in.ready()) {
+                    System.out.println(in.readLine());
+                }
             }
         }
     }

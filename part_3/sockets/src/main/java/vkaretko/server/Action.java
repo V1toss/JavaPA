@@ -23,5 +23,5 @@ public abstract class Action {
         return this.info;
     }
 
-    public abstract File execute() throws IOException;
+    public abstract void execute(String[] parameters) throws IOException;
 }

@@ -1,65 +1,67 @@
 package vkaretko.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by Vitoss on 20.11.2016.
  */
 public class ActionManager {
     private Action[] actions = new Action[5];
-    private DataInputStream in;
-    private DataOutputStream out;
-    private String rootDir;
+    private BufferedReader in;
+    private PrintWriter out;
     private int position = 0;
+    private File currentDir;
+    private File rootDir;
 
-    public ActionManager (DataInputStream in, DataOutputStream out, String rootDir) {
+    public ActionManager (BufferedReader in, PrintWriter out, File rootDir) {
         this.in = in;
         this.out = out;
         this.rootDir = rootDir;
+        this.currentDir = rootDir;
         fillActions();
     }
 
     public void fillActions() {
         this.actions[position++] = new ShowRootList("-show", "To show root path directory write -show");
-        this.actions[position++] = new MoveToSubdirectory("-subd", "For moving to subdirectory write -subd");
+        this.actions[position++] = new MoveToSubdirectory("-subd", "For moving to subdirectory write -subd directory");
         this.actions[position++] = new MoveToParentDir("-pdir", "For moving to parent directory write -pdir");
         this.actions[position++] = new DownloadFile("-dload", "For downloading file enter -dload file.xxx path_to_save");
         this.actions[position++] = new UploadFile("-uload", "For uploading file enter -uload path/file.xxx");
     }
 
     public void init (String commandLine) throws IOException {
+        String[] param = commandLine.split(" ");
         if (commandLine.equals("-help")) {
             showHelp();
         } else {
-            Action action = checkAction(commandLine);
+            Action action = checkAction(param[0]);
             if (action != null) {
-                action.execute();
+                action.execute(param);
             } else {
-                out.writeUTF("Command is undefined, type -help for more information");
+                out.println("Command is undefined, type -help for more information");
+                out.flush();
             }
         }
     }
 
-    private Action checkAction(String commandLine) {
-        String[] param = commandLine.split(" ");
+    private Action checkAction(String command) {
         Action result = null;
         for (Action action : this.actions) {
-            if (param[0].equals(action.getKey())) {
+            if (command.equals(action.getKey())) {
                 result = action;
             }
         }
         return result;
     }
 
-    public void showHelp() throws IOException {
+    private void showHelp() throws IOException {
         StringBuilder sb = new StringBuilder();
         for (Action action : this.actions) {
             sb.append(String.format("%s\r\n", action.getInfo()));
         }
-        out.writeUTF(sb.toString());
+        sb.append("Enter command: ");
+        out.println(sb.toString());
+        out.flush();
     }
 
     private class ShowRootList extends Action {
@@ -68,8 +70,13 @@ public class ActionManager {
         }
 
         @Override
-        public File execute() throws IOException{
-            return null;
+        public void execute(String[] param) throws IOException{
+            StringBuilder sb = new StringBuilder();
+            for (File file : currentDir.listFiles()) {
+                sb.append(String.format("%s\r\n", file.getName()));
+            }
+            out.println(sb.toString());
+            out.flush();
         }
     }
 
@@ -80,8 +87,7 @@ public class ActionManager {
         }
 
         @Override
-        public File execute() {
-            return null;
+        public void execute(String[] param) {
         }
     }
 
@@ -91,8 +97,13 @@ public class ActionManager {
         }
 
         @Override
-        public File execute() {
-            return null;
+        public void execute(String[] param) throws IOException{
+            if (!param[1].equals("")) {
+                currentDir = new File(String.format("%s\\%s", currentDir.getPath(), param[1]));
+                out.println(String.format("Move to subdirectory: %s", currentDir.getPath()));
+            } else {
+                out.println("Wrong parameter");
+            }
         }
     }
 
@@ -102,8 +113,9 @@ public class ActionManager {
         }
 
         @Override
-        public File execute() {
-            return null;
+        public void execute(String[] param) throws IOException{
+            currentDir = new File(currentDir.getParent());
+            out.println(String.format("Move to parent directory: %s", currentDir.getPath()));
         }
     }
 
@@ -113,8 +125,7 @@ public class ActionManager {
         }
 
         @Override
-        public File execute() {
-            return null;
+        public void execute(String[] param) {
         }
     }
 

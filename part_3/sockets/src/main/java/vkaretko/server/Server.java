@@ -1,8 +1,6 @@
 package vkaretko.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,16 +13,16 @@ import java.net.Socket;
  */
 public class Server {
     private final int port;
-    private final String rootDir;
+    private final File rootDir;
 
     public Server (int port, String rootDir) {
         this.port = port;
-        this.rootDir = rootDir;
+        this.rootDir = new File(rootDir);
     }
 
     public static void main(String[] args) {
         try {
-            new Server(5000, "folder").start();
+            new Server(5000, "c:\\projects").start();
         } catch (IOException ioe) {
             System.out.println("Error while server loading");
         }
@@ -34,12 +32,12 @@ public class Server {
         System.out.println("Waiting connection");
         try (ServerSocket servSoc = new ServerSocket(port);
              Socket soc = servSoc.accept();
-             DataInputStream in = new DataInputStream(soc.getInputStream());
-             DataOutputStream out = new DataOutputStream(soc.getOutputStream())) {
+             BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+             PrintWriter out = new PrintWriter(soc.getOutputStream(), true)) {
             System.out.println("Connection established");
             ActionManager actMan = new ActionManager(in, out, rootDir);
             while (true) {
-                String commandLine = in.readUTF();
+                String commandLine = in.readLine();
                 System.out.println("Received new command from client: " + commandLine);
                 actMan.init(commandLine);
             }
