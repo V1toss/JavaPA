@@ -7,17 +7,19 @@ import java.io.*;
  */
 public class ActionManager {
     private Action[] actions = new Action[5];
-    private BufferedReader in;
-    private PrintWriter out;
+    private BufferedReader messageIn;
+    private PrintWriter messageOut;
+    private BufferedInputStream in;
+    private BufferedOutputStream out;
     private int position = 0;
     private File currentDir;
-    private File rootDir;
 
-    public ActionManager (BufferedReader in, PrintWriter out, File rootDir) {
+    public ActionManager (BufferedInputStream in, BufferedOutputStream out, File rootDir) {
         this.in = in;
         this.out = out;
-        this.rootDir = rootDir;
         this.currentDir = rootDir;
+        this.messageIn = new BufferedReader(new InputStreamReader(in));
+        this.messageOut = new PrintWriter(out, true);
         fillActions();
     }
 
@@ -38,8 +40,7 @@ public class ActionManager {
             if (action != null) {
                 action.execute(param);
             } else {
-                out.println("Command is undefined, type -help for more information");
-                out.flush();
+                messageOut.println("Command is undefined, type -help for more information");
             }
         }
     }
@@ -60,8 +61,7 @@ public class ActionManager {
             sb.append(String.format("%s\r\n", action.getInfo()));
         }
         sb.append("Enter command: ");
-        out.println(sb.toString());
-        out.flush();
+        messageOut.println(sb.toString());
     }
 
     private class ShowRootList extends Action {
@@ -75,8 +75,7 @@ public class ActionManager {
             for (File file : currentDir.listFiles()) {
                 sb.append(String.format("%s\r\n", file.getName()));
             }
-            out.println(sb.toString());
-            out.flush();
+            messageOut.println(sb.toString());
         }
     }
 
@@ -100,9 +99,9 @@ public class ActionManager {
         public void execute(String[] param) throws IOException{
             if (!param[1].equals("")) {
                 currentDir = new File(String.format("%s\\%s", currentDir.getPath(), param[1]));
-                out.println(String.format("Move to subdirectory: %s", currentDir.getPath()));
+                messageOut.println(String.format("Move to subdirectory: %s", currentDir.getPath()));
             } else {
-                out.println("Wrong parameter");
+                messageOut.println("Wrong parameter");
             }
         }
     }
@@ -115,7 +114,7 @@ public class ActionManager {
         @Override
         public void execute(String[] param) throws IOException{
             currentDir = new File(currentDir.getParent());
-            out.println(String.format("Move to parent directory: %s", currentDir.getPath()));
+            messageOut.println(String.format("Move to parent directory: %s", currentDir.getPath()));
         }
     }
 

@@ -32,13 +32,14 @@ public class Server {
         System.out.println("Waiting connection");
         try (ServerSocket servSoc = new ServerSocket(port);
              Socket soc = servSoc.accept();
-             BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
-             PrintWriter out = new PrintWriter(soc.getOutputStream(), true)) {
-            System.out.println("Connection established");
+             BufferedInputStream in = new BufferedInputStream(soc.getInputStream());
+             BufferedOutputStream out = new BufferedOutputStream(soc.getOutputStream());
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             ActionManager actMan = new ActionManager(in, out, rootDir);
+            System.out.println("Connection established");
             while (true) {
-                String commandLine = in.readLine();
-                System.out.println("Received new command from client: " + commandLine);
+                String commandLine = reader.readLine();
+                System.out.println(String.format("Received new command from client: %s", commandLine));
                 actMan.init(commandLine);
             }
         }
