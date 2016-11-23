@@ -125,6 +125,19 @@ public class ActionManager {
 
         @Override
         public void execute(String[] param) {
+            File file = new File (param[1]);
+            messageOut.println(String.format("#rddload %s", param[2]));
+            try (FileInputStream fileStream = new FileInputStream(file)){
+                int count;
+                byte[] buffer = new byte[16 * 1024];
+                while( (count = fileStream.read(buffer) ) > 0 ){
+                    out.write(buffer, 0, count);
+                }
+                out.flush();
+                System.out.println("Upload succesfull");
+            } catch (IOException ioe) {
+                System.out.println("File not found on server");
+            }
         }
     }
 

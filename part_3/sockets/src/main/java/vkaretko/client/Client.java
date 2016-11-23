@@ -30,22 +30,59 @@ public class Client {
     private void connectToServer() throws IOException {
         System.out.println(String.format("Connect to server: %s", servAddress));
         try (Socket socket = new Socket(servAddress, servPort);
-             BufferedInputStream in = new BufferedInputStream(socket.getInputStream());
-             BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
-             BufferedReader fromServer = new BufferedReader(new InputStreamReader(in));
-             PrintWriter sendToServer = new PrintWriter(out, true);
+             InputStream in = socket.getInputStream();
+             OutputStream out = socket.getOutputStream();
+             BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter sendToServer = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Connection established, to show commands type -help\r\nEnter command:");
             while (true) {
-                String lineToSend = fromConsole.readLine();
-                sendToServer.println(lineToSend);
+                sendToServer.println(fromConsole.readLine());
                 String answer = fromServer.readLine();
-                System.out.println(answer);
-                while (fromServer.ready()) {
-                    System.out.println(fromServer.readLine());
+                String[] param = answer.split(" ");
+                if (param[0].equals("#rddload")) {
+                    byte[] bytes = new byte[16*1024];
+                    int count;
+                    try (FileOutputStream outFile = new FileOutputStream(param[1])) {
+                        while ((count = in.read(bytes)) > 0) {
+                            outFile.write(bytes, 0, count);
+                        }
+                        outFile.flush();
+                        System.out.println("Download successful");
+                    }
+                } else if (answer.split(" ")[0].equals("#rduload")) {
+
+                } else {
+                    System.out.println(answer);
+                    while (fromServer.ready()) {
+                        System.out.println(fromServer.readLine());
+                    }
                 }
             }
         }
+    }
+
+    private void receiveFile(BufferedInputStream in, String path) {
+        int bytesRead;
+        int current;
+        try (FileOutputStream outFile = new FileOutputStream(path)) {
+            byte [] buffer  = new byte [16*1024];
+            System.out.println("Downloading file...");
+            bytesRead = in.read(buffer, 0, buffer.length);
+            current = bytesRead;
+            do {
+                bytesRead = in.read(buffer, current, (buffer.length-current));
+                if(bytesRead >= 0) current += bytesRead;
+            } while(bytesRead > -1);
+            outFile.write(buffer, 0 , current);
+            outFile.flush();
+        } catch (IOException ioe) {
+            System.out.println("Wrong file name");
+        }
+    }
+
+    private void sendFIle(BufferedOutputStream out) {
+
     }
 }
 
