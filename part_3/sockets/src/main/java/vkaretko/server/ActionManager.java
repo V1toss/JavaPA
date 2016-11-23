@@ -9,12 +9,12 @@ public class ActionManager {
     private Action[] actions = new Action[5];
     private BufferedReader messageIn;
     private PrintWriter messageOut;
-    private BufferedInputStream in;
-    private BufferedOutputStream out;
+    private InputStream in;
+    private OutputStream out;
     private int position = 0;
     private File currentDir;
 
-    public ActionManager (BufferedInputStream in, BufferedOutputStream out, File rootDir) {
+    public ActionManager (InputStream in, OutputStream out, File rootDir) {
         this.in = in;
         this.out = out;
         this.currentDir = rootDir;
@@ -27,8 +27,8 @@ public class ActionManager {
         this.actions[position++] = new ShowRootList("-show", "To show root path directory write -show");
         this.actions[position++] = new MoveToSubdirectory("-subd", "For moving to subdirectory write -subd directory");
         this.actions[position++] = new MoveToParentDir("-pdir", "For moving to parent directory write -pdir");
-        this.actions[position++] = new DownloadFile("-dload", "For downloading file enter -dload file.xxx path_to_save");
-        this.actions[position++] = new UploadFile("-uload", "For uploading file enter -uload path/file.xxx");
+        this.actions[position++] = new DownloadFile("-dload", "For downloading file enter -dload path_file path_to_save");
+        this.actions[position++] = new UploadFile("-uload", "For uploading file enter -uload path file path_to_save");
     }
 
     public void init (String commandLine) throws IOException {
@@ -126,14 +126,14 @@ public class ActionManager {
         @Override
         public void execute(String[] param) {
             File file = new File (param[1]);
-            messageOut.println(String.format("#rddload %s", param[2]));
+            messageOut.println(String.format("#rddload %s %s", param[2], file.length()));
             try (FileInputStream fileStream = new FileInputStream(file)){
                 int count;
                 byte[] buffer = new byte[16 * 1024];
                 while( (count = fileStream.read(buffer) ) > 0 ){
                     out.write(buffer, 0, count);
+                    out.flush();
                 }
-                out.flush();
                 System.out.println("Upload succesfull");
             } catch (IOException ioe) {
                 System.out.println("File not found on server");

@@ -32,10 +32,8 @@ public class Server {
         System.out.println("Waiting connection");
         try (ServerSocket servSoc = new ServerSocket(port);
              Socket soc = servSoc.accept();
-             BufferedInputStream in = new BufferedInputStream(soc.getInputStream());
-             BufferedOutputStream out = new BufferedOutputStream(soc.getOutputStream());
-             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-            ActionManager actMan = new ActionManager(in, out, rootDir);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(soc.getInputStream()))) {
+            ActionManager actMan = new ActionManager(soc.getInputStream(), soc.getOutputStream(), rootDir);
             System.out.println("Connection established");
             while (true) {
                 String commandLine = reader.readLine();
