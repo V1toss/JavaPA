@@ -79,6 +79,7 @@ public class Client {
             byte[] buffer = new byte[16 * 1024];
             while( (count = fileStream.read(buffer) ) > 0 ){
                 out.write(buffer, 0, count);
+                out.flush();
             }
             System.out.println(String.format("Upload %s successful", file.getName()));
         } catch (IOException ioe) {
