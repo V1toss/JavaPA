@@ -21,7 +21,7 @@ public class Client {
 
     public static void main(String[] args) {
         try {
-            new Client("127.0.0.1", 5000).connectToServer();
+            new Client("127.0.0.1", 5556).connectToServer();
         } catch (IOException ioe) {
             System.out.println("Connection not established");
         }
@@ -41,7 +41,7 @@ public class Client {
                 if (param[0].equals("#rddload")) {
                     receiveFile(socket, param[1], Integer.valueOf(param[2]));
                 } else if (param[0].equals("#rduload")) {
-                    sendFile(socket.getOutputStream(), param[1]);
+                    sendFile(socket, param[1]);
                 } else {
                     System.out.println(answer);
                     while (fromServer.ready()) {
@@ -70,16 +70,20 @@ public class Client {
         }
     }
 
-    private void sendFile(OutputStream out, String pathFile) throws IOException {
+    private void sendFile(Socket socket, String pathFile) throws IOException {
         File file = new File(pathFile);
         int count;
-        try (PrintWriter writer = new PrintWriter(out, true);
+        try (PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
              FileInputStream fileStream = new FileInputStream(file)) {
             writer.println(file.length());
+            writer.close();
             byte[] buffer = new byte[16 * 1024];
-            while( (count = fileStream.read(buffer) ) > 0 ){
-                out.write(buffer, 0, count);
-                out.flush();
+            long fileSize = file.length();
+            while (fileSize > 0) {
+                count = fileStream.read(buffer);
+                socket.getOutputStream().write(buffer, 0, count);
+                fileSize -= count;
+
             }
             System.out.println(String.format("Upload %s successful", file.getName()));
         } catch (IOException ioe) {

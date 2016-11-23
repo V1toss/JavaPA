@@ -22,7 +22,7 @@ public class Server {
 
     public static void main(String[] args) {
         try {
-            new Server(5000, "c:\\projects").start();
+            new Server(5556, "c:\\projects").start();
         } catch (IOException ioe) {
             System.out.println("Error while server loading");
         }

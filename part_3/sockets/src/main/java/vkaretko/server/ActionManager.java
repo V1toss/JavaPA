@@ -93,12 +93,11 @@ public class ActionManager {
             try (FileOutputStream outFile = new FileOutputStream(file)) {
                 int count;
                 byte[] buffer = new byte[16 * 1024];
-                while (fileSize > 0){
+                while (fileSize > 0) {
                     count = in.read(buffer);
                     outFile.write(buffer, 0, count);
                     outFile.flush();
                     fileSize -= count;
-                    System.out.println(fileSize);
                 }
                 System.out.println(String.format("Upload to server %s successful", file.getName()));
             } catch (IOException ioe) {
