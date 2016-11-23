@@ -41,7 +41,9 @@ public class Client {
                 if (param[0].equals("#rddload")) {
                     receiveFile(socket, param[1], Integer.valueOf(param[2]));
                 } else if (param[0].equals("#rduload")) {
-                    sendFile(socket, param[1]);
+                    File file = new File(param[1]);
+                    sendToServer.println(file.length());
+                    sendFile(socket, file);
                 } else {
                     System.out.println(answer);
                     while (fromServer.ready()) {
@@ -70,20 +72,16 @@ public class Client {
         }
     }
 
-    private void sendFile(Socket socket, String pathFile) throws IOException {
-        File file = new File(pathFile);
+    private void sendFile(Socket socket, File file) throws IOException {
         int count;
-        try (PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-             FileInputStream fileStream = new FileInputStream(file)) {
-            writer.println(file.length());
-            writer.close();
-            byte[] buffer = new byte[16 * 1024];
+        byte[] buffer = new byte[16 * 1024];
+        try (FileInputStream fileStream = new FileInputStream(file)) {
             long fileSize = file.length();
             while (fileSize > 0) {
                 count = fileStream.read(buffer);
                 socket.getOutputStream().write(buffer, 0, count);
+                socket.getOutputStream().flush();
                 fileSize -= count;
-
             }
             System.out.println(String.format("Upload %s successful", file.getName()));
         } catch (IOException ioe) {
