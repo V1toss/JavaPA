@@ -7,8 +7,8 @@ import java.io.*;
  */
 public class ActionManager {
     private Action[] actions = new Action[5];
-    private BufferedReader messageIn;
     private PrintWriter messageOut;
+    private BufferedReader messageIn;
     private InputStream in;
     private OutputStream out;
     private int position = 0;
@@ -18,8 +18,8 @@ public class ActionManager {
         this.in = in;
         this.out = out;
         this.currentDir = rootDir;
-        this.messageIn = new BufferedReader(new InputStreamReader(in));
         this.messageOut = new PrintWriter(out, true);
+        this.messageIn = new BufferedReader(new InputStreamReader(in));
         fillActions();
     }
 
@@ -28,7 +28,7 @@ public class ActionManager {
         this.actions[position++] = new MoveToSubdirectory("-subd", "For moving to subdirectory write -subd directory");
         this.actions[position++] = new MoveToParentDir("-pdir", "For moving to parent directory write -pdir");
         this.actions[position++] = new DownloadFile("-dload", "For downloading file enter -dload path_file path_to_save");
-        this.actions[position++] = new UploadFile("-uload", "For uploading file enter -uload path file path_to_save");
+        this.actions[position++] = new UploadFile("-uload", "For uploading file enter -uload path_file path_to_save");
     }
 
     public void init (String commandLine) throws IOException {
@@ -86,7 +86,24 @@ public class ActionManager {
         }
 
         @Override
-        public void execute(String[] param) {
+        public void execute(String[] param) throws IOException {
+            File file = new File(param[2]);
+            messageOut.println(String.format("#rduload %s", param[1]));
+            int fileSize = Integer.parseInt(messageIn.readLine());
+            try (FileOutputStream outFile = new FileOutputStream(file)) {
+                int count;
+                byte[] buffer = new byte[16 * 1024];
+                while (fileSize > 0){
+                    count = in.read(buffer);
+                    outFile.write(buffer, 0, count);
+                    outFile.flush();
+                    fileSize -= count;
+                    System.out.println(fileSize);
+                }
+                System.out.println(String.format("Upload to server %s successful", file.getName()));
+            } catch (IOException ioe) {
+                System.out.println("File not found on server");
+            }
         }
     }
 
@@ -134,7 +151,8 @@ public class ActionManager {
                     out.write(buffer, 0, count);
                     out.flush();
                 }
-                System.out.println("Upload succesfull");
+                System.out.println(String.format("Upload %s successful", file.getName()));
+                messageOut.println("Enter command: ");
             } catch (IOException ioe) {
                 System.out.println("File not found on server");
             }

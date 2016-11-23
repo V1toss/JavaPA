@@ -41,7 +41,7 @@ public class Client {
                 if (param[0].equals("#rddload")) {
                     receiveFile(socket, param[1], Integer.valueOf(param[2]));
                 } else if (param[0].equals("#rduload")) {
-
+                    sendFile(socket.getOutputStream(), param[1]);
                 } else {
                     System.out.println(answer);
                     while (fromServer.ready()) {
@@ -52,7 +52,7 @@ public class Client {
         }
     }
 
-    private void receiveFile(Socket socket, String pathFile, int fileSize) throws IOException{
+    private void receiveFile(Socket socket, String pathFile, int fileSize) {
         byte[] bytes = new byte[16 * 1024];
         int count;
         try (FileOutputStream outFile = new FileOutputStream(pathFile)) {
@@ -62,12 +62,28 @@ public class Client {
                 outFile.flush();
                 fileSize -= count;
             }
-            System.out.println("Download successful\r\nEnter command: ");
+            System.out.println(String.format("Downloading %s successful\r\nEnter command: ", pathFile));
+        } catch (FileNotFoundException ffe) {
+            System.out.println("File not found");
+        } catch (IOException ioe) {
+            System.out.println("Error while downloading file");
         }
     }
 
-    private void sendFIle(BufferedOutputStream out) {
-
+    private void sendFile(OutputStream out, String pathFile) throws IOException {
+        File file = new File(pathFile);
+        int count;
+        try (PrintWriter writer = new PrintWriter(out, true);
+             FileInputStream fileStream = new FileInputStream(file)) {
+            writer.println(file.length());
+            byte[] buffer = new byte[16 * 1024];
+            while( (count = fileStream.read(buffer) ) > 0 ){
+                out.write(buffer, 0, count);
+            }
+            System.out.println(String.format("Upload %s successful", file.getName()));
+        } catch (IOException ioe) {
+            System.out.println("File not found on client");
+        }
     }
 }
 
