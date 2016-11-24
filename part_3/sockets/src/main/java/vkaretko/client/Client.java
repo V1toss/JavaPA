@@ -57,7 +57,7 @@ public class Client {
      * Creating socket, connect to the Server and send commands.
      * @throws IOException if connection failed
      */
-    private void connectToServer() throws IOException {
+    public void connectToServer() throws IOException {
         System.out.println(String.format("Connect to server: %s", servAddress));
         try (Socket socket = new Socket(servAddress, servPort);
              BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
