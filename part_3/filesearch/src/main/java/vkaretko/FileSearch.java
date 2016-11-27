@@ -13,6 +13,16 @@ import java.io.FileWriter;
  * @since 26.11.2016
  */
 public class FileSearch {
+
+    /**
+     * Arguments from commandLine.
+     */
+    private String[] args;
+
+    /**
+     * Enum for selecting arguments.
+     */
+    enum Arg { DIR_KEY, PATH, NAME_KEY, NAME, FIND_KEY, OUT_KEY, LOG_FILE }
     /**
      * List of files.
      */
@@ -35,9 +45,21 @@ public class FileSearch {
             "Example: java -jar find.jar -d d:/ -n *.txt -m -o log.txt",
             "It searches all files by mask *.txt on local disk d:/ and write log to d:/log.txt"};
     /**
-     * Enum Arguments.
+     * Constructor of FileSearch.
+     * @param args arguments from command line
      */
-    enum Arg { DIR_KEY, PATH, NAME_KEY, NAME, FIND_KEY, OUT_KEY, LOG_FILE, COUNT_ARG }
+    public FileSearch(String[] args) {
+        this.args = args;
+    }
+
+    /**
+     * Getter for argument by number from args.
+     * @param numOfArgument number of argument
+     * @return name
+     */
+    private String get(int numOfArgument) {
+        return this.args[numOfArgument];
+    }
 
     /**
      * The Main method for executing program.
@@ -45,14 +67,13 @@ public class FileSearch {
      * @param args arguments from command line
      */
     public static void main(String[] args) {
-        FileSearch fs = new FileSearch();
-        if (args[0].equals("/help")) {
+        FileSearch fs = new FileSearch(args);
+        if (fs.isValid()) {
+            fs.setLogFile(fs.get(Arg.PATH.ordinal()), fs.get(Arg.LOG_FILE.ordinal()));
+            fs.recursiveSearch(new File(fs.get(Arg.PATH.ordinal())),
+                    fs.get(Arg.NAME.ordinal()), fs.get(Arg.FIND_KEY.ordinal()));
+        } else if (args.length == 1 && args[0].equals("/help")) {
             fs.showHelp();
-        }
-        if (fs.checkArguments(args)) {
-            fs.setLogFile(args[Arg.PATH.ordinal()], args[Arg.LOG_FILE.ordinal()]);
-            fs.recursiveSearch(new File(args[Arg.PATH.ordinal()]),
-                    args[Arg.NAME.ordinal()], args[Arg.FIND_KEY.ordinal()]);
         } else {
             System.out.println("Wrong arguments\r\nTo show help - execute program with key /help");
         }
@@ -60,14 +81,14 @@ public class FileSearch {
 
     /**
      * The method chackArguments checks number of arguments and keys.
-     * @param args arguments from command line
      * @return true if arguments are correct and false otherwise
      */
-    private boolean checkArguments(String[] args) {
-        return (args.length == Arg.COUNT_ARG.ordinal() && args[Arg.DIR_KEY.ordinal()].equals("-d")
-                && args[Arg.NAME_KEY.ordinal()].equals("-n")  && args[Arg.OUT_KEY.ordinal()].equals("-o")
-                && (args[Arg.FIND_KEY.ordinal()].equals("-m") || args[Arg.FIND_KEY.ordinal()].equals("-f")
-                || args[Arg.FIND_KEY.ordinal()].equals("-r")));
+    private boolean isValid() {
+        final int countOfArg = 7;
+        return (this.args.length == countOfArg && this.get(Arg.DIR_KEY.ordinal()).equals("-d")
+                && this.get(Arg.NAME_KEY.ordinal()).equals("-n")  && this.get(Arg.OUT_KEY.ordinal()).equals("-o")
+                && (this.get(Arg.FIND_KEY.ordinal()).equals("-m") || this.get(Arg.FIND_KEY.ordinal()).equals("-f")
+                || this.get(Arg.FIND_KEY.ordinal()).equals("-r")));
     }
 
     /**
