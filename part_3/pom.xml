@@ -16,5 +16,6 @@
       <module>io</module>
       <module>sockets</module>
       <module>filesearch</module>
+      <module>coins</module>
   </modules>
 </project>
