@@ -24,7 +24,7 @@ public class CoinsExchange {
             for (int fives = 0; fives <= (moneyWithoutTens / coins[1]); fives++) {
                 multiplePrint(coins[2], tens);
                 multiplePrint(coins[1], fives);
-                multiplePrint(coins[0], moneyWithoutTens - fives * coins[1]);
+                multiplePrint(coins[0], (moneyWithoutTens - fives * coins[1]) / coins[0]);
                 System.out.println("");
             }
         }
