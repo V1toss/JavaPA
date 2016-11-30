@@ -1,0 +1,18 @@
+<project>
+  <modelVersion>4.0.0</modelVersion> 
+  <groupId>part_4</groupId>
+  <artifactId>part_4</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging> 
+  <name>part_4</name>
+
+<parent>
+    <groupId>JavaPA</groupId>
+    <artifactId>JavaPA</artifactId>
+     <version>1.0-SNAPSHOT</version>
+</parent>
+
+  <modules>
+      <module>calculator</module>
+  </modules>
+</project>
