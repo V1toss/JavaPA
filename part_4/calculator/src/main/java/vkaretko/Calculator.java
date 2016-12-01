@@ -1,5 +1,7 @@
 package vkaretko;
 
+import java.text.DecimalFormat;
+
 /**
  * Class calculator from part_1.
  * Differences are: comments on english and getter for result field.
@@ -56,5 +58,39 @@ public class Calculator {
      */
     public double getResult() {
         return this.result;
+    }
+
+    /**
+     * Method returns the value of the first argument raised to the power of the second argument.
+     * @param first first number.
+     * @param second second number.
+     */
+    public void pow(double first, double second) {
+        this.result = Math.pow(first, second);
+    }
+
+    /**
+     * Method returns the trigonometric sine of an angle.
+     * @param first first number.
+     */
+    public void sin(double first) {
+        this.result = Math.sin(Math.toRadians(first));
+    }
+
+    /**
+     * Method returns he trigonometric cosine of an angle.
+     * @param first first number.
+     */
+    public void cos(double first) {
+        this.result = Math.cos(Math.toRadians(first));
+    }
+
+    /**
+     * Method returns the trigonometric tangent of an angle.
+     * @param first first number.
+     */
+    public void tan(double first) {
+        this.result = Double.valueOf(new DecimalFormat("#.####")
+                .format(Math.tan(Math.toRadians(first))));
     }
 }

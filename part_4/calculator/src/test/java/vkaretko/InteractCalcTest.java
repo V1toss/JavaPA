@@ -97,4 +97,68 @@ public class InteractCalcTest {
             ioe.printStackTrace();
         }
     }
+
+    /**
+     * Method checks positive scenario of first powers second number operation.
+     */
+    @Test
+    public void whenSelectActionPowThreeToThreeThenResultTwentySeven() {
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("5\r\n3\r\n3\r\nn\r\n0".getBytes())) {
+            System.setOut(new PrintStream(output));
+            System.setIn(input);
+            new InteractCalc().initDialog();
+            assertThat(output.toString().contains("is 27.0"), is(true));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * Method checks positive scenario of sinus operation.
+     */
+    @Test
+    public void whenSelectActionSinNinetyThenResultOne() {
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("6\r\n90\r\n0\r\nn\r\n0".getBytes())) {
+            System.setOut(new PrintStream(output));
+            System.setIn(input);
+            new InteractCalc().initDialog();
+            assertThat(output.toString().contains("is 1.0"), is(true));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * Method checks positive scenario of cosinus operation.
+     */
+    @Test
+    public void whenSelectActionCosZeroThenResultOne() {
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("7\r\n0\r\n0\r\nn\r\n0".getBytes())) {
+            System.setOut(new PrintStream(output));
+            System.setIn(input);
+            new InteractCalc().initDialog();
+            assertThat(output.toString().contains("is 1.0"), is(true));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * Method checks positive scenario of tangens operation.
+     */
+    @Test
+    public void whenSelectActionTanFortyFiveThenResultOne() {
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+             ByteArrayInputStream input = new ByteArrayInputStream("8\r\n45\r\n0\r\nn\r\n0".getBytes())) {
+            System.setOut(new PrintStream(output));
+            System.setIn(input);
+            new InteractCalc().initDialog();
+            assertThat(output.toString().contains("is 1.0"), is(true));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 }

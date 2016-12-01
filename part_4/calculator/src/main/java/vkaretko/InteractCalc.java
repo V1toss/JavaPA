@@ -49,7 +49,6 @@ public class InteractCalc {
      * @return number of selected action/
      */
     private int askUserAction(int maxActions) {
-        System.out.println("Select action (0-4): ");
         int result = 0;
         while (sc.hasNextLine()) {
             String line = sc.nextLine();

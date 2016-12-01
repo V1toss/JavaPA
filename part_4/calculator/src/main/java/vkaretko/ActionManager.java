@@ -48,7 +48,11 @@ public class ActionManager {
         this.actions.add(new AddAction("Add '+'", actionKey++));
         this.actions.add(new SubtractAction("Subtract '-'", actionKey++));
         this.actions.add(new MultipleAction("Multiple '*'", actionKey++));
-        this.actions.add(new DivisionAction("Division '/'", actionKey));
+        this.actions.add(new DivisionAction("Division '/'", actionKey++));
+        this.actions.add(new PowAction("Pow 'x^y'", actionKey++));
+        this.actions.add(new SinAction("Sin(x)", actionKey++));
+        this.actions.add(new CosAction("Cos(x)", actionKey++));
+        this.actions.add(new TanAction("Tan(x)", actionKey));
     }
 
     /**
@@ -60,6 +64,7 @@ public class ActionManager {
         for (Action action : this.actions) {
             System.out.println(String.format("%s. %s", action.getKeyAction(), action.getNameAction()));
         }
+        System.out.println(String.format("Select action (0-%s): ", this.actions.size()));
     }
 
     /**
@@ -131,6 +136,78 @@ public class ActionManager {
         @Override
         public void execute(Calculator calc, double numberOne, double numberTwo) {
             calc.div(numberOne, numberTwo);
+        }
+    }
+
+    /**
+     * Private inner class for action division.
+     */
+    private class PowAction extends Action {
+        /**
+         * Constructor of PowAction class.
+         * @param nameAction name of action.
+         * @param keyAction key of action.
+         */
+        private PowAction(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
+        }
+        @Override
+        public void execute(Calculator calc, double numberOne, double numberTwo) {
+            calc.pow(numberOne, numberTwo);
+        }
+    }
+
+    /**
+     * Private inner class for action division.
+     */
+    private class SinAction extends Action {
+        /**
+         * Constructor of SinAction class.
+         * @param nameAction name of action.
+         * @param keyAction key of action.
+         */
+        private SinAction(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
+        }
+        @Override
+        public void execute(Calculator calc, double numberOne, double numberTwo) {
+            calc.sin(numberOne);
+        }
+    }
+
+    /**
+     * Private inner class for action division.
+     */
+    private class CosAction extends Action {
+        /**
+         * Constructor of CosAction class.
+         * @param nameAction name of action.
+         * @param keyAction key of action.
+         */
+        private CosAction(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
+        }
+        @Override
+        public void execute(Calculator calc, double numberOne, double numberTwo) {
+            calc.cos(numberOne);
+        }
+    }
+
+    /**
+     * Private inner class for action division.
+     */
+    private class TanAction extends Action {
+        /**
+         * Constructor of CosAction class.
+         * @param nameAction name of action.
+         * @param keyAction key of action.
+         */
+        private TanAction(String nameAction, int keyAction) {
+            super(nameAction, keyAction);
+        }
+        @Override
+        public void execute(Calculator calc, double numberOne, double numberTwo) {
+            calc.tan(numberOne);
         }
     }
 }
