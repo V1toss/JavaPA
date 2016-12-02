@@ -10,35 +10,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Vitoss.
+ * ControllQuality class holds the list of storage areas and separate products to them.
+ *
+ * @author Karetko Victor.
+ * @version 1.00
+ * @since 02.12.2016
  */
 public class ControllQuality {
+    /**
+     * List of storage areas.
+     */
     private ArrayList<StorageArea> areas;
 
+    /**
+     * Constructor of ControllQuality.
+     * Call initStorageAreas to fill list of areas.
+     */
     public ControllQuality() {
         initStorageAreas();
     }
 
+    /**
+     * Method fills list of storage areas.
+     */
     private void initStorageAreas() {
-        addNewStorageArea(new Warehouse(0, 0.25));
-        addNewStorageArea(new Shop(0.25, 0.75));
-        addNewStorageArea(new Trash(0.75, 1));
+        final double twentyFiveExpiryPercent = 0.25;
+        final double hundredExpiryPercent = 1;
+        final double hugeExpiryPercent = 1000;
+        addNewStorageArea(new Warehouse(0, twentyFiveExpiryPercent));
+        addNewStorageArea(new Shop(twentyFiveExpiryPercent, hundredExpiryPercent));
+        addNewStorageArea(new Trash(hundredExpiryPercent, hugeExpiryPercent));
     }
 
+    /**
+     * Method for adding new storage area.
+     * @param area area to add.
+     */
     public void addNewStorageArea(StorageArea area) {
         this.areas.add(area);
     }
 
+    /**
+     * Method to separate products to storage areas.
+     * @param products products for adding.
+     * @param areas list of storage areas, than can hold products.
+     */
     public void separateProducts(List<Food> products, List<StorageArea> areas) {
         for (Food product : products) {
             for (StorageArea area : areas) {
-                if (area.allowToAdd(product)) {
+                double percExpiry = product.getPercentExpiry();
+                if (area.allowToAdd(percExpiry)) {
                     area.addProduct(product);
                     break;
                 }
             }
         }
     }
+
 
 
 }
