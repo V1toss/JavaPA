@@ -91,7 +91,7 @@ public class WarehouseTest {
     }
 
     /**
-     * Positive test of add product to trash.
+     * Positive test of add product to shop with discount.
      */
     @Test
     public void whenAddMeatToShopWithNinetyPercentOfExpiryThenPriceWithDiscount() {
