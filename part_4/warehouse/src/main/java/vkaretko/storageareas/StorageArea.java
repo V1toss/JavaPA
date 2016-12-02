@@ -50,7 +50,7 @@ public abstract class StorageArea {
      */
 
     public boolean allowToAdd(double percentExpiryOfProduct) {
-        return (percentExpiryOfProduct > startRangeExpiry) && (percentExpiryOfProduct <= endRangeExpiry);
+        return (percentExpiryOfProduct >= startRangeExpiry) && (percentExpiryOfProduct < endRangeExpiry);
     }
 
     /**

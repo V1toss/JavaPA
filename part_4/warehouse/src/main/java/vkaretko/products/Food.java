@@ -29,7 +29,7 @@ public abstract class Food {
     /**
      * Possible discount on product.
      */
-    private int discount;
+    private double discount;
 
     /**
      * Constructor of class Food.
@@ -39,7 +39,7 @@ public abstract class Food {
      * @param price price of product.
      * @param discount possible dicsount of product.
      */
-    public Food(String name, Date expireDate, Date createDate, double price, int discount) {
+    public Food(String name, Date expireDate, Date createDate, double price, double discount) {
         this.name = name;
         this.expireDate = expireDate;
         this.createDate = createDate;
@@ -67,7 +67,7 @@ public abstract class Food {
      * Getter-method for discount.
      * @return discount of product
      */
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
@@ -76,7 +76,7 @@ public abstract class Food {
      * @return percent of expiry
      */
     public double getPercentExpiry() {
-        return  (System.currentTimeMillis() - this.createDate.getTime())
+        return (double) (System.currentTimeMillis() - this.createDate.getTime())
                 / (this.expireDate.getTime() - this.createDate.getTime());
     }
 }

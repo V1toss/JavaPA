@@ -20,7 +20,7 @@ public class ControllQuality {
     /**
      * List of storage areas.
      */
-    private ArrayList<StorageArea> areas;
+    private ArrayList<StorageArea> areas = new ArrayList<>();
 
     /**
      * Constructor of ControllQuality.
@@ -67,6 +67,11 @@ public class ControllQuality {
         }
     }
 
-
-
+    /**
+     * Getter for areas list.
+     * @return list of areas
+     */
+    public ArrayList<StorageArea> getAreas() {
+        return this.areas;
+    }
 }
