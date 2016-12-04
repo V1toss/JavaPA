@@ -11,12 +11,21 @@ import vkaretko.products.Food;
  */
 public class Shop extends StorageArea {
     /**
+     * Start percent of expiry date.
+     */
+    private double startRangeExpiry;
+    /**
+     * End percent of expiry date for adding products.
+     */
+    private double endRangeExpiry;
+    /**
      * Constructor of Shop.
      * @param startRangeExpiry start percent of expiry date for adding products.
      * @param endRangeExpiry end percent of expiry date for adding products.
      */
     public Shop(double startRangeExpiry, double endRangeExpiry) {
-        super(startRangeExpiry, endRangeExpiry);
+        this.startRangeExpiry = startRangeExpiry;
+        this.endRangeExpiry = endRangeExpiry;
     }
 
     /**
@@ -25,10 +34,30 @@ public class Shop extends StorageArea {
      */
     @Override
     public void addProduct(Food product) {
+        super.addProduct(checkDiscount(product));
+    }
+
+    /**
+     * Overrided method of allow to add.
+     * @param product product to add.
+     * @return true if allow, false otherwise.
+     */
+    @Override
+    public boolean allowToAdd(Food product) {
+        return (product.getPercentExpiry() >= this.startRangeExpiry
+                && product.getPercentExpiry() < this.endRangeExpiry);
+    }
+
+    /**
+     * Method checks that product go to shop with discount.
+     * @param product product to check.
+     * @return product after check.
+     */
+    private Food checkDiscount(Food product) {
         final double closeToExpiry =  0.75;
         if (product.getPercentExpiry() > closeToExpiry) {
             product.setPrice(product.getPrice() * product.getDiscount());
         }
-        super.addProduct(product);
+        return product;
     }
 }

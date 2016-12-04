@@ -11,12 +11,21 @@ import vkaretko.products.Food;
  */
 public class Warehouse extends StorageArea {
     /**
+     * Start percent of expiry date.
+     */
+    private double startRangeExpiry;
+    /**
+     * End percent of expiry date for adding products.
+     */
+    private double endRangeExpiry;
+    /**
      * Constructor of Warehouse.
      * @param startRangeExpiry start percent of expiry date for adding products.
      * @param endRangeExpiry end percent of expiry date for adding products.
      */
     public Warehouse(double startRangeExpiry, double endRangeExpiry) {
-        super(startRangeExpiry, endRangeExpiry);
+        this.startRangeExpiry = startRangeExpiry;
+        this.endRangeExpiry = endRangeExpiry;
     }
 
     /**
@@ -26,6 +35,7 @@ public class Warehouse extends StorageArea {
      */
     @Override
     public boolean allowToAdd(Food product) {
-        return !product.isFrozen() && super.allowToAdd(product);
+        return (!product.isFrozen() && product.getPercentExpiry() >= this.startRangeExpiry
+                && (product.getPercentExpiry() < this.endRangeExpiry));
     }
 }

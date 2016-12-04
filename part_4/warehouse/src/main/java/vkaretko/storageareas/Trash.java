@@ -1,5 +1,7 @@
 package vkaretko.storageareas;
 
+import vkaretko.products.Food;
+
 /**
  * Trash area class extended from Storage area.
  *
@@ -9,11 +11,24 @@ package vkaretko.storageareas;
  */
 public class Trash extends StorageArea {
     /**
+     * Start percent of expiry date.
+     */
+    private double startRangeExpiry;
+    /**
      * Constructor of Trash.
-     * @param startRangeExpiry start percent of expiry date for adding products.
      * @param endRangeExpiry end percent of expiry date for adding products.
      */
-    public Trash(double startRangeExpiry, double endRangeExpiry) {
-        super(startRangeExpiry, endRangeExpiry);
+    public Trash(double endRangeExpiry) {
+        this.startRangeExpiry = endRangeExpiry;
+    }
+
+    /**
+     * Overrided method of allow to add.
+     * @param product product to add.
+     * @return true if allow, false otherwise.
+     */
+    @Override
+    public boolean allowToAdd(Food product) {
+        return product.getPercentExpiry() >= this.startRangeExpiry;
     }
 }

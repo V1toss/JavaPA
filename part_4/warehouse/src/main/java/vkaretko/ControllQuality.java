@@ -37,10 +37,9 @@ public class ControllQuality {
     private void initStorageAreas() {
         final double twentyFiveExpiryPercent = 0.25;
         final double hundredExpiryPercent = 1;
-        final double hugeExpiryPercent = 1000;
         addNewStorageArea(new Warehouse(0, twentyFiveExpiryPercent));
         addNewStorageArea(new Shop(twentyFiveExpiryPercent, hundredExpiryPercent));
-        addNewStorageArea(new Trash(hundredExpiryPercent, hugeExpiryPercent));
+        addNewStorageArea(new Trash(hundredExpiryPercent));
         addNewStorageArea(new RefrigeratedWarehouse(0, twentyFiveExpiryPercent));
     }
 

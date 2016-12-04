@@ -11,14 +11,6 @@ import java.util.Date;
  */
 public abstract class Food {
     /**
-     * Field indicates whether the product comes frozen.
-     */
-    private boolean frozen = false;
-    /**
-     * Field indicates whether the product can reproduct.
-     */
-    private boolean canReproduct = false;
-    /**
      * Name of product.
      */
     private String name;
@@ -89,19 +81,11 @@ public abstract class Food {
     }
 
     /**
-     * Getter-method for frozen field.
+     * Method indicates whether the product isFrozen.
      * @return true if frozen, false otherwise.
      */
     public boolean isFrozen() {
-        return this.frozen;
-    }
-
-    /**
-     * Getter-method for cabReproduct field.
-     * @return true if product can reproduct, false otherwise.
-     */
-    public boolean isCanReproduct() {
-        return this.canReproduct;
+        return false;
     }
 
     /**

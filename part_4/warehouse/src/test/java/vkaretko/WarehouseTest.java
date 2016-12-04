@@ -7,6 +7,7 @@ import vkaretko.products.Food;
 import vkaretko.products.Meat;
 import vkaretko.products.Milk;
 import vkaretko.products.Vegetable;
+import vkaretko.products.Chicken;
 import vkaretko.storageareas.StorageArea;
 
 import java.text.ParseException;
@@ -41,10 +42,6 @@ public class WarehouseTest {
     /**
      * FoodReproductor object for tests.
      */
-    private FoodReproductor reproductor;
-    /**
-     * Trash object for tests.
-     */
     private StorageArea trash;
     /**
      * Shop object for tests.
@@ -78,7 +75,6 @@ public class WarehouseTest {
         final int indexOfWarehouse = 0;
         this.control = new ControllQuality();
         this.products = new ArrayList<>();
-        this.reproductor = new FoodReproductor();
         this.trash = control.getAreas().get(indexOfTrash);
         this.shop = control.getAreas().get(indexOfShop);
         this.warehouse = control.getAreas().get(indexOfWarehouse);
@@ -172,18 +168,36 @@ public class WarehouseTest {
     }
 
     /**
-     * Positive test of add frozen product to refrigerated warehouse.
+     * Positive test of reproduct food.
      */
     @Test
-    public void whenReproductTrashProductsThenMeatWillGoToShopWithNewExpiry() {
+    public void whenReproductFoodWithFlagTrueThenProductInShopWithNewExpiry() {
         try {
             Date dateCreate = sdf.parse("01.12.2016");
             Date dateExpiry = sdf.parse("03.12.2016");
-            Meat meat = new Meat("Meat", dateExpiry, dateCreate, this.price, this.discount);
-            this.products.add(meat);
+            Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, true);
+            chicken.reproduct();
+            this.products.add(chicken);
             this.control.separateProducts(this.products, this.control.getAreas());
-            this.reproductor.separate(this.trash.getProducts(), this.trash, this.control);
-            assertNotEquals(meat.getPercentExpiry(), is(this.shop.getProducts().get(0).getPercentExpiry()));
+            assertNotEquals(chicken.getPercentExpiry(), is(this.shop.getProducts().get(0).getPercentExpiry()));
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+    }
+
+    /**
+     * Negative test of reproduct food with flag false.
+     */
+    @Test
+    public void whenReproductProductWithFlagFalseThenProductInTrashWithSameExpiry() {
+        try {
+            Date dateCreate = sdf.parse("01.12.2016");
+            Date dateExpiry = sdf.parse("03.12.2016");
+            Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, false);
+            chicken.reproduct();
+            this.products.add(chicken);
+            this.control.separateProducts(this.products, this.control.getAreas());
+            assertThat(chicken.getPercentExpiry(), is(this.trash.getProducts().get(0).getPercentExpiry()));
         } catch (ParseException pe) {
             pe.printStackTrace();
         }

@@ -14,27 +14,9 @@ import java.util.List;
  */
 public abstract class StorageArea {
     /**
-     * Start percent of expiry date.
-     */
-    private double startRangeExpiry;
-    /**
-     * End percent of expiry date for adding products.
-     */
-    private double endRangeExpiry;
-    /**
      * List of products in area.
      */
     private List<Food> products = new ArrayList<>();
-
-    /**
-     * Constructor of StorageArea.
-     * @param startRangeExpiry start percent of expiry date for adding products.
-     * @param endRangeExpiry end percent of expiry date for adding products.
-     */
-    public StorageArea(double startRangeExpiry, double endRangeExpiry) {
-        this.startRangeExpiry = startRangeExpiry;
-        this.endRangeExpiry = endRangeExpiry;
-    }
 
     /**
      * Method for adding products to area.
@@ -50,10 +32,7 @@ public abstract class StorageArea {
      * @return true if allow, false otherwise.
      */
 
-    public boolean allowToAdd(Food product) {
-        double percentExpiryOfProduct = product.getPercentExpiry();
-        return (percentExpiryOfProduct >= startRangeExpiry) && (percentExpiryOfProduct < endRangeExpiry);
-    }
+    public abstract boolean allowToAdd(Food product);
 
     /**
      * Getter-method for list of products.
@@ -61,13 +40,6 @@ public abstract class StorageArea {
      */
     public List<Food> getProducts() {
         return this.products;
-    }
-
-    /**
-     * Method for clearing product list.
-     */
-    public void clearProductList() {
-        this.products = new ArrayList<>();
     }
 
     /**

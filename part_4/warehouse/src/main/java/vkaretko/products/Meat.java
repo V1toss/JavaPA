@@ -21,13 +21,4 @@ public class Meat extends Food {
     public Meat(String name, Date expireDate, Date createDate, double price, double discount) {
         super(name, expireDate, createDate, price, discount);
     }
-
-    /**
-     * Overrided method describes that meat can reproduct.
-     * @return true for meat
-     */
-    @Override
-    public boolean isCanReproduct() {
-        return true;
-    }
 }
