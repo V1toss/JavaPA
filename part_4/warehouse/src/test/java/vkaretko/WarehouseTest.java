@@ -58,9 +58,17 @@ public class WarehouseTest {
      * Refrigerated warehouse object for tests.
      */
     private StorageArea refrigWar;
+    /**
+     * Price for tests.
+     */
+    private final double price = 10.0;
+    /**
+     * Discount for tests.
+     */
+    private final double discount = 0.7;
 
     /**
-     * Prepare all fileds for tests.
+     * Create all fields before tests.
      */
     @Before
     public void createAllFields() {
@@ -85,9 +93,7 @@ public class WarehouseTest {
         try {
             Date dateCreate = sdf.parse("01.12.2016");
             Date dateExpiry = sdf.parse("01.01.2017");
-            final double priceOfMilk = 10.0;
-            final double discountMilk = 0.7;
-            Milk milk = new Milk("Milk", dateExpiry, dateCreate, priceOfMilk, discountMilk);
+            Milk milk = new Milk("Milk", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(milk);
             control.separateProducts(this.products, control.getAreas());
             assertThat(this.warehouse.getProducts().get(0), is(milk));
@@ -104,9 +110,7 @@ public class WarehouseTest {
         try {
             Date dateCreate = sdf.parse("01.09.2016");
             Date dateExpiry = sdf.parse("01.02.2017");
-            final double priceOfBread = 10.0;
-            final double discountOfBread = 0.7;
-            Bread bread = new Bread("Bread", dateExpiry, dateCreate, priceOfBread, discountOfBread);
+            Bread bread = new Bread("Bread", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(bread);
             control.separateProducts(this.products, control.getAreas());
             assertThat(this.shop.getProducts().get(0), is(bread));
@@ -123,9 +127,7 @@ public class WarehouseTest {
         try {
             Date dateCreate = sdf.parse("01.09.2016");
             Date dateExpiry = sdf.parse("01.11.2016");
-            final double priceOfMeat = 10.0;
-            final double discountOfMeat = 0.7;
-            Meat meat = new Meat("Meat", dateExpiry, dateCreate, priceOfMeat, discountOfMeat);
+            Meat meat = new Meat("Meat", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(meat);
             control.separateProducts(this.products, control.getAreas());
             assertThat(this.trash.getProducts().get(0), is(meat));
@@ -142,10 +144,8 @@ public class WarehouseTest {
         try {
             Date dateCreate = sdf.parse("01.09.2016");
             Date dateExpiry = sdf.parse("01.01.2017");
-            final double priceOfMeat = 10.0;
-            final double discountOfMeat = 0.7;
             final double expectedPrice = 7.0;
-            Meat meat = new Meat("Meat", dateExpiry, dateCreate, priceOfMeat, discountOfMeat);
+            Meat meat = new Meat("Meat", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(meat);
             control.separateProducts(this.products, control.getAreas());
             assertThat(this.shop.getProducts().get(0).getPrice(), is(expectedPrice));
@@ -162,9 +162,7 @@ public class WarehouseTest {
         try {
             Date dateCreate = sdf.parse("01.12.2016");
             Date dateExpiry = sdf.parse("01.02.2017");
-            final double priceOfVegetable = 10.0;
-            final double discountOfVegetable = 0.7;
-            Vegetable apple = new Vegetable("Apple", dateExpiry, dateCreate, priceOfVegetable, discountOfVegetable);
+            Vegetable apple = new Vegetable("Apple", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(apple);
             control.separateProducts(this.products, control.getAreas());
             assertThat(this.refrigWar.getProducts().get(0), is(apple));
@@ -181,9 +179,7 @@ public class WarehouseTest {
         try {
             Date dateCreate = sdf.parse("01.12.2016");
             Date dateExpiry = sdf.parse("03.12.2016");
-            final double price = 10.0;
-            final double discount = 0.7;
-            Meat meat = new Meat("Meat", dateExpiry, dateCreate, price, discount);
+            Meat meat = new Meat("Meat", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(meat);
             this.control.separateProducts(this.products, this.control.getAreas());
             this.reproductor.separate(this.trash.getProducts(), this.trash, this.control);
