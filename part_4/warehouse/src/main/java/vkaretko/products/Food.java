@@ -11,6 +11,14 @@ import java.util.Date;
  */
 public abstract class Food {
     /**
+     * Field indicates whether the product comes frozen.
+     */
+    private boolean frozen = false;
+    /**
+     * Field indicates whether the product can reproduct.
+     */
+    private boolean canReproduct = false;
+    /**
      * Name of product.
      */
     private String name;
@@ -78,5 +86,37 @@ public abstract class Food {
     public double getPercentExpiry() {
         return (double) (System.currentTimeMillis() - this.createDate.getTime())
                 / (this.expireDate.getTime() - this.createDate.getTime());
+    }
+
+    /**
+     * Getter-method for frozen field.
+     * @return true if frozen, false otherwise.
+     */
+    public boolean isFrozen() {
+        return this.frozen;
+    }
+
+    /**
+     * Getter-method for cabReproduct field.
+     * @return true if product can reproduct, false otherwise.
+     */
+    public boolean isCanReproduct() {
+        return this.canReproduct;
+    }
+
+    /**
+     * Setter-method for create date.
+     * @param createDate create date of product.
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    /**
+     * Setter-method for expiry date.
+     * @param expireDate expire date of product.
+     */
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
     }
 }

@@ -3,6 +3,7 @@ package vkaretko.storageareas;
 import vkaretko.products.Food;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * StorageArea class is base class for creating other areas like Shop or WareHouse.
@@ -23,7 +24,7 @@ public abstract class StorageArea {
     /**
      * List of products in area.
      */
-    private ArrayList<Food> products = new ArrayList<>();
+    private List<Food> products = new ArrayList<>();
 
     /**
      * Constructor of StorageArea.
@@ -45,11 +46,12 @@ public abstract class StorageArea {
 
     /**
      * Method check if area allow to add product.
-     * @param percentExpiryOfProduct percent of expiry.
+     * @param product product to add.
      * @return true if allow, false otherwise.
      */
 
-    public boolean allowToAdd(double percentExpiryOfProduct) {
+    public boolean allowToAdd(Food product) {
+        double percentExpiryOfProduct = product.getPercentExpiry();
         return (percentExpiryOfProduct >= startRangeExpiry) && (percentExpiryOfProduct < endRangeExpiry);
     }
 
@@ -57,7 +59,22 @@ public abstract class StorageArea {
      * Getter-method for list of products.
      * @return list of products.
      */
-    public ArrayList<Food> getProducts() {
+    public List<Food> getProducts() {
         return this.products;
+    }
+
+    /**
+     * Method for clearing product list.
+     */
+    public void clearProductList() {
+        this.products = new ArrayList<>();
+    }
+
+    /**
+     * Method set new list of products.
+     * @param products new list of products.
+     */
+    public void setProducts(List<Food> products) {
+        this.products = products;
     }
 }

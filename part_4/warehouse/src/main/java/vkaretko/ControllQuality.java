@@ -1,10 +1,11 @@
 package vkaretko;
 
 import vkaretko.products.Food;
-import vkaretko.storageareas.Shop;
-import vkaretko.storageareas.StorageArea;
-import vkaretko.storageareas.Trash;
 import vkaretko.storageareas.Warehouse;
+import vkaretko.storageareas.RefrigeratedWarehouse;
+import vkaretko.storageareas.Shop;
+import vkaretko.storageareas.Trash;
+import vkaretko.storageareas.StorageArea;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class ControllQuality {
         addNewStorageArea(new Warehouse(0, twentyFiveExpiryPercent));
         addNewStorageArea(new Shop(twentyFiveExpiryPercent, hundredExpiryPercent));
         addNewStorageArea(new Trash(hundredExpiryPercent, hugeExpiryPercent));
+        addNewStorageArea(new RefrigeratedWarehouse(0, twentyFiveExpiryPercent));
     }
 
     /**
@@ -58,8 +60,7 @@ public class ControllQuality {
     public void separateProducts(List<Food> products, List<StorageArea> areas) {
         for (Food product : products) {
             for (StorageArea area : areas) {
-                double percExpiry = product.getPercentExpiry();
-                if (area.allowToAdd(percExpiry)) {
+                if (area.allowToAdd(product)) {
                     area.addProduct(product);
                     break;
                 }
