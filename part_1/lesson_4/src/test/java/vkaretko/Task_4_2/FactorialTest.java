@@ -43,6 +43,6 @@ public class FactorialTest {
         } finally {
             System.setOut(outConsole);
         }
-        assertThat(result, is("Non positive number\r\n"));
+        assertThat(result, is(String.format("Non positive number%s",System.getProperty("line.separator"))));
     }
 }

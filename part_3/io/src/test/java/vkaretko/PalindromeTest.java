@@ -19,6 +19,10 @@ import static org.junit.Assert.assertThat;
  */
 public class PalindromeTest {
     /**
+     * Line-separator for Windows and Linux.
+     */
+    private final String sep = System.getProperty("line.separator");
+    /**
      * Output stream for tests.
      */
     private ByteArrayOutputStream out;
@@ -40,7 +44,7 @@ public class PalindromeTest {
         String testWord = "КоМок";
         System.setIn(new ByteArrayInputStream(testWord.getBytes()));
         new Palindrome().init();
-        assertThat(this.out.toString(), is(String.format("%s is palindrome\r\n", testWord)));
+        assertThat(this.out.toString(), is(String.format("%s is palindrome%s", testWord, sep)));
     }
 
     /**
@@ -51,7 +55,7 @@ public class PalindromeTest {
         String testWord = "Камок";
         System.setIn(new ByteArrayInputStream(testWord.getBytes()));
         new Palindrome().init();
-        assertThat(this.out.toString(), is(String.format("%s is NOT palindrome\r\n", testWord)));
+        assertThat(this.out.toString(), is(String.format("%s is NOT palindrome%s", testWord, sep)));
     }
 
     /**
@@ -62,7 +66,7 @@ public class PalindromeTest {
         String testWord = "Кам";
         System.setIn(new ByteArrayInputStream(testWord.getBytes()));
         new Palindrome().init();
-        assertThat(this.out.toString(), is(String.format("%s has not 5 symbols\r\n", testWord)));
+        assertThat(this.out.toString(), is(String.format("%s has not 5 symbols%s", testWord, sep)));
     }
 
 }

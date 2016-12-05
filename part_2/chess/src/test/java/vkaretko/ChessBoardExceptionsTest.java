@@ -26,6 +26,10 @@ import static org.junit.Assert.assertThat;
  */
 public class ChessBoardExceptionsTest {
     /**
+     * Line-separator for Windows and Linux.
+     */
+    private final String sep = System.getProperty("line.separator");
+    /**
      * Chess board.
      */
     private ChessBoard board = new ChessBoard();
@@ -59,7 +63,7 @@ public class ChessBoardExceptionsTest {
     public void whenMovePawnTwoTimesThroughTwoCellsThenResultPawnException() {
         board.moveFigure(1, startCol, startRow - 1, startCol);
         board.moveFigure(2, startCol, startRow + 1, startCol);
-        assertThat(out.toString(), is("Pawn can move 2 steps only when first move\r\n"));
+        assertThat(out.toString(), is(String.format("Pawn can move 2 steps only when first move%s", sep)));
     }
 
     /**
@@ -72,7 +76,7 @@ public class ChessBoardExceptionsTest {
         board.getChessBoard()[startRow - 1][startCol].setFigure(rook);
         board.getChessBoard()[startRow][startCol].setFigure(pawn);
         board.moveFigure(startRow - 1, startCol, startRow + 1, startCol);
-        assertThat(out.toString(), is("Another figure on movement line\r\n"));
+        assertThat(out.toString(), is(String.format("Another figure on movement line%s", sep)));
     }
 
     /**
@@ -83,7 +87,7 @@ public class ChessBoardExceptionsTest {
         ChessFigure bishop = new Bishop(true);
         board.getChessBoard()[startRow][startCol].setFigure(bishop);
         board.moveFigure(startRow, startCol, startRow, startCol);
-        assertThat(out.toString(), is("Same cell\r\n"));
+        assertThat(out.toString(), is(String.format("Same cell%s", sep)));
     }
 
     /**
@@ -92,7 +96,7 @@ public class ChessBoardExceptionsTest {
     @Test
     public void whenMoveFiguresAreOutOfBoardThenResultOutOfBoardException() {
         board.moveFigure(-startRow, 0, 0, 0);
-        assertThat(out.toString(), is("Cell is out of board\r\n"));
+        assertThat(out.toString(), is(String.format("Cell is out of board%s", sep)));
     }
 
     /**
@@ -101,7 +105,7 @@ public class ChessBoardExceptionsTest {
     @Test
     public void whenTryToMoveFigureFromEmptyCellThenResultEmptyCellException() {
         board.moveFigure(startRow, startCol, startRow, startCol + 1);
-        assertThat(out.toString(), is("Empty cell\r\n"));
+        assertThat(out.toString(), is(String.format("Empty cell%s", sep)));
     }
 
     /**
@@ -114,7 +118,7 @@ public class ChessBoardExceptionsTest {
         board.getChessBoard()[startRow][startCol].setFigure(pawnFirst);
         board.getChessBoard()[startRow + 1][startCol].setFigure(pawnSecond);
         board.moveFigure(startRow, startCol, startRow + 1, startCol);
-        assertThat(out.toString(), is("Destination cell is not empty\r\n"));
+        assertThat(out.toString(), is(String.format("Destination cell is not empty%s", sep)));
     }
 
     /**
@@ -125,7 +129,7 @@ public class ChessBoardExceptionsTest {
         ChessFigure pawn = new Pawn(true);
         board.getChessBoard()[startRow][startCol].setFigure(pawn);
         board.moveFigure(startRow, startCol, startRow - 1, startCol);
-        assertThat(out.toString(), is("Wrong direction of move\r\n"));
+        assertThat(out.toString(), is(String.format("Wrong direction of move%s", sep)));
     }
 
     /**
@@ -136,7 +140,7 @@ public class ChessBoardExceptionsTest {
         ChessFigure knight = new Knight(true);
         board.getChessBoard()[startRow][startCol].setFigure(knight);
         board.moveFigure(startRow, startCol, startRow + 1, startCol + 1);
-        assertThat(out.toString(), is("Wrong move of Knight\r\n"));
+        assertThat(out.toString(), is(String.format("Wrong move of Knight%s", sep)));
     }
 
     /**
@@ -147,7 +151,7 @@ public class ChessBoardExceptionsTest {
         ChessFigure bishop = new Bishop(true);
         board.getChessBoard()[startRow][startCol].setFigure(bishop);
         board.moveFigure(startRow, startCol, startRow, startCol + 1);
-        assertThat(out.toString(), is("Wrong move of Bishop\r\n"));
+        assertThat(out.toString(), is(String.format("Wrong move of Bishop%s", sep)));
     }
 
     /**
@@ -158,7 +162,7 @@ public class ChessBoardExceptionsTest {
         ChessFigure king = new King(true);
         board.getChessBoard()[startRow][startCol].setFigure(king);
         board.moveFigure(startRow, startCol, startRow, startCol + 2);
-        assertThat(out.toString(), is("Wrong move of King\r\n"));
+        assertThat(out.toString(), is(String.format("Wrong move of King%s", sep)));
     }
 
     /**
@@ -169,7 +173,7 @@ public class ChessBoardExceptionsTest {
         ChessFigure queen = new Queen(true);
         board.getChessBoard()[startRow][startRow].setFigure(queen);
         board.moveFigure(startRow, startCol, startRow + 1, startCol + 2);
-        assertThat(out.toString(), is("Wrong move of Queen\r\n"));
+        assertThat(out.toString(), is(String.format("Wrong move of Queen%s", sep)));
     }
 
     /**
@@ -180,6 +184,6 @@ public class ChessBoardExceptionsTest {
         ChessFigure rook = new Rook(true);
         board.getChessBoard()[startRow][startCol].setFigure(rook);
         board.moveFigure(startRow, startCol, startRow + 1, startCol + 1);
-        assertThat(out.toString(), is("Wrong move of Rook\r\n"));
+        assertThat(out.toString(), is(String.format("Wrong move of Rook%s", sep)));
     }
 }

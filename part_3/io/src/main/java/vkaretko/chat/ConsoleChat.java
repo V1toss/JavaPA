@@ -42,12 +42,12 @@ public class ConsoleChat {
      * FilePath to phrases dictionary for default constructors.
      */
     private final String filePathPhrase = String.format("%s%s%s", System.getProperty("user.dir"),
-            File.separator, "part_3\\io\\src\\main\\java\\vkaretko\\chat\\resources\\phrases.txt");
+            File.separator, "part_3/io/src/main/java/vkaretko/chat/resources/phrases.txt");
     /**
      * FilePath to log file for default constructors.
      */
     private final String filePathLog = String.format("%s%s%s", System.getProperty("user.dir"),
-            File.separator, "part_3\\io\\src\\main\\java\\vkaretko\\chat\\logs\\log.txt");
+            File.separator, "part_3/io/src/main/java/vkaretko/chat/logs/log.txt");
     /**
      * List that filling at beginning, contains list of phrases.
      */

@@ -192,8 +192,4 @@ public class MergeSort {
         this.dstFile.writeBytes(String.format("%s\r\n", line));
         return raf.readLine();
     }
-
-    public static void main(String[] args) {
-
-    }
 }

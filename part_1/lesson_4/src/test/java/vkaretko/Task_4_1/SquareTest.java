@@ -37,6 +37,7 @@ public class SquareTest {
         } finally {
             System.setOut(outConsole);
         }
-        assertThat(result, is("6.0\r\n18.0\r\n38.0\r\n"));
+        String sep = System.getProperty("line.separator");
+        assertThat(result, is(String.format("6.0%s18.0%s38.0%s", sep, sep, sep)));
     }
 }

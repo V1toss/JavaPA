@@ -21,6 +21,10 @@ import static org.junit.Assert.assertThat;
  */
 public class ConsoleChatTest {
     /**
+     * Line-separator for Windows and Linux.
+     */
+    private final String sep = System.getProperty("line.separator");
+    /**
      * Output stream for tests.
      */
     private ByteArrayOutputStream out;
@@ -29,13 +33,13 @@ public class ConsoleChatTest {
      * File path to phrases.
      */
     private final String filePathPhrase = String.format("%s%s%s", System.getProperty("user.dir"),
-            File.separator, "src\\main\\java\\vkaretko\\chat\\resources\\phrases.txt");
+            File.separator, "src/main/java/vkaretko/chat/resources/phrases.txt");
 
     /**
      * File path to log-file.
      */
     private final String filePathLog = String.format("%s%s%s", System.getProperty("user.dir"),
-            File.separator, "src\\main\\java\\vkaretko\\chat\\logs\\log.txt");
+            File.separator, "src/main/java/vkaretko/chat/logs/log.txt");
 
     /**
      * Method prepare output stream before tests.
@@ -51,7 +55,7 @@ public class ConsoleChatTest {
      */
     @Test
     public void whenEnterStopAndOtherWordsThenResultNoAnswer() {
-        String stopKey = "stop\r\ntest\r\ntest2";
+        String stopKey = String.format("stop%stest%stest2", sep, sep);
         System.setIn(new ByteArrayInputStream(stopKey.getBytes()));
         try {
             new ConsoleChat(this.filePathPhrase, this.filePathLog).init();
@@ -66,7 +70,7 @@ public class ConsoleChatTest {
      */
     @Test
     public void whenEnterStopAndContinueResultRandomMessage() {
-        String stopAndContinueKey = "stop\r\ncontinue\r\ntest";
+        String stopAndContinueKey = String.format("stop%scontinue%stest", sep, sep);
         System.setIn(new ByteArrayInputStream(stopAndContinueKey.getBytes()));
         try {
             new ConsoleChat(this.filePathPhrase, this.filePathLog).init();
@@ -96,7 +100,7 @@ public class ConsoleChatTest {
      */
     @Test
     public void whenEnterEndThenResultProgramTerminate() {
-        String stopKey = "end\r\ntest\r\ncontinue\r\nstop";
+        String stopKey = String.format("end%stest%scontinue%sstop", sep, sep, sep);
         System.setIn(new ByteArrayInputStream(stopKey.getBytes()));
         try {
             new ConsoleChat(this.filePathPhrase, this.filePathLog).init();

@@ -19,10 +19,12 @@ public class CoinsExchangeTest {
     @Test
     public void whenExchangeMoneyTenThenResultStringWithCoins() {
         final int moneyToExchange = 10;
+        final String sep = System.getProperty("line.separator");
         try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             System.setOut(new PrintStream(output));
             new CoinsExchange().exchange(moneyToExchange);
-            assertThat(output.toString(), is("1 1 1 1 1 1 1 1 1 1 \r\n5 1 1 1 1 1 \r\n5 5 \r\n10 \r\n"));
+            assertThat(output.toString(), is(
+                    String.format("1 1 1 1 1 1 1 1 1 1 %s5 1 1 1 1 1 %s5 5 %s10 %s", sep, sep, sep, sep)));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
