@@ -3,11 +3,12 @@ package vkaretko;
 import org.junit.Before;
 import org.junit.Test;
 import vkaretko.products.Bread;
+import vkaretko.products.Chicken;
 import vkaretko.products.Food;
 import vkaretko.products.Meat;
 import vkaretko.products.Milk;
 import vkaretko.products.Vegetable;
-import vkaretko.products.Chicken;
+import vkaretko.storageareas.StorReproduct;
 import vkaretko.storageareas.StorageArea;
 
 import java.text.ParseException;
@@ -171,15 +172,15 @@ public class WarehouseTest {
      * Positive test of reproduct food.
      */
     @Test
-    public void whenReproductFoodWithFlagTrueThenProductInShopWithNewExpiry() {
+    public void whenReproductFoodWithFlagTrueThenProductInStorReproduct() {
         try {
             Date dateCreate = sdf.parse("01.12.2016");
             Date dateExpiry = sdf.parse("03.12.2016");
             Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, true);
-            chicken.reproduct();
-            this.products.add(chicken);
-            this.control.separateProducts(this.products, this.control.getAreas());
-            assertNotEquals(chicken.getPercentExpiry(), is(this.shop.getProducts().get(0).getPercentExpiry()));
+            StorReproduct storRep = new StorReproduct();
+            ControllQualityReproduct controlRep = new ControllQualityReproduct();
+            controlRep.separateProducts(chicken, storRep, this.control);
+            assertThat(chicken, is(storRep.getProducts().get(0)));
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
@@ -189,15 +190,32 @@ public class WarehouseTest {
      * Negative test of reproduct food with flag false.
      */
     @Test
-    public void whenReproductProductWithFlagFalseThenProductInTrashWithSameExpiry() {
+    public void whenReproductFoodWithFlagFalseThenProductInTrash() {
         try {
             Date dateCreate = sdf.parse("01.12.2016");
             Date dateExpiry = sdf.parse("03.12.2016");
             Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, false);
+            StorReproduct storRep = new StorReproduct();
+            ControllQualityReproduct controlRep = new ControllQualityReproduct();
+            controlRep.separateProducts(chicken, storRep, this.control);
+            assertThat(chicken, is(this.trash.getProducts().get(0)));
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+    }
+
+    /**
+     * Negative test of reproduct food with flag false.
+     */
+    @Test
+    public void whenReproductFoodThenProductHasNewExpiryDate() {
+        try {
+            Date dateCreate = sdf.parse("01.12.2016");
+            Date dateExpiry = sdf.parse("03.12.2016");
+            Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, true);
+            double beforeExpiry = chicken.getPercentExpiry();
             chicken.reproduct();
-            this.products.add(chicken);
-            this.control.separateProducts(this.products, this.control.getAreas());
-            assertThat(chicken.getPercentExpiry(), is(this.trash.getProducts().get(0).getPercentExpiry()));
+            assertNotEquals(chicken.getPercentExpiry(), is(beforeExpiry));
         } catch (ParseException pe) {
             pe.printStackTrace();
         }

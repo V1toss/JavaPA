@@ -28,9 +28,7 @@ public class Chicken extends FoodReproduct {
      */
     @Override
     public void reproduct() {
-        if (isCanReproduct()) {
-            final long expiryFiveDayAfterReproduct = 432000000;
-            setExpireDate(new Date(System.currentTimeMillis() + expiryFiveDayAfterReproduct));
-        }
+        final long expiryFiveDayAfterReproduct = 432000000;
+        setExpireDate(new Date(System.currentTimeMillis() + expiryFiveDayAfterReproduct));
     }
 }
