@@ -74,4 +74,18 @@ public class ControllQuality {
     public ArrayList<StorageArea> getAreas() {
         return this.areas;
     }
+
+    /**
+     * Method gets food from all areas for separating.
+     */
+    public void resort() {
+        ArrayList<Food> toResort = new ArrayList<>();
+        for (StorageArea area : this.areas) {
+            for (Food food : area.getProducts()) {
+                toResort.add(food);
+            }
+            area.setProducts(new ArrayList<>());
+        }
+        separateProducts(toResort, getAreas());
+    }
 }

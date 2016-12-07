@@ -221,5 +221,24 @@ public class WarehouseTest {
         }
     }
 
+    /**
+     * When resort food with new expiry date, then food go to other storage area.
+     */
+    @Test
+    public void whenResortFoodWithNewExpiryThenProductGoesToTrash() {
+        try {
+            Date dateCreate = sdf.parse("01.09.2016");
+            Date dateExpiry = sdf.parse("01.02.2017");
+            Bread bread = new Bread("Bread", dateExpiry, dateCreate, this.price, this.discount);
+            this.products.add(bread);
+            this.control.separateProducts(this.products, control.getAreas());
+            this.shop.getProducts().get(0).setExpireDate(sdf.parse("01.10.2016"));
+            this.control.resort();
+            assertThat(bread, is(this.trash.getProducts().get(0)));
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+    }
+
 
 }
