@@ -11,6 +11,7 @@ import vkaretko.menuitems.HelpAbout;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Class ConsoleMenu for filling list of menu items and print them in console.
  *
@@ -20,28 +21,35 @@ import java.util.List;
  */
 public class ConsoleMenu {
     /**
-     * List of menu items.
+     * List of base menu items.
      */
-    private final List<MenuItems> menu = new ArrayList<>();
-
+    private ArrayList<MenuItems> menu = new ArrayList<>();
     /**
      * Method fills list of menu with items.
      */
-    public void initMenu() {
-        menu.add(new File());
-        menu.add(new New());
-        menu.add(new Project());
-        menu.add(new FileOpen());
-        menu.add(new Help());
-        menu.add(new HelpAbout());
+    public void init() {
+        File file = new File();
+        New fileNew = new New();
+        Help help = new Help();
+        file.addMenuItem(fileNew);
+        file.addMenuItem(new FileOpen());
+        fileNew.addMenuItem(new Project());
+        help.addMenuItem(new HelpAbout());
+        menu.add(file);
+        menu.add(help);
+        printMenu(this.menu);
     }
 
     /**
      * Method for printing menu to console.
+     * @param menu list of menu items to print.
      */
-    public void printMenu() {
-        for (MenuItems item : this.menu) {
+    public void printMenu(List<MenuItems> menu) {
+        for (MenuItems item : menu) {
             System.out.println(String.format("%s%s", printDashes(item.getLevel()), item.getInfo()));
+            if (item.getMenuItems() != null) {
+                printMenu(item.getMenuItems());
+            }
         }
     }
 
@@ -56,13 +64,5 @@ public class ConsoleMenu {
             sb.append("--");
         }
         return sb.toString();
-    }
-
-    /**
-     * Getter-method for list of menu items.
-     * @return list of menu items.
-     */
-    public List<MenuItems> getMenu() {
-        return this.menu;
     }
 }
