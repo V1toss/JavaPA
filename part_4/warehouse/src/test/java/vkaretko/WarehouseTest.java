@@ -179,7 +179,7 @@ public class WarehouseTest {
             Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, true);
             StorReproduct storRep = new StorReproduct();
             ControllQualityReproduct controlRep = new ControllQualityReproduct();
-            controlRep.separateProducts(chicken, storRep, this.control);
+            controlRep.separateProducts(chicken, storRep);
             assertThat(chicken, is(storRep.getProducts().get(0)));
         } catch (ParseException pe) {
             pe.printStackTrace();
@@ -197,8 +197,8 @@ public class WarehouseTest {
             Chicken chicken = new Chicken("Chick", dateExpiry, dateCreate, this.price, this.discount, false);
             StorReproduct storRep = new StorReproduct();
             ControllQualityReproduct controlRep = new ControllQualityReproduct();
-            controlRep.separateProducts(chicken, storRep, this.control);
-            assertThat(chicken, is(this.trash.getProducts().get(0)));
+            controlRep.separateProducts(chicken, storRep);
+            assertThat(chicken, is(controlRep.getAreas().get(2).getProducts().get(0)));
         } catch (ParseException pe) {
             pe.printStackTrace();
         }

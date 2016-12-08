@@ -19,15 +19,14 @@ public class ControllQualityReproduct extends ControllQuality {
      * Method to separate products to reproduct storage area.
      * @param food products for adding.
      * @param storRep reproduct storage area.
-     * @param defControl default quality control department.
      */
-    public void separateProducts(FoodReproduct food, StorReproduct storRep, ControllQuality defControl) {
+    public void separateProducts(FoodReproduct food, StorReproduct storRep) {
         if (storRep.allowToAdd(food)) {
             storRep.addProduct(food);
         } else {
             List<Food> products = new ArrayList<>();
             products.add(food);
-            defControl.separateProducts(products, defControl.getAreas());
+            super.separateProducts(products, this.getAreas());
         }
     }
 }
