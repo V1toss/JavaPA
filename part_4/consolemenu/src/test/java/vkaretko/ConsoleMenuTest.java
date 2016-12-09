@@ -90,7 +90,7 @@ public class ConsoleMenuTest {
      * Method test creating menu.
      */
     @Test
-    public void whenCreateMenuWithFiveItemsThenResultMenuWithFourItems() {
+    public void whenCreateMenuWithFourItemsThenResultMenuWithFourItems() {
         ConsoleMenu conMenu = new ConsoleMenu();
         File file = new File();
         Help help = new Help();
