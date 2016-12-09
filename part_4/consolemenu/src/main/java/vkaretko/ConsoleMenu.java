@@ -1,5 +1,7 @@
 package vkaretko;
 
+import vkaretko.interfaces.Add;
+import vkaretko.interfaces.Get;
 import vkaretko.interfaces.MenuItems;
 import vkaretko.menuitems.File;
 import vkaretko.menuitems.FileOpen;
@@ -19,7 +21,7 @@ import java.util.List;
  * @version 1.00
  * @since 07.12.2016
  */
-public class ConsoleMenu {
+public class ConsoleMenu implements Add, Get {
     /**
      * List of base menu items.
      */
@@ -64,5 +66,23 @@ public class ConsoleMenu {
             sb.append("--");
         }
         return sb.toString();
+    }
+
+    /**
+     * Method for adding menu items.
+     * @param item item to add.
+     */
+    @Override
+    public void addMenuItem(MenuItems item) {
+        this.menu.add(item);
+    }
+
+    /**
+     * Getter-method for menu items.
+     * @return menu
+     */
+    @Override
+    public List<MenuItems> getMenuItems() {
+        return this.menu;
     }
 }

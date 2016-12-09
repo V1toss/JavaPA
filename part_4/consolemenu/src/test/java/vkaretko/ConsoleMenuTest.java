@@ -3,9 +3,7 @@ package vkaretko;
 import org.junit.Before;
 import org.junit.Test;
 import vkaretko.interfaces.MenuItems;
-import vkaretko.menuitems.File;
-import vkaretko.menuitems.Help;
-import vkaretko.menuitems.New;
+import vkaretko.menuitems.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -83,6 +81,29 @@ public class ConsoleMenuTest {
             System.setOut(new PrintStream(out));
             this.menu.init();
             assertThat(out.toString(), is(menuInLine.toString()));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * Method test creating menu.
+     */
+    @Test
+    public void whenCreateMenuWithFiveItemsThenResultMenuWithFourItems() {
+        ConsoleMenu conMenu = new ConsoleMenu();
+        File file = new File();
+        Help help = new Help();
+        conMenu.addMenuItem(file);
+        conMenu.addMenuItem(help);
+        help.addMenuItem(new HelpAbout());
+        file.addMenuItem(new FileOpen());
+        String expectedMenu =
+                String.format("File%s--Open           [open]%sHelp%s--About          [ab]%s", sep, sep, sep, sep);
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            System.setOut(new PrintStream(out));
+            conMenu.printMenu(conMenu.getMenuItems());
+            assertThat(out.toString(), is(expectedMenu));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
