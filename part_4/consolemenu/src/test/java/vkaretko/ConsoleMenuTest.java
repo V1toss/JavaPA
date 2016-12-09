@@ -3,7 +3,11 @@ package vkaretko;
 import org.junit.Before;
 import org.junit.Test;
 import vkaretko.interfaces.MenuItems;
-import vkaretko.menuitems.*;
+import vkaretko.menuitems.File;
+import vkaretko.menuitems.FileOpen;
+import vkaretko.menuitems.New;
+import vkaretko.menuitems.Help;
+import vkaretko.menuitems.HelpAbout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
