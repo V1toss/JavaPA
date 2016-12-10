@@ -15,6 +15,7 @@
   <modules>
       <module>calculator</module>
       <module>warehouse</module>
-      <module>consolemenu</module>	
+      <module>consolemenu</module>
+      <module>generator</module>		
   </modules>
 </project>
