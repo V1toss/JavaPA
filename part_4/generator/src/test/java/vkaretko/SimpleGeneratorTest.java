@@ -3,9 +3,6 @@ package vkaretko;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +10,11 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by vitoss on 10.12.16.
+ * Test-class for SimpleGenerator.
+ *
+ * @author Karetko Victor
+ * @version 1.00
+ * @since 10.12.2016
  */
 public class SimpleGeneratorTest {
     /**
