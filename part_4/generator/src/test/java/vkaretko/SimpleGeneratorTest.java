@@ -57,10 +57,9 @@ public class SimpleGeneratorTest {
     @Test
     public void whenReplaceKeyInLineWithNoKeyInKeyMapThenResultNoKeyException() {
         final String lineToReplace = "How ${are} you ${do}? ${g}";
-        try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-            System.setOut(new PrintStream(output));
+        try {
             generator.generate(lineToReplace, keyMap);
-        } catch (NoKeyException | WrongKeyException | IOException nke) {
+        } catch (NoKeyException | WrongKeyException nke) {
             assertThat(nke.getMessage(), is("Error: no Key in Map"));
         }
     }
@@ -71,10 +70,9 @@ public class SimpleGeneratorTest {
     @Test
     public void whenKeyMapHasUnnecessaryKeyThenResultWrongKeyException() {
         final String lineToReplace = "How ${are} you ${are}?";
-        try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-            System.setOut(new PrintStream(output));
+        try {
             generator.generate(lineToReplace, keyMap);
-        } catch (NoKeyException | WrongKeyException | IOException nke) {
+        } catch (NoKeyException | WrongKeyException nke) {
             assertThat(nke.getMessage(), is("Error: Map has unnecessary key"));
         }
     }
