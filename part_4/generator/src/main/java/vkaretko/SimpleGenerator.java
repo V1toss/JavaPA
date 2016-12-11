@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
  */
 public class SimpleGenerator implements Template {
     /**
+     * Pattern for searching.
+     */
+    private static final Pattern PATTERN = Pattern.compile("\\$\\{(\\w+)}");
+    /**
      * Method search keys in line and replace them with values.
      * @param line line to search keys.
      * @param keyMap map with keys and their values.
@@ -23,21 +27,22 @@ public class SimpleGenerator implements Template {
      */
     @Override
     public String generate(String line, Map<String, String> keyMap) throws NoKeyException, WrongKeyException {
-        StringBuffer sb = new StringBuffer();
-        Matcher m = Pattern.compile("\\$\\{(\\w+)}").matcher(line);
+        StringBuilder sb = new StringBuilder();
+        sb.append(line);
+        Matcher m = PATTERN.matcher(sb);
         HashSet<String> keySetFromLine = new HashSet<>();
         while (m.find()) {
+            keySetFromLine.add(m.group(0));
             if (keyMap.containsKey(m.group(0))) {
-                m.appendReplacement(sb, keyMap.get(m.group(0)));
+                sb.replace(m.start(), m.end(), keyMap.get(m.group(0)));
             } else {
                 throw new NoKeyException("Error: no Key in Map");
             }
-            keySetFromLine.add(m.group(0));
+            m.reset(sb);
         }
         if (keySetFromLine.size() != keyMap.size()) {
             throw new WrongKeyException("Error: Map has unnecessary key");
         }
-        m.appendTail(sb);
         return sb.toString();
     }
 }
