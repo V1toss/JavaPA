@@ -33,14 +33,7 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        boolean result = false;
-        for (int ind = index; ind < values.length; ind++) {
-            if (values[ind] % 2 == 0) {
-                result = true;
-                break;
-            }
-        }
-        return result;
+        return nextEven() != null;
     }
 
     /**
@@ -49,16 +42,22 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public Object next() {
-        Integer result = null;
-        if (hasNext()) {
-            for (int ind = index; ind < values.length; ind++) {
-                if (values[ind] % 2 == 0) {
-                    result = values[ind];
-                    index = ind + 1;
-                    break;
-                }
+        index++;
+        return hasNext() ? nextEven() : null;
+    }
+
+    /**
+     * Method find next even number.
+     * @return even number.
+     */
+    private Integer nextEven() {
+        Integer nextEven = null;
+        for (int ind = index; ind < values.length; ind++) {
+            if (values[ind] % 2 == 0) {
+                nextEven = values[ind];
+                break;
             }
         }
-        return result;
+        return nextEven;
     }
 }
