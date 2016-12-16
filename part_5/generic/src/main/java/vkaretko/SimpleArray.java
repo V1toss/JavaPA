@@ -2,10 +2,10 @@ package vkaretko;
 
 /**
  * Class SimpleArray.
- *
  * @author Karetko Victor
  * @version 1.00
  * @since 16.12.2016
+ * @param <E> type
  */
 public class SimpleArray<E> {
     /**
@@ -19,7 +19,7 @@ public class SimpleArray<E> {
 
     /**
      * Constructor of SimpleArray.
-     * @param size
+     * @param size size of array
      */
     public SimpleArray(int size) {
         this.objects = new Object[size];

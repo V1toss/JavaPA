@@ -17,7 +17,7 @@ public class SimpleArrayTest {
     /**
      * Array for tests.
      */
-    SimpleArray arr;
+    private SimpleArray arr;
 
     /**
      * Prepare SimpleArray for tests.
