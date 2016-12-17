@@ -17,5 +17,6 @@
       <module>warehouse</module>
       <module>consolemenu</module>
       <module>generator</module>		
+      <module>frog</module>	
   </modules>
 </project>

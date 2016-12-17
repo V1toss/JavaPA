@@ -1,0 +1,15 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>vkaretko</groupId>
+   <artifactId>frog</artifactId>
+   <packaging>jar</packaging>
+   <name>part_4_frog</name>
+   <version>1.0</version>
+  
+<parent>
+    <groupId>part_4</groupId>
+    <artifactId>part_4</artifactId>
+    <version>1.0</version>
+</parent>
+
+</project>
