@@ -18,6 +18,10 @@ public class Frog {
 
     private int minCount = 1000;
 
+    private final int width = 10;
+
+    private final int length = 16;
+
     public Frog(Position startPos, Position finalPos, List<Position> trees) {
         this.startPos = startPos;
         this.finalPos = finalPos;
@@ -25,35 +29,33 @@ public class Frog {
     }
 
     public void init() {
-        final int length = 16;
-        final int width = 10;
-        int[][] circle = new int[length][width];
-        for (Position tree : trees) {
-            circle[tree.getX()][tree.getY()] = -1;
-        }
-        recursiveJump(circle, startPos.getX(), startPos.getY(), 0, 0);
-        System.out.println(circle[finalPos.getX()][finalPos.getY()]);
+
+        recursiveJump(startPos.getX(), startPos.getY(), 0, 0, 0);
+
     }
 
-    private void recursiveJump(int[][] circle, int x, int y, int stepX, int stepY) {
-
-        int count = circle[x][y];
+    private void recursiveJump(int x, int y, int stepX, int stepY, int count) {
+        count++;
         y += stepY;
-        x = (x + stepX) % 16;
-        if (y < 0 && y > 9 && circle[x][y] >= 0 && count < 20) {
-            return;
+        x = (x + stepX) % this.length;
+        if (y >= 0 && y < width && !isTree(x, y) && count < 20) {
+            recursiveJump(x, y, 3, 0, count);
+            recursiveJump(x, y, 2, 1, count);
+            recursiveJump(x, y, 1, 2, count);
+            recursiveJump(x, y, 2, -1, count);
+            recursiveJump(x, y, 1, -2, count);
         }
+    }
 
-        if (x == this.finalPos.getX() && y == this.finalPos.getY()) {
-            circle[x][y] = checkMinimum(count);
-        } else if (count > circle[x][y]) {
-            circle[x][y] = count + 1;
-            recursiveJump(circle, x, y, 3, 0);
-            recursiveJump(circle, x, y, 2, 1);
-            recursiveJump(circle, x, y, 1, 2);
-            recursiveJump(circle, x, y, 2, -1);
-            recursiveJump(circle, x, y, 1, -2);
+    private boolean isTree(int x, int y) {
+        boolean result = false;
+        for (Position tree : trees) {
+            if (tree.getX() == x && tree.getY() == y) {
+                result = true;
+                break;
+            }
         }
+        return result;
     }
 
     private int checkMinimum(int count) {
