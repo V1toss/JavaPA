@@ -29,8 +29,8 @@ public class Frog {
     }
 
     public void init() {
-
-        recursiveJump(startPos.getX(), startPos.getY(), 0, 0, 0);
+        recursiveJump(startPos.getX(), startPos.getY(), 0, 0, -1);
+        System.out.println(minCount);
 
     }
 
@@ -38,7 +38,12 @@ public class Frog {
         count++;
         y += stepY;
         x = (x + stepX) % this.length;
-        if (y >= 0 && y < width && !isTree(x, y) && count < 20) {
+
+        if (this.finalPos.getX() == x && this.finalPos.getY() == y) {
+            checkMinimum(count);
+        }
+
+        if (y >= 0 && y < width && !isTree(x, y) && count < 12) {
             recursiveJump(x, y, 3, 0, count);
             recursiveJump(x, y, 2, 1, count);
             recursiveJump(x, y, 1, 2, count);
@@ -58,8 +63,10 @@ public class Frog {
         return result;
     }
 
-    private int checkMinimum(int count) {
-        return count < this.minCount ? count : minCount;
+    private void checkMinimum(int count) {
+        if (count < this.minCount) {
+            this.minCount = count;
+        }
     }
 
     public static void main(String[] args) {
