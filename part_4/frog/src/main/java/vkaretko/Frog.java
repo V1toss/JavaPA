@@ -31,29 +31,31 @@ public class Frog {
     }
 
     public void init() {
-        recursiveJump(startPos.getX(), startPos.getY(), 0, 0, -1);
+        recursiveJump(startPos.getX(), startPos.getY(), 0, 0, -1, shortestPath);
         System.out.println(minCount);
         System.out.println(shortestPath);
 
     }
 
-    private void recursiveJump(int x, int y, int stepX, int stepY, int count) {
+    private void recursiveJump(int x, int y, int stepX, int stepY, int count, String prevPath) {
         count++;
         y += stepY;
         x = (x + stepX) % this.length;
 
         if (this.finalPos.getX() == x && this.finalPos.getY() == y) {
-            setMinimum(count);
-            setPath(x,y);
+            if (count < this.minCount) {
+                this.minCount = count;
+                this.shortestPath = String.format("%s, %s %s", prevPath, x, y);
+            }
             return;
         }
 
         if (y >= 0 && y < width && !isTree(x, y) && count < this.minCount) {
-            recursiveJump(x, y, 3, 0, count);
-            recursiveJump(x, y, 2, 1, count);
-            recursiveJump(x, y, 1, 2, count);
-            recursiveJump(x, y, 2, -1, count);
-            recursiveJump(x, y, 1, -2, count);
+            recursiveJump(x, y, 3, 0, count, shortestPath);
+            recursiveJump(x, y, 2, 1, count, shortestPath);
+            recursiveJump(x, y, 1, 2, count, shortestPath);
+            recursiveJump(x, y, 2, -1, count, shortestPath);
+            recursiveJump(x, y, 1, -2, count, shortestPath);
         }
     }
 
@@ -66,16 +68,6 @@ public class Frog {
             }
         }
         return result;
-    }
-
-    private void setMinimum(int count) {
-        if (count < this.minCount) {
-            this.minCount = count;
-        }
-    }
-
-    private void setPath(int x, int y) {
-        this.shortestPath = String.format("%s, %s %s", shortestPath, x, y);
     }
 
     public static void main(String[] args) {
