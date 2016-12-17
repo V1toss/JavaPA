@@ -16,11 +16,13 @@ public class Frog {
 
     private List<Position> trees;
 
-    private int minCount = 1000;
+    private int minCount = 20;
 
     private final int width = 10;
 
     private final int length = 16;
+
+    private String shortestPath;
 
     public Frog(Position startPos, Position finalPos, List<Position> trees) {
         this.startPos = startPos;
@@ -31,6 +33,7 @@ public class Frog {
     public void init() {
         recursiveJump(startPos.getX(), startPos.getY(), 0, 0, -1);
         System.out.println(minCount);
+        System.out.println(shortestPath);
 
     }
 
@@ -40,10 +43,12 @@ public class Frog {
         x = (x + stepX) % this.length;
 
         if (this.finalPos.getX() == x && this.finalPos.getY() == y) {
-            checkMinimum(count);
+            setMinimum(count);
+            setPath(x,y);
+            return;
         }
 
-        if (y >= 0 && y < width && !isTree(x, y) && count < 12) {
+        if (y >= 0 && y < width && !isTree(x, y) && count < this.minCount) {
             recursiveJump(x, y, 3, 0, count);
             recursiveJump(x, y, 2, 1, count);
             recursiveJump(x, y, 1, 2, count);
@@ -63,10 +68,14 @@ public class Frog {
         return result;
     }
 
-    private void checkMinimum(int count) {
+    private void setMinimum(int count) {
         if (count < this.minCount) {
             this.minCount = count;
         }
+    }
+
+    private void setPath(int x, int y) {
+        this.shortestPath = String.format("%s, %s %s", shortestPath, x, y);
     }
 
     public static void main(String[] args) {
