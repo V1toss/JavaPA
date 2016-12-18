@@ -1,6 +1,5 @@
 package vkaretko;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,13 +18,17 @@ public class Frog {
      */
     private Position finalPos;
     /**
+     * Max count of jumps.
+     */
+    private final int maxCount = 30;
+    /**
      * List of trees.
      */
     private List<Position> trees;
     /**
      * Minimum count of jumps.
      */
-    private int minCount = 50;
+    private int minCount = maxCount;
     /**
      * Width of circle.
      */
@@ -38,6 +41,10 @@ public class Frog {
      * Shortest path.
      */
     private String shortestPath = "Path:";
+    /**
+     * Possible jumps.
+     */
+    private final int[][] jumps = new int[][]{{3, 0}, {2, 1}, {1, 2}, {2, -1}, {1, -2}};
 
     /**
      * Constructor of frog class.
@@ -78,11 +85,9 @@ public class Frog {
             return;
         }
         if (y >= 0 && y < width && !isTree(x, y) && count < this.minCount) {
-            recursiveJump(x, y, 3, 0, count, lineFormat(prevPath, x, y));
-            recursiveJump(x, y, 2, 1, count, lineFormat(prevPath, x, y));
-            recursiveJump(x, y, 1, 2, count, lineFormat(prevPath, x, y));
-            recursiveJump(x, y, 2, -1, count, lineFormat(prevPath, x, y));
-            recursiveJump(x, y, 1, -2, count, lineFormat(prevPath, x, y));
+            for (int[] jump : jumps) {
+                recursiveJump(x, y, jump[0], jump[1], count, lineFormat(prevPath, x, y));
+            }
         }
     }
 
@@ -126,12 +131,5 @@ public class Frog {
             }
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Position> trees = new ArrayList<>();
-        trees.add(new Position(13, 8));
-        trees.add(new Position(4, 7));
-        new Frog(new Position(10, 6), new Position(8, 9), trees).init();
     }
 }
