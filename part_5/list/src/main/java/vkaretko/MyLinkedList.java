@@ -66,10 +66,8 @@ public class MyLinkedList<E> implements SimpleContainer<E> {
      * @return element.
      */
     private Entry<E> search(int index) {
+        checkRange(index);
         Entry<E> element;
-        if (index < 0 || index > size()) {
-            throw new IndexOutOfBoundsException("No element with such index");
-        }
         if (index < (size >> 1)) {
             element = this.firstEntry;
             for (int ind = 0; ind < index; ind++) {
@@ -82,6 +80,32 @@ public class MyLinkedList<E> implements SimpleContainer<E> {
             }
         }
         return element;
+    }
+
+    /**
+     * Method remove element from list.
+     * @param index index of element to remove.
+     */
+    public void remove(int index) {
+        checkRange(index);
+        Entry<E> entryToDelete = search(index);
+        if (entryToDelete.previous != null) {
+            entryToDelete.previous.next = entryToDelete.next;
+        }
+        if (entryToDelete.next != null) {
+            entryToDelete.next.previous = entryToDelete.previous;
+        }
+        size--;
+    }
+
+    /**
+     * Method checks that index is in range from zero to size of list.
+     * @param index index of element to check.
+     */
+    public void checkRange(int index) {
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("No element with such index");
+        }
     }
 
     /**

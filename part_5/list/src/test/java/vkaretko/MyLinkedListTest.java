@@ -94,7 +94,7 @@ public class MyLinkedListTest {
     }
 
     /**
-     * Method checks next method for MyArrayList.
+     * Method checks next method for MyLinkedList.
      */
     @Test
     public void whenIteratorNextTwoTimesThenResultSecondElement() {
@@ -106,7 +106,7 @@ public class MyLinkedListTest {
     }
 
     /**
-     * Method checks next method for MyArrayList.
+     * Method checks next method for MyLinkedList.
      */
     @Test
     public void whenNextInEmptyListThenResultException() {
@@ -116,6 +116,18 @@ public class MyLinkedListTest {
         } catch (NoSuchElementException nsee) {
             assertThat(nsee.getMessage(), is("No more elements in list"));
         }
+    }
+
+    /**
+     * Method checks remove method for MyLinkedList.
+     */
+    @Test
+    public void whenRemoveFirstElementThenFirstElementIsSecondBeforeRemove() {
+        list.add(1);
+        list.add(2);
+        Iterator itr = list.iterator();
+        list.remove(0);
+        assertThat(itr.next(), is(2));
     }
 
 }
