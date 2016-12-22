@@ -1,8 +1,8 @@
 package vkaretko;
 
 /**
- * Class MyQueueList.
- * Simple implementation of MyQueueList based on MyLinkedList.
+ * Class MyStackList.
+ * Simple implementation of MyStackList based on MyLinkedList.
  * @author Karetko Victor
  * @version 1.00
  * @since 22.12.2016

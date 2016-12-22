@@ -14,15 +14,15 @@ import static org.junit.Assert.assertThat;
  */
 public class MyQueueListTest {
     /**
-     * MyLinked list for tests.
+     * MyQueue list for tests.
      */
     private MyQueueList list;
 
     /**
-     * Create MyLinkedList.
+     * Create MyQueue List.
      */
     @Before
-    public void prepareMyStackList() {
+    public void prepareMyQueueList() {
         this.list = new MyQueueList();
         list.offer(1);
         list.offer(2);
@@ -37,7 +37,7 @@ public class MyQueueListTest {
     }
 
     /**
-     * Test for pop method.
+     * Test for poll method.
      */
     @Test
     public void whenPollThenResultFirstElement() {
@@ -54,7 +54,7 @@ public class MyQueueListTest {
     }
 
     /**
-     * Test for push method.
+     * Test for offer method.
      */
     @Test
     public void whenOfferThenPeekReturnFirstElement() {

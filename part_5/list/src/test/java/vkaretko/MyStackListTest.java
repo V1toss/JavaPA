@@ -7,19 +7,19 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Test class for MyQueueList.
+ * Test class for MyStackList.
  * @author Karetko Victor
  * @version 1.00
  * @since 22.12.2016
  */
 public class MyStackListTest {
     /**
-     * MyLinked list for tests.
+     * MyStack list for tests.
      */
     private MyStackList list;
 
     /**
-     * Create MyLinkedList.
+     * Create MyStackList.
      */
     @Before
     public void prepareMyStackList() {
