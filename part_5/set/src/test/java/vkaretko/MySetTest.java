@@ -67,6 +67,7 @@ public class MySetTest {
      */
     @Test
     public void whenNextThenResultFirstElement() {
+        linkedSet.add(2);
         linkedSet.add(1);
         linkedSet.add(2);
         Iterator itr = linkedSet.iterator();

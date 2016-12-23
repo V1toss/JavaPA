@@ -1,7 +1,6 @@
 package vkaretko;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,10 +39,13 @@ public class MySet<E> implements SimpleSet<E> {
      */
     @Override
     public void add(E e) {
-        if (elements.size() == 0 || !hasDuplicates(e, 0, elements.size() - 1)) {
-            elements.add(e);
+        int position = 0;
+        if (size() > 0) {
+            position = hasDuplicates(e, 0, elements.size() - 1);
         }
-        sortHash();
+        if (position != -1) {
+            elements.add(position, e);
+        }
     }
     /**
      * Method checks duplicates in array.
@@ -53,27 +55,20 @@ public class MySet<E> implements SimpleSet<E> {
      * @param end end of range.
      * @return true if has duplicates, false otherwise.
      */
-    private boolean hasDuplicates(E element, int start, int end) {
-        boolean result;
+    private int hasDuplicates(E element, int start, int end) {
+        int result;
         int middle = ((end - start) >> 1) + start;
         if (start == end && element.hashCode() != elements.get(middle).hashCode()) {
-            result = false;
+            result = middle;
         } else if (element.hashCode() == elements.get(middle).hashCode()) {
-            result = true;
+            result = -1;
         } else if (element.hashCode() > elements.get(middle).hashCode()) {
             result = hasDuplicates(element, middle + 1, end);
         } else {
-            result = hasDuplicates(element, start, middle - 1);
+            result = hasDuplicates(element, start, middle);
         }
         return result;
     }
-    /**
-     * Sort list by hash codes.
-     */
-    private void sortHash() {
-        Collections.sort(elements, (elOne, elTwo) -> elOne.hashCode() - elTwo.hashCode());
-    }
-
     /**
      * Method return size of set.
      * @return size.
