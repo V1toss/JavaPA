@@ -1,0 +1,15 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>vkaretko</groupId>
+   <artifactId>set</artifactId>
+   <packaging>jar</packaging>
+   <name>part_5_set</name>
+   <version>1.0</version>
+  
+<parent>
+    <groupId>part_5</groupId>
+    <artifactId>part_5</artifactId>
+     <version>1.0</version>
+</parent>
+
+</project>
