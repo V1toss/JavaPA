@@ -1,0 +1,15 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>vkaretko</groupId>
+   <artifactId>map</artifactId>
+   <packaging>jar</packaging>
+   <name>part_5_map</name>
+   <version>1.0</version>
+  
+<parent>
+    <groupId>part_5</groupId>
+    <artifactId>part_5</artifactId>
+     <version>1.0</version>
+</parent>
+
+</project>
