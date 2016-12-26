@@ -17,6 +17,7 @@
       <module>generic</module>
       <module>list</module>
       <module>set</module>
-      <module>map</module>		
+      <module>map</module>
+      <module>tree</module>				
   </modules>
 </project>
