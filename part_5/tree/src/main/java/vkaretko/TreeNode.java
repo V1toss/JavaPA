@@ -48,7 +48,7 @@ public class TreeNode<E> implements Iterable<E> {
 
     /**
      * Method fill in list all children in sub-nodes.
-     * @param node node to get childen.
+     * @param node node to get children.
      * @param list result list.
      * @return list of children.
      */
@@ -71,6 +71,80 @@ public class TreeNode<E> implements Iterable<E> {
         node.parent = this;
         node.value = value;
         this.children.add(node);
+    }
+
+    /**
+     * Method finds index of element by value.
+     * @param value value to search.
+     * @return index of element.
+     */
+    public Integer searchByValue(E value) {
+        Integer index = null;
+        int count = 0;
+        List<E> childrenList = new ArrayList<E>();
+        childrenList = recursiveFill(this, childrenList);
+        for (E sValue : childrenList) {
+            if (sValue.equals(value)) {
+                index = count;
+                break;
+            }
+            count++;
+        }
+        return index;
+    }
+
+    /**
+     * Method checks if tree is balanced
+     * @return true if balanced, false otherwise.
+     */
+    public boolean isBalancedTree() {
+        boolean result = false;
+        List<Integer> branches = new ArrayList<>();
+        branches = getLengthOfBranches(this, branches);
+        int length = branches.size();
+
+        while (length != 1 && length % 2 == 0) {
+            length /= 2;
+        }
+        if (length == 1) {
+            result = checkSameLengths(branches);
+        }
+        return result;
+    }
+
+    /**
+     * Method checks that List have same elements.
+     * @param branches list of branches length.
+     * @return true if branches are same lengths.
+     */
+    private boolean checkSameLengths(List<Integer> branches) {
+        boolean result = true;
+        Integer length = branches.get(0);
+        for (Integer len : branches) {
+            if (!len.equals(length)) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Method recursively calculates lengths of all branches.
+     * @param node node to search
+     * @param branches list of branches lengths.
+     * @return list of branches length.
+     */
+    private List<Integer> getLengthOfBranches(TreeNode<E> node, List<Integer> branches) {
+        int count = 0;
+        for (TreeNode elNode : node.children) {
+            if (elNode.children.size() > 0) {
+                count++;
+                getLengthOfBranches(elNode, branches);
+            } else {
+                branches.add(count);
+            }
+        }
+        return branches;
     }
 
     /**

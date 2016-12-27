@@ -119,4 +119,42 @@ public class TreeNodeTest {
         assertThat(iter.hasNext(), is(false));
     }
 
+    /**
+     * Method checks if tree is balanced with positive result.
+     */
+    @Test
+    public void whenAddTwoChildAndTwoSubChildToEachChildThenBalancedTree() {
+        tree.addChild(nodeOne, "1");
+        tree.addChild(nodeTwo, "2");
+        nodeOne.addChild(new TreeNode(), "3");
+        nodeOne.addChild(new TreeNode(), "4");
+        nodeTwo.addChild(new TreeNode(), "5");
+        nodeTwo.addChild(new TreeNode(), "6");
+        assertThat(tree.isBalancedTree(), is(true));
+    }
+
+    /**
+     * Method checks if tree is balanced with positive result.
+     */
+    @Test
+    public void whenAddTwoChildAndSecondChildHasOnlyOneSubChildThenNotBalancedTree() {
+        tree.addChild(nodeOne, "1");
+        tree.addChild(nodeTwo, "2");
+        nodeOne.addChild(new TreeNode(), "3");
+        nodeOne.addChild(new TreeNode(), "4");
+        nodeTwo.addChild(new TreeNode(), "6");
+        assertThat(tree.isBalancedTree(), is(false));
+    }
+
+    /**
+     * Method checks searchByValue method.
+     */
+    @Test
+    public void whenSearchTwoThenResultIndexOne() {
+        tree.addChild(nodeOne, "1");
+        nodeOne.addChild(nodeTwo, "2");
+        nodeTwo.addChild(nodeThree, "3");
+        assertThat(tree.searchByValue("2"), is(1));
+    }
+
 }
