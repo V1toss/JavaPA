@@ -150,11 +150,21 @@ public class TreeNodeTest {
      * Method checks searchByValue method.
      */
     @Test
+    public void whenSearchTwoThenResultLevelTwo() {
+        tree.addChild(nodeOne, "1");
+        nodeOne.addChild(nodeTwo, "2");
+        assertThat(tree.searchByValue("2"), is("Element founded on level 2"));
+    }
+
+    /**
+     * Method checks searchByValue method with false result.
+     */
+    @Test
     public void whenSearchTwoThenResultIndexOne() {
         tree.addChild(nodeOne, "1");
         nodeOne.addChild(nodeTwo, "2");
         nodeTwo.addChild(nodeThree, "3");
-        assertThat(tree.searchByValue("2"), is(1));
+        assertThat(tree.searchByValue("4"), is("Element not found"));
     }
 
 }

@@ -78,19 +78,27 @@ public class TreeNode<E> implements Iterable<E> {
      * @param value value to search.
      * @return index of element.
      */
-    public Integer searchByValue(E value) {
-        Integer index = null;
-        int count = 0;
-        List<E> childrenList = new ArrayList<E>();
-        childrenList = recursiveFill(this, childrenList);
-        for (E sValue : childrenList) {
-            if (sValue.equals(value)) {
-                index = count;
-                break;
+    public String searchByValue(E value) {
+        return recSearch(this, value, 0);
+    }
+
+    /**
+     * Recursive search of element;
+     * @return message about element found or not founded.
+     */
+    private String recSearch(TreeNode<E> node, E value, int height) {
+        String result = "";
+        if (node.value != null && node.value.equals(value)) {
+            result = String.format("Element founded on level %s", height);
+        } else if (node.children.size() > 0) {
+            height++;
+            for (TreeNode elNode : node.children) {
+                result = recSearch(elNode, value, height);
             }
-            count++;
+        } else {
+            result = "Element not found";
         }
-        return index;
+        return result;
     }
 
     /**
@@ -98,32 +106,9 @@ public class TreeNode<E> implements Iterable<E> {
      * @return true if balanced, false otherwise.
      */
     public boolean isBalancedTree() {
-        boolean result = false;
-        List<Integer> branches = new ArrayList<>();
-        branches = getLengthOfBranches(this, branches);
-        int length = branches.size();
-
-        while (length != 1 && length % 2 == 0) {
-            length /= 2;
-        }
-        if (length == 1) {
-            result = checkSameLengths(branches);
-        }
-        return result;
-    }
-
-    /**
-     * Method checks that List have same elements.
-     * @param branches list of branches length.
-     * @return true if branches are same lengths.
-     */
-    private boolean checkSameLengths(List<Integer> branches) {
         boolean result = true;
-        Integer length = branches.get(0);
-        for (Integer len : branches) {
-            if (!len.equals(length)) {
-                result = false;
-            }
+        if (isRecBalance(this) == -1) {
+            result = false;
         }
         return result;
     }
@@ -131,20 +116,32 @@ public class TreeNode<E> implements Iterable<E> {
     /**
      * Method recursively calculates lengths of all branches.
      * @param node node to search
-     * @param branches list of branches lengths.
      * @return list of branches length.
      */
-    private List<Integer> getLengthOfBranches(TreeNode<E> node, List<Integer> branches) {
-        int count = 0;
-        for (TreeNode elNode : node.children) {
-            if (elNode.children.size() > 0) {
-                count++;
-                getLengthOfBranches(elNode, branches);
+    private int isRecBalance(TreeNode<E> node) {
+        int result;
+        if (node.children.size() == 2) {
+            int left = isRecBalance(node.children.get(0));
+            int right = isRecBalance(node.children.get(1));
+            if (Math.abs(left - right) == 0 && left != -1) {
+                result = left + 1;
             } else {
-                branches.add(count);
+                result = -1;
             }
+        } else if (node.children.size() == 0) {
+            result = 1;
+        } else {
+            result = -1;
         }
-        return branches;
+        return result;
+    }
+
+    /**
+     * Setter for value of node.
+     * @param value value to set.
+     */
+    public void setValue(E value) {
+        this.value = value;
     }
 
     /**
