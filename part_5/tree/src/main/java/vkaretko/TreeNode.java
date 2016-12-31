@@ -83,7 +83,10 @@ public class TreeNode<E> implements Iterable<E> {
     }
 
     /**
-     * Recursive search of element;
+     * Recursive search of element.
+     * @param node node to search
+     * @param value to search.
+     * @param height deep level.
      * @return message about element found or not founded.
      */
     private String recSearch(TreeNode<E> node, E value, int height) {
@@ -102,7 +105,7 @@ public class TreeNode<E> implements Iterable<E> {
     }
 
     /**
-     * Method checks if tree is balanced
+     * Method checks if tree is balanced.
      * @return true if balanced, false otherwise.
      */
     public boolean isBalancedTree() {
