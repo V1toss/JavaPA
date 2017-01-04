@@ -1,9 +1,11 @@
 package vkaretko;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 /**
- * Class
+ * Class OrderBook.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -77,30 +79,66 @@ public class OrderBook {
         }
     }
 
+    /**
+     * Method make deals between sell and buy orders.
+     */
     public void checkSides() {
         Iterator<Double> iterBuy = buySort.keySet().iterator();
         Iterator<Double> iterSell = sellSort.keySet().iterator();
-        while (iterBuy.hasNext() && iterSell.hasNext()) {
+        if (iterBuy.hasNext() && iterSell.hasNext()) {
             Double nextBuy = iterBuy.next();
             Double nextSell = iterSell.next();
-            HashMap<Integer, Order> mapBuy = buySort.get(nextBuy);
-            HashMap<Integer, Order> mapSell = sellSort.get(nextSell);
-            if (calculateVolume(mapBuy) > calculateVolume(mapSell)) {
-               // buySort.put(nextBuy, )
-                sellSort.remove(nextSell);
-
-            } else if (calculateVolume(mapBuy) > calculateVolume(mapSell)) {
-
+            while (iterBuy.hasNext() && iterSell.hasNext()) {
+                HashMap<Integer, Order> mapBuy = buySort.get(nextBuy);
+                HashMap<Integer, Order> mapSell = sellSort.get(nextSell);
+                int mapBuyVolumes = calculateVolume(mapBuy);
+                int mapSellVolumes = calculateVolume(mapSell);
+                if (mapBuyVolumes > mapSellVolumes && nextBuy >= nextSell) {
+                    removeOrders(buySort.get(nextBuy), mapSellVolumes);
+                    iterSell.remove();
+                    nextSell = iterSell.next();
+                } else if (mapBuyVolumes < mapSellVolumes && nextBuy >= nextSell) {
+                    removeOrders(sellSort.get(nextSell), mapBuyVolumes);
+                    iterBuy.remove();
+                    nextBuy = iterBuy.next();
+                } else if (mapBuyVolumes == mapSellVolumes && nextBuy >= nextSell) {
+                    iterBuy.remove();
+                    iterSell.remove();
+                    nextSell = iterSell.next();
+                    nextBuy = iterBuy.next();
+                } else {
+                    break;
+                }
             }
         }
     }
+
+    /**
+     * Method removes orders when check side.
+     * @param map map to delete.
+     * @param value value to delete.
+     */
+    private void removeOrders(HashMap<Integer, Order> map, int value) {
+        Iterator<Order> iterator = map.values().iterator();
+        while (iterator.hasNext()) {
+            Order nextOrder = iterator.next();
+            if (nextOrder.getVolume() < value) {
+                value -= nextOrder.getVolume();
+                iterator.remove();
+            } else {
+                nextOrder.setVolume(nextOrder.getVolume() - value);
+                break;
+            }
+        }
+    }
+
 
     /**
      * Calculates volumes for each price.
      * @param map map to calculate.
      * @return sum of volumes.
      */
-    private int calculateVolume(HashMap<Integer,Order> map) {
+    private int calculateVolume(HashMap<Integer, Order> map) {
         int result = 0;
         for (Order order : map.values()) {
             result += order.getPrice();

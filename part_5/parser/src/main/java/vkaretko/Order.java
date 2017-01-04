@@ -1,7 +1,7 @@
 package vkaretko;
 
 /**
- * Class
+ * Class Order.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -34,6 +34,7 @@ public class Order {
      * @param price - price of order.
      * @param volume - volume of order.
      * @param orderId - id of order.
+     * @param operation - operation of order.
      */
     public Order(double price, int volume, int orderId, boolean operation) {
         this.orderId = orderId;

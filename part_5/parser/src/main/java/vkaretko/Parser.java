@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 /**
- * Class
+ * Class Parser.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -45,9 +45,13 @@ public class Parser {
         printOrders();
     }
 
+    /**
+     * Print orders in console.
+     */
     private void printOrders() {
         for (String book : orderBooks.keySet()) {
             System.out.println(book);
+            orderBooks.get(book).checkSides();
             orderBooks.get(book).print();
         }
     }
