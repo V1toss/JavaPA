@@ -47,8 +47,7 @@ public class OrderBook {
     private void addToSorted(TreeMap<Double, HashMap<Integer, Order>> sortMap, Order order) {
         HashMap<Integer, Order> map;
         if (sortMap.containsKey(order.getPrice())) {
-            map = sortMap.get(order.getPrice());
-            map.put(order.getOrderId(), order);
+            sortMap.get(order.getPrice()).put(order.getOrderId(), order);
         } else {
             map = new HashMap<>();
             map.put(order.getOrderId(), order);
@@ -65,19 +64,64 @@ public class OrderBook {
             Order order = unsorted.get(orderId);
             if (order.isOperation()) {
                 buySort.get(order.getPrice()).remove(order.getOrderId());
+                if (buySort.get(order.getPrice()).size() == 0) {
+                    buySort.remove(order.getPrice());
+                }
             } else {
                 sellSort.get(order.getPrice()).remove(order.getOrderId());
+                if (sellSort.get(order.getPrice()).size() == 0) {
+                    sellSort.remove(order.getPrice());
+                }
             }
             unsorted.remove(orderId);
         }
+    }
+
+    public void checkSides() {
+        Iterator<Double> iterBuy = buySort.keySet().iterator();
+        Iterator<Double> iterSell = sellSort.keySet().iterator();
+        while (iterBuy.hasNext() && iterSell.hasNext()) {
+            Double nextBuy = iterBuy.next();
+            Double nextSell = iterSell.next();
+            HashMap<Integer, Order> mapBuy = buySort.get(nextBuy);
+            HashMap<Integer, Order> mapSell = sellSort.get(nextSell);
+            if (calculateVolume(mapBuy) > calculateVolume(mapSell)) {
+               // buySort.put(nextBuy, )
+                sellSort.remove(nextSell);
+
+            } else if (calculateVolume(mapBuy) > calculateVolume(mapSell)) {
+
+            }
+        }
+    }
+
+    /**
+     * Calculates volumes for each price.
+     * @param map map to calculate.
+     * @return sum of volumes.
+     */
+    private int calculateVolume(HashMap<Integer,Order> map) {
+        int result = 0;
+        for (Order order : map.values()) {
+            result += order.getPrice();
+        }
+        return result;
     }
 
     /**
      * Method prints pairs of sell orders and buy orders.
      */
     public void print() {
-
+        Iterator<Double> iterBuy = buySort.keySet().iterator();
+        Iterator<Double> iterSell = sellSort.keySet().iterator();
+        while (iterBuy.hasNext() && iterSell.hasNext()) {
+            Double nextBuy = iterBuy.next();
+            Double nextSell = iterSell.next();
+            HashMap<Integer, Order> mapBuy = buySort.get(nextBuy);
+            HashMap<Integer, Order> mapSell = sellSort.get(nextSell);
+            System.out.println(String.format("%s@%s - %s@%s", calculateVolume(mapBuy), nextBuy,
+                    calculateVolume(mapSell), nextSell));
+        }
     }
-
 
 }

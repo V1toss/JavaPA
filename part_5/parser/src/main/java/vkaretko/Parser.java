@@ -42,6 +42,14 @@ public class Parser {
             }
             streamReader.next();
         }
+        printOrders();
+    }
+
+    private void printOrders() {
+        for (String book : orderBooks.keySet()) {
+            System.out.println(book);
+            orderBooks.get(book).print();
+        }
     }
 
     /**
@@ -50,10 +58,10 @@ public class Parser {
      */
     private void addOrder(XMLStreamReader reader) {
         String book = reader.getAttributeValue(0);
-        boolean operation = reader.getAttributeValue(1).equals("BUY");
-        int orderId = Integer.valueOf(reader.getAttributeValue(4));
         Order order = new Order(Double.valueOf(reader.getAttributeValue(2)),
-                Integer.valueOf(reader.getAttributeValue(3)), orderId, operation);
+                Integer.valueOf(reader.getAttributeValue(3)),
+                Integer.valueOf(reader.getAttributeValue(4)),
+                reader.getAttributeValue(1).equals("BUY"));
         OrderBook orderBook = orderBooks.get(book);
         if (orderBook == null) {
             orderBook = new OrderBook();

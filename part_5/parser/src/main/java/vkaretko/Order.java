@@ -73,4 +73,12 @@ public class Order {
     public boolean isOperation() {
         return this.operation;
     }
+
+    /**
+     * Setter for volume.
+     * @param volume volume of order.
+     */
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
 }
