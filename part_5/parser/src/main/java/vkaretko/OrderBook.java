@@ -14,34 +14,45 @@ public class OrderBook {
     /**
      * Buy orders.
      */
-    private HashMap<Integer, Order> buy = new HashMap<>();
+    private HashMap<Integer, Order> unsorted = new HashMap<>();
+
+    /**
+     * Buy orders.
+     */
+    private TreeMap<Double, HashMap<Integer, Order>> buySort = new TreeMap<>((o1, o2) -> Double.compare(o2, o1));
 
     /**
      * Sell orders.
      */
-    private HashMap<Integer, Order> sell = new HashMap<>();
-
-    /**
-     * Sorted array list of buy orders.
-     */
-    private ArrayList<Order> buySort = new ArrayList<>();
-
-    /**
-     * Sorted array list of sell orders.
-     */
-    private ArrayList<Order> sellSort = new ArrayList<>();
+    private TreeMap<Double, HashMap<Integer, Order>> sellSort = new TreeMap<>(Double::compare);
 
     /**
      * Method add orders to buy or sell hashmap.
      * @param order order to add.
-     * @param orderId order id to add.
-     * @param operation operation - true to buy, false to sell.
      */
-    public void add(Order order, int orderId, boolean operation) {
-        if (operation) {
-            buy.put(orderId, order);
+    public void add(Order order) {
+        unsorted.put(order.getOrderId(), order);
+        if (order.isOperation()) {
+            addToSorted(buySort, order);
         } else {
-            sell.put(orderId, order);
+            addToSorted(sellSort, order);
+        }
+    }
+
+    /**
+     * Method add orders to sorted maps by prices.
+     * @param sortMap map to add.
+     * @param order order to add.
+     */
+    private void addToSorted(TreeMap<Double, HashMap<Integer, Order>> sortMap, Order order) {
+        HashMap<Integer, Order> map;
+        if (sortMap.containsKey(order.getPrice())) {
+            map = sortMap.get(order.getPrice());
+            map.put(order.getOrderId(), order);
+        } else {
+            map = new HashMap<>();
+            map.put(order.getOrderId(), order);
+            sortMap.put(order.getPrice(), map);
         }
     }
 
@@ -50,10 +61,14 @@ public class OrderBook {
      * @param orderId id to delete.
      */
     public void delete(int orderId) {
-        if (buy.containsKey(orderId)) {
-            buy.remove(orderId);
-        } else if (sell.containsKey(orderId)) {
-            sell.remove(orderId);
+        if (unsorted.containsKey(orderId)) {
+            Order order = unsorted.get(orderId);
+            if (order.isOperation()) {
+                buySort.get(order.getPrice()).remove(order.getOrderId());
+            } else {
+                sellSort.get(order.getPrice()).remove(order.getOrderId());
+            }
+            unsorted.remove(orderId);
         }
     }
 
@@ -61,15 +76,7 @@ public class OrderBook {
      * Method prints pairs of sell orders and buy orders.
      */
     public void print() {
-        buySort.addAll(buy.values());
-        sellSort.addAll(sell.values());
-        Collections.sort(buySort, (o1, o2) -> Double.compare(o2.getPrice(), o1.getPrice()));
-        Collections.sort(sellSort, (o1, o2) -> Double.compare(o1.getPrice(), o2.getPrice()));
-        int maxSize = buySort.size() > sellSort.size() ? sellSort.size() : buySort.size();
-        for (int index = 0; index < maxSize; index++) {
-            System.out.println(String.format("%s@%s - %s@%s", buySort.get(index).getVolume(),
-                    buySort.get(index).getPrice(), sellSort.get(index).getVolume(), sellSort.get(index).getPrice()));
-        }
+
     }
 
 

@@ -53,13 +53,13 @@ public class Parser {
         boolean operation = reader.getAttributeValue(1).equals("BUY");
         int orderId = Integer.valueOf(reader.getAttributeValue(4));
         Order order = new Order(Double.valueOf(reader.getAttributeValue(2)),
-                Integer.valueOf(reader.getAttributeValue(3)), orderId);
+                Integer.valueOf(reader.getAttributeValue(3)), orderId, operation);
         OrderBook orderBook = orderBooks.get(book);
         if (orderBook == null) {
             orderBook = new OrderBook();
             orderBooks.put(book, orderBook);
         }
-        orderBook.add(order, orderId, operation);
+        orderBook.add(order);
     }
 
     /**
