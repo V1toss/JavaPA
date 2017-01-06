@@ -1,0 +1,15 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>vkaretko</groupId>
+   <artifactId>gc</artifactId>
+   <packaging>jar</packaging>
+   <name>part_6_gc</name>
+   <version>1.0</version>
+  
+<parent>
+    <groupId>part_6</groupId>
+    <artifactId>part_6</artifactId>
+     <version>1.0</version>
+</parent>
+
+</project>
