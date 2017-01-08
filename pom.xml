@@ -86,6 +86,7 @@
         <module>part_4</module>
         <module>part_5</module>
         <module>part_6</module>
+        <module>part_7</module>
     </modules>
     <reporting>
         <plugins>

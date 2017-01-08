@@ -1,0 +1,18 @@
+<project>
+  <modelVersion>4.0.0</modelVersion> 
+  <groupId>part_7</groupId>
+  <artifactId>part_7</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging> 
+  <name>part_7</name>
+
+<parent>
+    <groupId>JavaPA</groupId>
+    <artifactId>JavaPA</artifactId>
+     <version>1.0-SNAPSHOT</version>
+</parent>
+
+  <modules>
+      <module>spacecalc</module>
+  </modules>
+</project>
