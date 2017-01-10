@@ -19,6 +19,7 @@
       <module>set</module>
       <module>map</module>
       <module>tree</module>
-      <module>parser</module>				
+      <module>parser</module>
+      <module>revert</module>				
   </modules>
 </project>
