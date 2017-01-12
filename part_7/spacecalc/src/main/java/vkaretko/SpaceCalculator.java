@@ -1,5 +1,9 @@
 package vkaretko;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Class SpaceCalculator.
  *
@@ -15,29 +19,15 @@ public class SpaceCalculator {
      */
     public void parse(String text, boolean pause) throws InterruptedException {
         System.out.println("White space calculator");
-        Thread threadWords = wordCountThread(text);
-        Thread threadSpaces = spaceCountThread(text);
-        threadSpaces.start();
-        threadWords.start();
-        if (pause) {
-            threadSpaces.join(1000);
-            threadWords.join(1000);
-            interruptThreads(threadSpaces, threadWords);
+        final ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.submit(wordCountThread(text));
+        executor.submit(spaceCountThread(text));
+        if (pause && !executor.awaitTermination(1, TimeUnit.SECONDS)) {
+            executor.shutdownNow();
         }
         System.out.println("Finish");
     }
 
-    /**
-     * Method for interrupting threads.
-     * @param threads threads to interrrupt.
-     */
-    private void interruptThreads(Thread... threads) {
-        for (Thread thread : threads) {
-            if (thread.isAlive()) {
-                thread.interrupt();
-            }
-        }
-    }
 
     /**
      * Method for calculating words in line.
