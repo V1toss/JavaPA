@@ -25,7 +25,7 @@ public class ThreadCountSynch {
      * Getter for count.
      * @return count.
      */
-    public int getCount() {
+    public synchronized int getCount() {
         return count;
     }
 
@@ -43,7 +43,7 @@ public class ThreadCountSynch {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(count);
+        System.out.println(getCount());
     }
 
     /**
