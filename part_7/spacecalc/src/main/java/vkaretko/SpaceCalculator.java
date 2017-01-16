@@ -3,6 +3,8 @@ package vkaretko;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class SpaceCalculator.
@@ -38,7 +40,16 @@ public class SpaceCalculator {
         return new Thread() {
             @Override
             public void run() {
-                System.out.println(String.format("Words: %s", text.split(" ").length));
+                int count = 0;
+                Pattern p = Pattern.compile("[a-zA-Zа-яА-Я]+");
+                Matcher m = p.matcher(text);
+                while(!isInterrupted() && m.find()) {
+                    count++;
+                }
+                if (isInterrupted()) {
+                    System.out.println("Thread Interrupted");
+                }
+                System.out.println(String.format("Words: %s", count));
             }
         };
     }
@@ -52,7 +63,18 @@ public class SpaceCalculator {
          return new Thread() {
              @Override
              public void run() {
-                 System.out.println(String.format("Spaces: %s", text.replaceAll("[^ ]", "").length()));
+                 int count = 0;
+                 int index = 0;
+                 while (!isInterrupted() && index < text.length()) {
+                     if (text.charAt(index) == ' ') {
+                         count++;
+                     }
+                     index++;
+                 }
+                 if (isInterrupted()) {
+                     System.out.println("Thread Interrupted");
+                 }
+                 System.out.println(String.format("Spaces: %s", count));
              }
          };
     }
