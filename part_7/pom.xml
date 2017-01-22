@@ -15,5 +15,6 @@
   <modules>
       <module>spacecalc</module>
       <module>jmm</module>
+      <module>userstorage</module>	
   </modules>
 </project>
