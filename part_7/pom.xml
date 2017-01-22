@@ -15,6 +15,7 @@
   <modules>
       <module>spacecalc</module>
       <module>jmm</module>
-      <module>userstorage</module>	
+      <module>userstorage</module>
+      <module>synchlists</module>
   </modules>
 </project>
