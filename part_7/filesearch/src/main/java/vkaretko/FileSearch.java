@@ -3,7 +3,7 @@ package vkaretko;
 import java.io.File;
 
 /**
- * The class FileSearch for search files on local disk by regular expression.
+ * The class FileSearch for search files on local disk with two threads.
  *
  * @author Karetko Victor
  * @version 1.00
