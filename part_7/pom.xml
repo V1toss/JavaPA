@@ -18,5 +18,6 @@
       <module>userstorage</module>
       <module>synchlists</module>
       <module>filesearch</module>
+      <module>producer</module>
   </modules>
 </project>

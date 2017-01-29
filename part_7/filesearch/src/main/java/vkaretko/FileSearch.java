@@ -17,8 +17,9 @@ public class FileSearch {
 
     /**
      * The method recursiveSearch checks number of arguments and keys.
-     * @param directory directory to search
-     * @param name value to search
+     * @param directory directory to search.
+     * @param name value to search.
+     * @param key key from command line.
      */
     private void search(File directory, String name, String key) {
         Thread threadOne = searchThread(directory, name, key);
@@ -35,10 +36,10 @@ public class FileSearch {
     }
 
     /**
-     * Search thread
-     * @param directory directory to search
-     * @param name name to search
-     * @param key key of search
+     * Search thread.
+     * @param directory directory to search.
+     * @param name name to search.
+     * @param key key of search.
      * @return new Thread.
      */
 
@@ -73,9 +74,9 @@ public class FileSearch {
     public static void main(String[] args) {
         FileSearch fs = new FileSearch();
         if (args.length == 2) {
-            fs.search(new File(args[0]),args[1],"");
+            fs.search(new File(args[0]), args[1], "");
         } else {
-            fs.search(new File(args[0]),args[1],args[2]);
+            fs.search(new File(args[0]), args[1], args[2]);
         }
 
     }
