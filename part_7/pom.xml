@@ -17,5 +17,6 @@
       <module>jmm</module>
       <module>userstorage</module>
       <module>synchlists</module>
+      <module>filesearch</module>
   </modules>
 </project>
