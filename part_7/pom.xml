@@ -19,5 +19,6 @@
       <module>synchlists</module>
       <module>filesearch</module>
       <module>producer</module>
+      <module>threadpool</module>
   </modules>
 </project>
