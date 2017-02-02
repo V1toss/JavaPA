@@ -20,5 +20,6 @@
       <module>filesearch</module>
       <module>producer</module>
       <module>threadpool</module>
+      <module>lock</module>
   </modules>
 </project>
