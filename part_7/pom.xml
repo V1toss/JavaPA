@@ -21,5 +21,6 @@
       <module>producer</module>
       <module>threadpool</module>
       <module>lock</module>
+      <module>nonblock</module>
   </modules>
 </project>
