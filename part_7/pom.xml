@@ -22,5 +22,6 @@
       <module>threadpool</module>
       <module>lock</module>
       <module>nonblock</module>
+      <module>bomberman</module>
   </modules>
 </project>
