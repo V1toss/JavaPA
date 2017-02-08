@@ -28,6 +28,7 @@ public abstract class Figure {
      * COnstructor of class Figure.
      * @param x x coord.
      * @param y y coord.
+     * @param field game field.
      */
 
     public Figure(Cell[][] field, int x, int y) {

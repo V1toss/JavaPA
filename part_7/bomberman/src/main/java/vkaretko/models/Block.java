@@ -1,7 +1,7 @@
 package vkaretko.models;
 
 /**
- * Class
+ * Class Block - inactive blocks on game field.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -10,9 +10,10 @@ package vkaretko.models;
 public class Block extends Figure {
 
     /**
-     * Constructor of class Block
+     * Constructor of class Block.
      * @param x X coord.
      * @param y Y coord.
+     * @param field game field.
      */
     public Block(Cell[][] field, int x, int y) {
         super(field, x, y);

@@ -7,7 +7,7 @@ package vkaretko.models;
  * @version 1.00.
  * @since 05.02.2017.
  */
-public class Monster extends Figure implements Runnable{
+public class Monster extends Figure implements Runnable {
     /**
      * Default direction.
      */
@@ -24,14 +24,14 @@ public class Monster extends Figure implements Runnable{
     }
 
     /**
-     * Method run move
+     * Method call make step method with direction.
      */
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             if (!makeStep(direction)) {
                 this.direction = direction.changeDir();
-                System.out.println("Monster change direction: " + direction);
+                System.out.println(String.format("Monster change direction: %s", direction));
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

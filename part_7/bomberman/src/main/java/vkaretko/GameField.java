@@ -69,6 +69,7 @@ public class GameField {
      * Method adds new player to the field.
      * @param x x coord.
      * @param y y coord.
+     * @param player player.
      */
     public void addPlayer(Player player, int x, int y) {
         synchronized (this.field) {

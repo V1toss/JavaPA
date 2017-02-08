@@ -9,43 +9,84 @@ package vkaretko.models;
  */
 public enum Direction {
     /**
-     * Four directions.
+     * Up directions.
      */
     UP {
+        /**
+         * Get steps for current direction.
+         * @return steps.
+         */
         public int[] get() {
             return new int[]{0, 1};
         }
 
+        /**
+         * Change direction to another.
+         * @return new direction.
+         */
         @Override
         public Direction changeDir() {
             return RIGHT;
         }
     },
+    /**
+     * Right direction.
+     */
     RIGHT {
+        /**
+         * Get steps for current direction.
+         * @return steps.
+         */
         public int[] get() {
             return new int[]{1, 0};
         }
 
+        /**
+         * Change direction to another.
+         * @return new direction.
+         */
         @Override
         public Direction changeDir() {
             return DOWN;
         }
     },
+    /**
+     * Down direction.
+     */
     DOWN {
+        /**
+         * Get steps for current direction.
+         * @return steps.
+         */
         public int[] get() {
             return new int[]{0, -1};
         }
 
+        /**
+         * Change direction to another.
+         * @return new direction.
+         */
         @Override
         public Direction changeDir() {
             return LEFT;
         }
     },
+    /**
+     * Left direction.
+     */
     LEFT {
+        /**
+         * Get steps for current direction.
+         * @return steps.
+         */
         public int[] get() {
             return new int[]{-1, 0};
         }
 
+        /**
+         * Change direction to another.
+         * @return new direction.
+         */
         @Override
         public Direction changeDir() {
             return UP;

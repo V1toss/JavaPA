@@ -1,7 +1,7 @@
 package vkaretko.models;
 
 /**
- * Class
+ * Class Cell - describes cells on game field.
  *
  * @author Karetko Victor.
  * @version 1.00.
