@@ -7,7 +7,7 @@ package vkaretko;
  * @version 1.00.
  * @since 05.02.2017.
  */
-public class OptimisticException extends Exception {
+public class OptimisticException extends RuntimeException {
     /**
      * Constructor of class Optimistic Exception.
      * @param msg msg to send.

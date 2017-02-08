@@ -43,12 +43,14 @@ public class NonBlockCache<K, V extends Model> {
      * @return updated item.
      */
     public V update(K key, V value) throws OptimisticException {
-        if (value.getVersion() == get(key).getVersion()) {
-            value.update();
-        } else {
-            throw new OptimisticException("Another version");
-        }
-        return this.cache.computeIfPresent(key, (k, v) -> value);
+        return this.cache.computeIfPresent(key, (k, v) -> {
+            if (v.getVersion() == value.getVersion()) {
+                value.update();
+                return value;
+            } else {
+                throw new OptimisticException("Another version");
+            }
+        });
     }
 
     /**
