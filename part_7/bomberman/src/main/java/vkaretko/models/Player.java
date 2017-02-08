@@ -8,5 +8,13 @@ package vkaretko.models;
  * @since 05.02.2017.
  */
 public class Player extends Figure {
-
+    /**
+     * Constructor of player class.
+     * @param x X coord.
+     * @param y Y coord.
+     * @param field Game Field.
+     */
+    public Player(Cell[][] field, int x, int y) {
+        super(field, x, y);
+    }
 }

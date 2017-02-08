@@ -8,21 +8,42 @@ package vkaretko.models;
  * @since 05.02.2017.
  */
 public class Monster extends Figure implements Runnable{
+    /**
+     * Default direction.
+     */
+    private Direction direction = Direction.UP;
 
+    /**
+     * Constructor of class Monster.
+     * @param x X coord.
+     * @param y Y coord.
+     * @param field gamefield.
+     */
+    public Monster(Cell[][] field, int x, int y) {
+        super(field, x, y);
+    }
+
+    /**
+     * Method run move
+     */
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (!makeStep(direction)) {
+                this.direction = direction.changeDir();
+                System.out.println("Monster change direction: " + direction);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            move();
         }
     }
-
-    public void move() {
-        //if (makeStep())
-    }
-
 }

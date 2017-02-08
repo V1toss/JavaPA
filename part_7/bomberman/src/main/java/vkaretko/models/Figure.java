@@ -8,22 +8,57 @@ package vkaretko.models;
  * @since 05.02.2017.
  */
 public abstract class Figure {
+
     /**
-     * Method for makeing steps of figures.
-     * @param field game field.
+     * X coordinate.
+     */
+    private int x;
+
+    /**
+     * Y coordinate.
+     */
+    private int y;
+
+    /**
+     * Game field.
+     */
+    private Cell[][] field;
+
+    /**
+     * COnstructor of class Figure.
      * @param x x coord.
      * @param y y coord.
-     * @param stepX step through x coord.
-     * @param stepY step through y coord.
+     */
+
+    public Figure(Cell[][] field, int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.field = field;
+    }
+
+    /**
+     * Method for makeing steps of figures.
+     * @param dir direction to go.
      * @return true if figure made step, false otherwise.
      */
-    public boolean makeStep(Cell[][] field, int x, int y, int stepX, int stepY) {
-        boolean result = false;
-        synchronized (field[x + stepX][y + stepY]) {
-            if (field[x + stepX][y + stepY].getFigure() == null) {
-                field[x + stepX][y + stepY].setFigure(field[x][y].getFigure());
-                field[x][y].setFigure(null);
-                result = true;
+    public boolean makeStep(Direction dir) {
+        boolean result;
+        final int destX = this.x + dir.get()[0];
+        final int destY = this.y + dir.get()[1];
+        if (destX >= field.length || destY >= field.length || destX < 0 || destY < 0) {
+            result = false;
+        } else {
+            synchronized (field[destX][destY]) {
+                if (field[destX][destY].getFigure() == null) {
+                    field[destX][destY].setFigure(this);
+                    System.out.println(String.format("%s %s:%s", Thread.currentThread().getName(), destX, destY));
+                    field[x][y].setFigure(null);
+                    this.x = destX;
+                    this.y = destY;
+                    result = true;
+                } else {
+                    result = false;
+                }
             }
         }
         return result;

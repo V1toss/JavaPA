@@ -2,8 +2,12 @@ package vkaretko;
 
 import vkaretko.models.Block;
 import vkaretko.models.Cell;
-import vkaretko.models.Monster;
 import vkaretko.models.Player;
+import vkaretko.models.Direction;
+import vkaretko.models.Monster;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Class GameField.
@@ -19,14 +23,19 @@ public class GameField {
     private final Cell[][] field;
 
     /**
-     * Constructor of class GameField.
-     * @param x width of board
-     * @param y height of board.
+     *
      */
-    public GameField(int x, int y) {
-        this.field = new Cell[x][y];
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
+    private final ExecutorService service;
+
+    /**
+     * Constructor of class GameField.
+     * @param size of board
+     */
+    public GameField(int size) {
+        this.service = Executors.newCachedThreadPool();
+        this.field = new Cell[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 this.field[i][j] = new Cell();
             }
         }
@@ -39,7 +48,9 @@ public class GameField {
      */
     public void addMonster(int x, int y) {
         synchronized (this.field) {
-            this.field[x][y].setFigure(new Monster());
+            Monster monster = new Monster(field, x, y);
+            this.field[x][y].setFigure(monster);
+            service.execute(monster);
         }
     }
 
@@ -50,7 +61,7 @@ public class GameField {
      */
     public void addBlock(int x, int y) {
         synchronized (this.field) {
-            this.field[x][y].setFigure(new Block());
+            this.field[x][y].setFigure(new Block(field, x, y));
         }
     }
 
@@ -61,7 +72,7 @@ public class GameField {
      */
     public void addPlayer(Player player, int x, int y) {
         synchronized (this.field) {
-            this.field[x][y].setFigure(new Player());
+            this.field[x][y].setFigure(player);
         }
     }
 
@@ -73,12 +84,18 @@ public class GameField {
         return this.field;
     }
 
+    /**
+     * Main method - adding 2 monsters, 1 block and player.
+     * @param args arguments from command line.
+     */
     public static void main(String[] args) {
-        GameField field = new GameField(5, 5);
-        Player player = new Player();
+        GameField field = new GameField(8);
+        Player player = new Player(field.getField(), 0, 0);
         field.addBlock(1, 4);
         field.addMonster(1, 1);
+        field.addMonster(3, 1);
         field.addPlayer(player, 0, 0);
-        player.makeStep(field.getField(), 0, 0, 0, 1);
+        player.makeStep(Direction.UP);
+
     }
 }
