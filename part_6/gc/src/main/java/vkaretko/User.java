@@ -11,7 +11,7 @@ public class User {
     /**
      * Field name.
      */
-    public String name;
+    private String name;
 
     /**
      * Constructor of class User.
@@ -22,7 +22,7 @@ public class User {
     }
 
     /**
-     * Overrided finalize
+     * Overrided finalize.
      * @throws Throwable throwable
      */
     @Override
@@ -43,6 +43,7 @@ public class User {
     /**
      * Tests for gc.
      * @param args arguments from command line.
+     * @throws InterruptedException if interrupt.
      */
     public static void main(String[] args) throws InterruptedException {
         for (int index = 0; index < 5000; index++) {
@@ -55,7 +56,7 @@ public class User {
      * Print info about memory usage.
      */
     public static void info() {
-        int mb = 1024*1024;
+        int mb = 1024 * 1024;
 
         Runtime runtime = Runtime.getRuntime();
         System.out.println("##### Heap utilization statistics [MB] #####");

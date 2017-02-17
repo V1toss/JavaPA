@@ -49,8 +49,8 @@ public class RevertLinkedList<E> implements Iterable<E> {
         firstEntry = lastEntry;
         lastEntry = temp;
 
-        Entry<E> entry=firstEntry;
-        while(entry!=null) {
+        Entry<E> entry = firstEntry;
+        while (entry != null) {
             temp = entry.next;
             entry.next = entry.previous;
             entry.previous = temp;
@@ -84,7 +84,7 @@ public class RevertLinkedList<E> implements Iterable<E> {
         /**
          * Constructor of iterator.
          */
-        public Itr() {
+        Itr() {
             this.currentNode = firstEntry;
         }
 

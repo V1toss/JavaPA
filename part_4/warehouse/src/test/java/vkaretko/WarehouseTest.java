@@ -88,8 +88,8 @@ public class WarehouseTest {
     @Test
     public void whenAddMilkWithLowPercentOfExpiryThenSeparatedToWarehouse() {
         try {
-            Date dateCreate = sdf.parse("01.12.2016");
-            Date dateExpiry = sdf.parse("01.01.2017");
+            Date dateCreate = sdf.parse("01.01.2017");
+            Date dateExpiry = sdf.parse("01.10.2017");
             Milk milk = new Milk("Milk", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(milk);
             control.separateProducts(this.products, control.getAreas());
@@ -105,8 +105,8 @@ public class WarehouseTest {
     @Test
     public void whenAddBreadWithFiftyPercentOfExpiryThenSeparatedToShop() {
         try {
-            Date dateCreate = sdf.parse("01.09.2016");
-            Date dateExpiry = sdf.parse("01.02.2017");
+            Date dateCreate = sdf.parse("01.02.2017");
+            Date dateExpiry = sdf.parse("01.04.2017");
             Bread bread = new Bread("Bread", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(bread);
             control.separateProducts(this.products, control.getAreas());
@@ -139,8 +139,8 @@ public class WarehouseTest {
     @Test
     public void whenAddMeatToShopWithNinetyPercentOfExpiryThenPriceWithDiscount() {
         try {
-            Date dateCreate = sdf.parse("01.09.2016");
-            Date dateExpiry = sdf.parse("01.01.2017");
+            Date dateCreate = sdf.parse("01.02.2017");
+            Date dateExpiry = sdf.parse("20.02.2017");
             final double expectedPrice = 7.0;
             Meat meat = new Meat("Meat", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(meat);
@@ -157,8 +157,8 @@ public class WarehouseTest {
     @Test
     public void whenAddFreshVegetableThenVegetableInRefrigeratedWarehouse() {
         try {
-            Date dateCreate = sdf.parse("01.12.2016");
-            Date dateExpiry = sdf.parse("01.02.2017");
+            Date dateCreate = sdf.parse("01.02.2017");
+            Date dateExpiry = sdf.parse("01.10.2017");
             Vegetable apple = new Vegetable("Apple", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(apple);
             control.separateProducts(this.products, control.getAreas());
@@ -228,7 +228,7 @@ public class WarehouseTest {
     public void whenResortFoodWithNewExpiryThenProductGoesToTrash() {
         try {
             Date dateCreate = sdf.parse("01.09.2016");
-            Date dateExpiry = sdf.parse("01.02.2017");
+            Date dateExpiry = sdf.parse("01.06.2017");
             Bread bread = new Bread("Bread", dateExpiry, dateCreate, this.price, this.discount);
             this.products.add(bread);
             this.control.separateProducts(this.products, control.getAreas());

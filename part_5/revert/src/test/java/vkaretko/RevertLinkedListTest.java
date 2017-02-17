@@ -15,6 +15,9 @@ import static org.junit.Assert.assertThat;
  * @since 11.01.2017.
  */
 public class RevertLinkedListTest {
+    /**
+     * Test revertint of linked list.
+     */
     @Test
     public void whenRevertListThenLinkedListBackwardDirection() {
         RevertLinkedList list = new RevertLinkedList();

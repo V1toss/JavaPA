@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Class
+ * Class CacheTest.
  *
  * @author Karetko Victor.
  * @version 1.00.

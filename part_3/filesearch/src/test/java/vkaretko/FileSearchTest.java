@@ -43,6 +43,9 @@ public class FileSearchTest {
     @Before
     public void createTempFiles() {
         try {
+            File tempDir = new File("c:/temp");
+            tempDir.mkdir();
+            tempDir.deleteOnExit();
             this.tempFileOne = new File("c:/temp/1.txt");
             this.tempFileTwo = new File("c:/temp/2.txt");
             this.tempFileThree = new File("c:/temp/3.txt");
@@ -52,7 +55,7 @@ public class FileSearchTest {
             this.tempFileOne.deleteOnExit();
             this.tempFileTwo.deleteOnExit();
             this.tempFileThree.deleteOnExit();
-            this.logFile = new File("c:\\temp\\log.txt");
+            this.logFile = new File("c:/temp/log.txt");
             this.logFile.deleteOnExit();
         } catch (IOException ioe) {
             ioe.printStackTrace();
