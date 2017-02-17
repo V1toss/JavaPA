@@ -17,7 +17,7 @@
       <module>jmm</module>
       <module>userstorage</module>
       <module>synchlists</module>
-      <module>filesearch</module>
+      <module>filesearch_mt</module>
       <module>producer</module>
       <module>threadpool</module>
       <module>lock</module>
