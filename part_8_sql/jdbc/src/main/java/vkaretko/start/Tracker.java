@@ -42,12 +42,12 @@ public class Tracker {
     private Connection conn = null;
 
     /**
-     * Properties file name
+     * Properties file name.
      */
     private final String properties = "db.properties";
 
     /**
-     * Method load properties for db;
+     * Method load properties for db.
      */
     public void losdProperties() {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream(properties)) {
@@ -73,7 +73,7 @@ public class Tracker {
     /**
      * Check existing tables.
      */
-    public void checkDBTables () {
+    public void checkDBTables() {
         Statement st = null;
         try {
             st = conn.createStatement();
@@ -85,7 +85,7 @@ public class Tracker {
             try {
                 st.close();
             } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);;
+                LOG.error(e.getMessage(), e);
             }
         }
     }
