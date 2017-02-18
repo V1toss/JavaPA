@@ -4,15 +4,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vkaretko.models.Item;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Tracker from chapter with database in PostgreSQL.
@@ -22,6 +26,10 @@ import java.util.List;
  * @since 18.02.2017.
  */
 public class Tracker {
+    /**
+     * Properties for db connection.
+     */
+    private final Properties prs = new Properties();
 
     /**
      * Logger for database errors.
@@ -34,16 +42,51 @@ public class Tracker {
     private Connection conn = null;
 
     /**
+     * Properties file name
+     */
+    private final String properties = "db.properties";
+
+    /**
+     * Method load properties for db;
+     */
+    public void losdProperties() {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream(properties)) {
+            prs.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Method establish connection to db.
      */
     public void connectToDB() {
-        String url = "jdbc:postgresql://localhost:5432/tracker";
-        String username = "postgres";
-        String password = "123";
         try {
-            this.conn = DriverManager.getConnection(url, username, password);
+            this.conn = DriverManager.getConnection(prs.getProperty("url"),
+                    prs.getProperty("user"), prs.getProperty("password"));
+        } catch (SQLException sqe) {
+            LOG.error(sqe.getMessage(), sqe);
+        }
+        checkDBTables();
+    }
+
+    /**
+     * Check existing tables.
+     */
+    public void checkDBTables () {
+        Statement st = null;
+        try {
+            st = conn.createStatement();
+            st.execute("CREATE TABLE IF NOT EXISTS items (item_id serial PRIMARY KEY,name VARCHAR(255),description TEXT,create_date TIMESTAMP);");
+            st.execute("CREATE TABLE IF NOT EXISTS comments (comment_id serial PRIMARY KEY,comment TEXT,item_id INTEGER REFERENCES items(item_id));");
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
+        } finally {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                LOG.error(e.getMessage(), e);;
+            }
         }
     }
 

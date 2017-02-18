@@ -35,16 +35,15 @@ public class StartUI {
      * Method drawing user menu and selecting item of menu.
      */
      public void init() {
-
          MenuTracker menu = new MenuTracker(this.input, tracker);
-
          menu.fillActions();
          int[] range = new int[menu.getActionsSize()];
          for (int index = 0; index < menu.getActionsSize(); index++) {
              range[index] = index;
          }
-         tracker.connectToDB();
 
+         tracker.losdProperties();
+         tracker.connectToDB();
          do {
              menu.show();
              try {
@@ -54,7 +53,6 @@ public class StartUI {
              }
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
         tracker.disconnect();
-
      }
 
     /**

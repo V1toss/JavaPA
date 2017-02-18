@@ -3,7 +3,7 @@
 CREATE TABLE items (
     item_id serial PRIMARY KEY,
     name VARCHAR(255),
-    desc TEXT,
+    description TEXT,
     create_date TIMESTAMP
 );
 
