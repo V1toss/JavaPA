@@ -4,26 +4,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vkaretko.models.Item;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Part 2. OOP
- * Lesson 2. Encapsulation.
- * Task 1. Implement a class Tracker.
- * This class is used as a repository for items.
- * It must have methods: add, edit, delete, get all items, addComments.
+ * Tracker from chapter with database in PostgreSQL.
  *
- * @author Karetko Victor
- * @version 1.01
- * @since 18.02.2017
+ * @author Karetko Victor.
+ * @version 1.01.
+ * @since 18.02.2017.
  */
 public class Tracker {
 
-    private static final Logger Log = LoggerFactory.getLogger(SQLStorage.class);
+    /**
+     * Logger for database errors.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(Tracker.class);
+
+    /**
+     * Connection for db.
+     */
     private Connection conn = null;
 
+    /**
+     * Method establish connection to db.
+     */
     public void connectToDB() {
         String url = "jdbc:postgresql://localhost:5432/tracker";
         String username = "postgres";
@@ -31,99 +43,102 @@ public class Tracker {
         try {
             this.conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
+    /**
+     * Method close connection to db.
+     */
     public void disconnect() {
         try {
             conn.close();
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    Log.error(e.getMessage(), e);
+                    LOG.error(e.getMessage(), e);
                 }
             }
         }
     }
 
     /**
-     * Method for adding item to array of items
+     * Method for adding item to array of items.
      * @param item item for adding
      */
-    public void add (Item item) {
+    public void add(Item item) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("INSERT INTO items (name, description, create_date) values(?,?,?)");
-            st.setString(1,item.getName());
-            st.setString(2,item.getDescription());
-            st.setTimestamp(3,new Timestamp(item.getCreate()));
+            st.setString(1, item.getName());
+            st.setString(2, item.getDescription());
+            st.setTimestamp(3, new Timestamp(item.getCreate()));
             st.executeUpdate();
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
     /**
-     * Method for editing item
-     * @param item item for edit
+     * Method for editing item.
+     * @param item item for edit.
      */
-    public void edit (Item item) {
+    public void edit(Item item) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("UPDATE items SET name=?,description=?,create_date=? WHERE item_id=?");
-            st.setString(1,item.getName());
-            st.setString(2,item.getDescription());
-            st.setTimestamp(3,new Timestamp(item.getCreate()));
-            st.setInt(4,item.getId());
+            st.setString(1, item.getName());
+            st.setString(2, item.getDescription());
+            st.setTimestamp(3, new Timestamp(item.getCreate()));
+            st.setInt(4, item.getId());
             st.executeUpdate();
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
 
     /**
-     * Method for deleting item
-     * @param id id of item for deleting
+     * Method for deleting item.
+     * @param id id of item for deleting.
      */
-    public void delete (int id) {
+    public void delete(int id) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("DELETE FROM items WHERE item_id=?");
             st.setInt(1, id);
             st.executeUpdate();
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
 
     /**
-     * Method for finding item by Id key
-     * @param id id key for searching
-     * @return founded item
+     * Method for finding item by Id key.
+     * @param id id key for searching.
+     * @return founded item.
      */
-    public Item findById (int id) {
+    public Item findById(int id) {
         Item result = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -132,25 +147,25 @@ public class Tracker {
             st.setInt(1, id);
             rs = st.executeQuery();
             if (rs.next()) {
-                result = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
+                result = new Item(rs.getString("name"), rs.getString("description"), rs.getTimestamp("create_date").getTime());
                 result.setId(rs.getInt("item_id"));
             }
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
                 rs.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
         return result;
     }
 
     /**
-     * Method for get all items
-     * @return array of items
+     * Method for get all items.
+     * @return array of items.
      */
     public List<Item> getAll() {
         List<Item> result = new ArrayList<>();
@@ -160,29 +175,29 @@ public class Tracker {
             st = conn.prepareStatement("SELECT * FROM items");
             rs = st.executeQuery();
             while (rs.next()) {
-                Item item = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
+                Item item = new Item(rs.getString("name"), rs.getString("description"), rs.getTimestamp("create_date").getTime());
                 item.setId(rs.getInt("item_id"));
                 result.add(item);
             }
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
                 rs.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
         return result;
     }
 
     /**
-     * Method for adding comment to item
-     * @param id id of item for adding comment
-     * @param comment new comment for item
+     * Method for adding comment to item.
+     * @param id id of item for adding comment.
+     * @param comment new comment for item.
      */
-    public void addComment (int id, String comment) {
+    public void addComment(int id, String comment) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("INSERT INTO comments (comment, item_id) values(?,?)");
@@ -190,21 +205,22 @@ public class Tracker {
             st.setInt(2, id);
             st.executeUpdate();
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
 
     /**
-     * Method for adding comment to item
-     * @param id id of item for adding comment
+     * Method for adding comment to item.
+     * @param id id of item for adding comment.
+     * @return list of comments.
      */
-    public List<String> getComments (int id) {
+    public List<String> getComments(int id) {
         List<String> result = new ArrayList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -216,13 +232,13 @@ public class Tracker {
                 result.add(rs.getString("comment"));
             }
         } catch (SQLException e) {
-            Log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             try {
                 st.close();
                 rs.close();
             } catch (SQLException e) {
-                Log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
         return result;

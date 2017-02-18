@@ -5,9 +5,7 @@ import vkaretko.start.Tracker;
 import vkaretko.start.UserAction;
 
 /**
- * Part 2. OOP
- * Lesson 6. Abstract classes.
- * Task 1. Implement BaseAction class and extend all action classes from that abstract class
+ * BaseAction is base class for all actions.
  *
  * @author Karetko Victor
  * @version 1.00
@@ -15,13 +13,19 @@ import vkaretko.start.UserAction;
  */
 public abstract class BaseAction implements UserAction {
 
+    /**
+     * Name of action.
+     */
     private String nameAction;
+    /**
+     * Key of action.
+     */
     private int keyAction;
 
     /**
-     * Constructor of BaseAction
-     * @param nameAction name of action to show in menu
-     * @param keyAction key of action
+     * Constructor of BaseAction.
+     * @param nameAction name of action to show in menu.
+     * @param keyAction key of action.
      */
     public BaseAction(String nameAction, int keyAction) {
         this.nameAction = nameAction;
@@ -29,13 +33,15 @@ public abstract class BaseAction implements UserAction {
     }
 
     /**
-     * Abstract method of executing actions, that need to implement
+     * Abstract method for executing actions.
+     * @param input input stream from user.
+     * @param tracker tracker object.
      */
     public abstract void execute(Input input, Tracker tracker);
 
     /**
-     * Method for getting info for items in menu
-     * @return formatted string of item menu
+     * Method for getting info for items in menu.
+     * @return formatted string of item menu.
      */
     public String info() {
         return String.format("%s. %s", this.keyAction, this.nameAction);

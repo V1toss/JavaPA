@@ -1,26 +1,48 @@
 package vkaretko.start;
 
 /**
- * Class for simulating user inputs in program
+ * Class for simulating user inputs in program.
  *
- * @author Karetko Victor
- * @version 1.00
- * @since 18.02.2017
+ * @author Karetko Victor.
+ * @version 1.00.
+ * @since 18.02.2017.
  */
 public class StubInput implements Input {
-    private String [] answers;
+
+    /**
+     * List of answers.
+     */
+    private String[] answers;
+
+    /**
+     * Current position of answer.
+     */
     private int position = 0;
 
-
-    public StubInput (String[] answers) {
+    /**
+     * Constructor of StubInput class.
+     * @param answers answers.
+     */
+    public StubInput(String[] answers) {
         this.answers = answers;
     }
 
-    public String ask (String question) {
+    /**
+     * Get answer from list.
+     * @param question question to ask.
+     * @return next line.
+     */
+    public String ask(String question) {
         return answers[position++];
     }
 
-    public int ask (String question, int[] range) {
+    /**
+     * Method asks users.
+     * @param question question to ask.
+     * @param range range of menu items.
+     * @return menu number.
+     */
+    public int ask(String question, int[] range) {
         int key = Integer.valueOf(this.ask(question));
         boolean exist = false;
         for (int value : range) {

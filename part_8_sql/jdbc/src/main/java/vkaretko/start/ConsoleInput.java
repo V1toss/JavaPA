@@ -3,17 +3,20 @@ package vkaretko.start;
 import java.util.Scanner;
 
 /**
- *
+ * Class ConsoleInput for getting input from user.
  *
  * @author Karetko Victor
  * @version 1.00
  * @since 18.02.2017
  */
 public class ConsoleInput implements Input {
+    /**
+     * Scanner for user input.
+     */
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * Method for asking questions to users
+     * Method for asking questions to users.
      *
      * @param question question to print in console
      * @return user answer in String format
@@ -25,7 +28,7 @@ public class ConsoleInput implements Input {
     }
 
     /**
-     * Method for asking questions to users
+     * Method for asking questions to users.
      *
      * @param question question to print in console
      * @param range range of actions

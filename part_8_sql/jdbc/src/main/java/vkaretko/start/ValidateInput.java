@@ -1,20 +1,20 @@
 package vkaretko.start;
 
 /**
- * Class for validating input, extends from ConsoleInput
+ * Class for validating input, extends from ConsoleInput.
  *
- * @author Karetko Victor
- * @version 1.00
- * @since 18.02.2017
+ * @author Karetko Victor.
+ * @version 1.00.
+ * @since 18.02.2017.
  */
 public class ValidateInput extends ConsoleInput {
 
     /**
-     * Method for asking questions to users and shows messages about wrong inputs
+     * Method for asking questions to users and shows messages about wrong inputs.
      *
-     * @param question question to print in console
-     * @param range range of actions
-     * @return user answer
+     * @param question question to print in console.
+     * @param range range of actions.
+     * @return user answer.
      */
     @Override
     public int ask(String question, int[] range) {
