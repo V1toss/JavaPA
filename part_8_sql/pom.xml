@@ -15,6 +15,7 @@
     <modules>
         <module>basic</module>
         <module>jdbc</module>
+        <module>jsoup</module>
     </modules>
 
     <dependencies>
