@@ -74,19 +74,11 @@ public class Tracker {
      * Check existing tables.
      */
     public void checkDBTables() {
-        Statement st = null;
-        try {
-            st = conn.createStatement();
+        try (Statement st = conn.createStatement()) {
             st.execute("CREATE TABLE IF NOT EXISTS items (item_id serial PRIMARY KEY,name VARCHAR(255),description TEXT,create_date TIMESTAMP);");
             st.execute("CREATE TABLE IF NOT EXISTS comments (comment_id serial PRIMARY KEY,comment TEXT,item_id INTEGER REFERENCES items(item_id));");
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
     }
 
@@ -114,21 +106,13 @@ public class Tracker {
      * @param item item for adding
      */
     public void add(Item item) {
-        PreparedStatement st = null;
-        try {
-            st = conn.prepareStatement("INSERT INTO items (name, description, create_date) values(?,?,?)");
+        try (PreparedStatement st = conn.prepareStatement("INSERT INTO items (name, description, create_date) values(?,?,?)")) {
             st.setString(1, item.getName());
             st.setString(2, item.getDescription());
             st.setTimestamp(3, new Timestamp(item.getCreate()));
             st.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
     }
     /**
@@ -136,9 +120,7 @@ public class Tracker {
      * @param item item for edit.
      */
     public void edit(Item item) {
-        PreparedStatement st = null;
-        try {
-            st = conn.prepareStatement("UPDATE items SET name=?,description=?,create_date=? WHERE item_id=?");
+        try (PreparedStatement st = conn.prepareStatement("UPDATE items SET name=?,description=?,create_date=? WHERE item_id=?")) {
             st.setString(1, item.getName());
             st.setString(2, item.getDescription());
             st.setTimestamp(3, new Timestamp(item.getCreate()));
@@ -146,12 +128,6 @@ public class Tracker {
             st.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
     }
 
@@ -160,19 +136,11 @@ public class Tracker {
      * @param id id of item for deleting.
      */
     public void delete(int id) {
-        PreparedStatement st = null;
-        try {
-            st = conn.prepareStatement("DELETE FROM items WHERE item_id=?");
+        try (PreparedStatement st = conn.prepareStatement("DELETE FROM items WHERE item_id=?")) {
             st.setInt(1, id);
             st.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
     }
 
@@ -183,25 +151,16 @@ public class Tracker {
      */
     public Item findById(int id) {
         Item result = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            st = conn.prepareStatement("SELECT * FROM items WHERE item_id=?");
+        try (PreparedStatement st = conn.prepareStatement("SELECT * FROM items WHERE item_id=?")) {
             st.setInt(1, id);
-            rs = st.executeQuery();
-            if (rs.next()) {
-                result = new Item(rs.getString("name"), rs.getString("description"), rs.getTimestamp("create_date").getTime());
-                result.setId(rs.getInt("item_id"));
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    result = new Item(rs.getString("name"), rs.getString("description"), rs.getTimestamp("create_date").getTime());
+                    result.setId(rs.getInt("item_id"));
+                }
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-                rs.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
         return result;
     }
@@ -212,11 +171,7 @@ public class Tracker {
      */
     public List<Item> getAll() {
         List<Item> result = new ArrayList<>();
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            st = conn.prepareStatement("SELECT * FROM items");
-            rs = st.executeQuery();
+        try (PreparedStatement st = conn.prepareStatement("SELECT * FROM items"); ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
                 Item item = new Item(rs.getString("name"), rs.getString("description"), rs.getTimestamp("create_date").getTime());
                 item.setId(rs.getInt("item_id"));
@@ -224,13 +179,6 @@ public class Tracker {
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-                rs.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
         return result;
     }
@@ -241,20 +189,12 @@ public class Tracker {
      * @param comment new comment for item.
      */
     public void addComment(int id, String comment) {
-        PreparedStatement st = null;
-        try {
-            st = conn.prepareStatement("INSERT INTO comments (comment, item_id) values(?,?)");
+        try (PreparedStatement st = conn.prepareStatement("INSERT INTO comments (comment, item_id) values(?,?)")) {
             st.setString(1, comment);
             st.setInt(2, id);
             st.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
     }
 
@@ -265,24 +205,15 @@ public class Tracker {
      */
     public List<String> getComments(int id) {
         List<String> result = new ArrayList<>();
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            st = conn.prepareStatement("SELECT comment FROM comments WHERE item_id=?");
+        try (PreparedStatement st = conn.prepareStatement("SELECT comment FROM comments WHERE item_id=?")) {
             st.setInt(1, id);
-            rs = st.executeQuery();
-            while (rs.next()) {
-                result.add(rs.getString("comment"));
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    result.add(rs.getString("comment"));
+                }
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        } finally {
-            try {
-                st.close();
-                rs.close();
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
         }
         return result;
     }
