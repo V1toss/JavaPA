@@ -1,6 +1,5 @@
 package vkaretko;
 
-import com.sun.scenario.animation.shared.TimerReceiver;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
