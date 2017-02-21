@@ -86,7 +86,7 @@ public class DBManager {
      * @param last_update last update of offer.
      */
     public void add(int offer_id, String link, String description, Timestamp last_update) {
-        try (PreparedStatement st = conn.prepareStatement("INSERT INTO offers(offer_id, link, description, last_update) values(?,?,?,?) ON CONFLICT DO NOTHING;")) {
+        try (PreparedStatement st = conn.prepareStatement("INSERT INTO offers(offer_id, link, description, last_update) values(?,?,?,?) ON CONFLICT(offer_id) DO UPDATE SET last_update = EXCLUDED.last_update;")) {
             st.setInt(1, offer_id);
             st.setString(2, link );
             st.setString(3, description);
