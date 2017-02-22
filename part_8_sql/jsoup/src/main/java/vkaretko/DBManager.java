@@ -5,7 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 /**
@@ -80,18 +85,34 @@ public class DBManager {
 
     /**
      * Adding offers to database.
-     * @param offer_id offer id.
+     * @param offerId offer id.
      * @param link link of offer.
      * @param description description of offer.
-     * @param last_update last update of offer.
+     * @param lastUpdate last update of offer.
      */
-    public void add(int offer_id, String link, String description, Timestamp last_update) {
+    public void add(int offerId, String link, String description, Timestamp lastUpdate) {
         try (PreparedStatement st = conn.prepareStatement("INSERT INTO offers(offer_id, link, description, last_update) values(?,?,?,?) ON CONFLICT(offer_id) DO UPDATE SET last_update = EXCLUDED.last_update;")) {
-            st.setInt(1, offer_id);
-            st.setString(2, link );
+            st.setInt(1, offerId);
+            st.setString(2, link);
             st.setString(3, description);
-            st.setTimestamp(4, last_update);
+            st.setTimestamp(4, lastUpdate);
             st.executeUpdate();
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Saving offers to log.
+     */
+    public void show() {
+        try (PreparedStatement st = conn.prepareStatement("SELECT * FROM offers;");
+             ResultSet rs = st.executeQuery()) {
+            while (rs.next()) {
+                LOG.info(String.format("ID %s, link: %s, description: %s, last_update: %s",
+                        rs.getInt("offer_id"), rs.getString("link"),
+                        rs.getString("description"), rs.getTimestamp("last_update")));
+            }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
         }
