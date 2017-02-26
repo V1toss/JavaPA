@@ -1,0 +1,11 @@
+<web-app>
+    <servlet>
+        <servlet-name>EchoServlet</servlet-name>
+        <servlet-class>vkaretko.servlets.EchoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EchoServlet</servlet-name>
+        <url-pattern>/echo</url-pattern>
+    </servlet-mapping>
+</web-app>

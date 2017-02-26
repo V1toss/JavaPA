@@ -1,0 +1,39 @@
+<project>
+  <modelVersion>4.0.0</modelVersion> 
+  <groupId>vkaretko.servlets</groupId>
+  <artifactId>part_9_servlets_jsp</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging> 
+  <name>part_9</name>
+
+<parent>
+    <groupId>JavaPA</groupId>
+    <artifactId>JavaPA</artifactId>
+     <version>1.0-SNAPSHOT</version>
+</parent>
+
+  <modules>
+      <module>echoservlet</module>
+  </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.3-1102-jdbc4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.23</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

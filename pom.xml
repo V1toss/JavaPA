@@ -88,6 +88,7 @@
         <module>part_6</module>
         <module>part_7</module>
         <module>part_8_sql</module>
+        <module>part_9_servlets_jsp</module>
     </modules>
     <reporting>
         <plugins>
