@@ -1,0 +1,11 @@
+<web-app>
+    <servlet>
+        <servlet-name>UserDBServlet</servlet-name>
+        <servlet-class>vkaretko.servlets.UserDBServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserDBServlet</servlet-name>
+        <url-pattern>/userdb</url-pattern>
+    </servlet-mapping>
+</web-app>
