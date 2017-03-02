@@ -153,10 +153,4 @@ public class DBManager {
         }
         return result;
     }
-
-    public static void main(String[] args) {
-        DBManager dbManager = new DBManager();
-        dbManager.loadProperties();
-        dbManager.connectToDB();
-    }
 }
