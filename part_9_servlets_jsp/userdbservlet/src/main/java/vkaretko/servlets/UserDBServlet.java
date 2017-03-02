@@ -57,8 +57,8 @@ public class UserDBServlet extends HttpServlet {
             for (User user : dbMan.getAll()) {
                 writer.append(user.toString());
                 writer.append("<br/>");
+                writer.flush();
             }
-            writer.flush();
         }
     }
 
