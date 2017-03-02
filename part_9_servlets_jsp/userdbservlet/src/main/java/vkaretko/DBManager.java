@@ -61,6 +61,11 @@ public class DBManager {
      */
     public void connectToDB() {
         try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
             this.conn = DriverManager.getConnection(prs.getProperty("url"),
                     prs.getProperty("user"), prs.getProperty("password"));
         } catch (SQLException sqe) {
@@ -147,5 +152,11 @@ public class DBManager {
             LOG.error(e.getMessage(), e);
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        DBManager dbManager = new DBManager();
+        dbManager.loadProperties();
+        dbManager.connectToDB();
     }
 }
