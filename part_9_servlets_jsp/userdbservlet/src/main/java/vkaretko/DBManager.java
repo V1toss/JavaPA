@@ -139,6 +139,7 @@ public class DBManager {
 
     /**
      * Saving offers to log.
+     * @return list of users.
      */
     public List<User> getAll() {
         List<User> result = new ArrayList<>();
@@ -146,7 +147,7 @@ public class DBManager {
              ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
                 result.add(new User(rs.getString("name"), rs.getString("login"),
-                        rs.getString("description"), rs.getTimestamp("create_date")));
+                        rs.getString("email"), rs.getTimestamp("create_date")));
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);

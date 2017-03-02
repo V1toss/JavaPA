@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 /**
- * Class
+ * Class UserDBServlet - CRUD operations with DB using Put, Get, Post, Delete.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -31,7 +31,10 @@ public class UserDBServlet extends HttpServlet {
      */
     private DBManager dbMan;
 
-
+    /**
+     * Connect to DB on load.
+     * @throws ServletException when init failed.
+     */
     @Override
     public void init() throws ServletException {
         this.dbMan = new DBManager();
@@ -39,6 +42,9 @@ public class UserDBServlet extends HttpServlet {
         dbMan.connectToDB();
     }
 
+    /**
+     * Disconnect from db on close.
+     */
     @Override
     public void destroy() {
         dbMan.disconnect();
@@ -50,8 +56,9 @@ public class UserDBServlet extends HttpServlet {
         try (PrintWriter writer = new PrintWriter(resp.getOutputStream())) {
             for (User user : dbMan.getAll()) {
                 writer.append(user.toString());
-                writer.flush();
+                writer.append("<br/>");
             }
+            writer.flush();
         }
     }
 

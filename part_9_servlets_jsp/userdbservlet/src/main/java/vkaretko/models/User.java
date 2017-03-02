@@ -35,6 +35,7 @@ public class User {
      * @param name user name.
      * @param login user login.
      * @param email user mail.
+     * @param createDate create date of user.
      */
     public User(String name, String login, String email, Timestamp createDate) {
         this.name = name;
@@ -77,6 +78,6 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User{name=%s, login=%s, email=%s, createDate=%s", name, login, email, createDate);
+        return String.format("User{name=%s, login=%s, email=%s, createDate=%s}", name, login, email, createDate);
     }
 }
