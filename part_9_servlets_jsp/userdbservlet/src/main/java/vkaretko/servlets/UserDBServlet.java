@@ -29,7 +29,7 @@ public class UserDBServlet extends HttpServlet {
     /**
      * DBManager for servlet.
      */
-    private DBManager dbMan;
+    private final DBManager dbMan =  new DBManager();
 
     /**
      * Connect to DB on load.
@@ -37,7 +37,6 @@ public class UserDBServlet extends HttpServlet {
      */
     @Override
     public void init() throws ServletException {
-        this.dbMan = new DBManager();
         dbMan.loadProperties();
         dbMan.connectToDB();
     }

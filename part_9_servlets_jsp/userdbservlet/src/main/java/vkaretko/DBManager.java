@@ -97,7 +97,7 @@ public class DBManager {
      * @param user user.
      */
     public void add(User user) {
-        try (PreparedStatement st = conn.prepareStatement("INSERT INTO users(name, login, email, create_date) values(?,?,?,?);")) {
+        try (PreparedStatement st = conn.prepareStatement("INSERT INTO users(name, login, email, create_date) values(?,?,?,?)")) {
             st.setString(1, user.getName());
             st.setString(2, user.getLogin());
             st.setString(3, user.getEmail());
@@ -129,7 +129,7 @@ public class DBManager {
      * @param login login of user to delete.
      */
     public void delete(String login) {
-        try (PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE login=?;")) {
+        try (PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE login=?")) {
             st.setString(1, login);
             st.executeUpdate();
         } catch (SQLException e) {
@@ -143,7 +143,7 @@ public class DBManager {
      */
     public List<User> getAll() {
         List<User> result = new ArrayList<>();
-        try (PreparedStatement st = conn.prepareStatement("SELECT * FROM users;");
+        try (PreparedStatement st = conn.prepareStatement("SELECT * FROM users");
              ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
                 result.add(new User(rs.getString("name"), rs.getString("login"),

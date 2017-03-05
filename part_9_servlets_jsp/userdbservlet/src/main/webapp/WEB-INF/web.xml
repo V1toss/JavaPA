@@ -2,7 +2,7 @@
     <servlet>
         <servlet-name>UserDBServlet</servlet-name>
         <servlet-class>vkaretko.servlets.UserDBServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
