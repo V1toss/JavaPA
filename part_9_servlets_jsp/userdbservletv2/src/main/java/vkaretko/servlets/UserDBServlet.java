@@ -41,14 +41,14 @@ public class UserDBServlet extends HttpServlet {
     private final DBManager dbMan = new DBManager();
 
     /**
-     * Connect to DB on load.
+     * Init datasource for generating connections.
      * @throws ServletException when init failed.
      */
     @Override
     public void init() throws ServletException {
         try {
             InitialContext initialContext = new InitialContext();
-            this.ds = (javax.sql.DataSource) initialContext.lookup("java:comp/env/jdbc/users");
+            this.ds = (DataSource) initialContext.lookup("java:comp/env/jdbc/users");
         } catch (NamingException e) {
             LOG.error(e.getMessage(), e);
         }
