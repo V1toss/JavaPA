@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<Context>
+
+<Resource name="jdbc/users" auth="Container"
+          type="javax.sql.DataSource" maxActive="100"
+          maxIdle="30" maxWait="10000"
+          username="postgres"
+          password="123"
+          driverClassName="org.postgresql.Driver"
+          url="jdbc:postgresql://localhost:5432/store"/>
+</Context>
