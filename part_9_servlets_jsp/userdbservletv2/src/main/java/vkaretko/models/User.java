@@ -13,7 +13,7 @@ public class User {
     /**
      * User name.
      */
-    private String name;
+    private final String name;
 
     /**
      * User login.
@@ -23,12 +23,12 @@ public class User {
     /**
      * User email.
      */
-    private String email;
+    private final String email;
 
     /**
      * User create date.
      */
-    private Timestamp createDate;
+    private final Timestamp createDate;
 
     /**
      * Constructor of user class.
@@ -74,10 +74,5 @@ public class User {
      */
     public Timestamp getCreateDate() {
         return this.createDate;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("User{name=%s, login=%s, email=%s, createDate=%s}", name, login, email, createDate);
     }
 }

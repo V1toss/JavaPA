@@ -3,27 +3,26 @@ package vkaretko.servlets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vkaretko.DBManager;
-import vkaretko.models.User;
 
-import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
- * Class UserDBServlet - CRUD operations with DB using Put, Get, Post, Delete.
+ * Servlet for deleting users.
  *
  * @author Karetko Victor.
  * @version 1.00.
- * @since 28.02.2017.
+ * @since 07.03.2017.
  */
-public class UserDBServlet extends HttpServlet {
+public class DeleteUser extends HttpServlet {
     /**
      * slf4j logger for UserDB servlet class.
      */
@@ -54,7 +53,7 @@ public class UserDBServlet extends HttpServlet {
     }
 
     /**
-     * Method draw form with list of users from database and links for update,create and delete records.
+     * Method draw form with question about deleting user and submit button.
      * @param req request from client to server.
      * @param resp response from server to client.
      * @throws ServletException ServletException
@@ -71,29 +70,31 @@ public class UserDBServlet extends HttpServlet {
                     + "    <title>User Database</title>\n"
                     + "</head>\n"
                     + "<body>\n"
-                    + "<h3>List of users</h3>"
-                    + "<table border=\"1\">"
-                    + "<tr>\n"
-                    + "    <th>Name</th>\n"
-                    + "    <th>Login</th>\n"
-                    + "    <th>Email</th>\n"
-                    + "    <th>Create date</th>\n"
-                    + "</tr>"
+                    + "<h4>Are you really want to delete user "
             );
-            try {
-                for (User user : dbMan.getAll(ds.getConnection())) {
-                    String urlDel = String.format("<a href=%s/delete?login=%s>Delete</a>", req.getContextPath(), user.getLogin());
-                    String urlUpd = String.format("<a href=%s/update?login=%s&name=%s&email=%s>Update</a>",
-                            req.getContextPath(), user.getLogin(), user.getName(), user.getEmail());
-                    writer.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
-                            user.getName(), user.getLogin(), user.getEmail(), user.getCreateDate(), urlDel, urlUpd));
-                }
-            } catch (SQLException e) {
-                LOG.error(e.getMessage(), e);
-            }
-            writer.append("</table>\n");
-            writer.append(String.format("<a href='%s'>Add new user</a>", req.getContextPath() + "/create"));
-            writer.append("</body>\n</html>");
+            writer.append(String.format("\"%s\"?</h4>", req.getParameter("login")));
+            writer.append(String.format("<form action='%s/delete' method=post>", req.getContextPath()));
+            writer.append(String.format("<input type='hidden' name='login' value='%s'/><br/>", req.getParameter("login")));
+            writer.append("<input type='submit' value='Delete'/><br/>");
+            writer.append("</form></body></html>");
         }
+    }
+
+    /**
+     * Passes the request for deleting user to DBManager.
+     * @param req request from client to server.
+     * @param resp response from server to client.
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        try {
+            dbMan.delete(req.getParameter("login"), ds.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        resp.sendRedirect(String.format("%s/users", req.getContextPath()));
     }
 }

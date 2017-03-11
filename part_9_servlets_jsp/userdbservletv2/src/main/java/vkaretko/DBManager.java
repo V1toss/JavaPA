@@ -11,10 +11,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
- * Class DBManager. Connecting to database and provding CRUD operations.
+ * Class DBManager. Provding CRUD operations with DB.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -29,6 +28,7 @@ public class DBManager {
     /**
      * Adding offers to database.
      * @param user user.
+     * @param conn connection from servlet.
      */
     public void add(User user, Connection conn) {
         try (PreparedStatement st = conn.prepareStatement("INSERT INTO users(name, login, email, create_date) values(?,?,?,?)")) {
@@ -45,6 +45,7 @@ public class DBManager {
     /**
      * Adding offers to database.
      * @param user user.
+     * @param conn connection from servlet.
      */
     public void update(User user, Connection conn) {
         try (PreparedStatement st = conn.prepareStatement("UPDATE users SET name=?,email=?,create_date=? WHERE login=?")) {
@@ -61,6 +62,7 @@ public class DBManager {
     /**
      * Adding offers to database.
      * @param login login of user to delete.
+     * @param conn connection from servlet.
      */
     public void delete(String login, Connection conn) {
         try (PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE login=?")) {
@@ -74,6 +76,7 @@ public class DBManager {
     /**
      * Saving offers to log.
      * @return list of users.
+     * @param conn connection from servlet.
      */
     public List<User> getAll(Connection conn) {
         List<User> result = new ArrayList<>();
