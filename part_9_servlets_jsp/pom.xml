@@ -16,6 +16,7 @@
       <module>echoservlet</module>
       <module>userdbservlet</module>
       <module>userdbservletv2</module>
+      <module>userdbservletv3</module>
   </modules>
 
     <dependencies>
