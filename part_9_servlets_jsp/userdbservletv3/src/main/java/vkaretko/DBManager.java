@@ -26,9 +26,9 @@ public class DBManager {
     private static final Logger LOG = LoggerFactory.getLogger(DBManager.class);
 
     /**
-     * Static instance for Singleton realisation.
+     * Static INSTANCE for Singleton realisation.
      */
-    private static final DBManager instance = new DBManager();
+    private static final DBManager INSTANCE = new DBManager();
 
     /**
      * Private constructor for DBManager singleton realization.
@@ -37,11 +37,11 @@ public class DBManager {
     }
 
     /**
-     * Getter for instance.
-     * @return instance of DBManager.
+     * Getter for INSTANCE.
+     * @return INSTANCE of DBManager.
      */
     public static DBManager getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
