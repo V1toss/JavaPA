@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vkaretko.models.User;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,6 +24,11 @@ import java.util.List;
  */
 public class DBManager {
     /**
+     * DataSource for generating connections.
+     */
+    private static DataSource dataSource;
+
+    /**
      * Logger for database errors.
      */
     private static final Logger LOG = LoggerFactory.getLogger(DBManager.class);
@@ -37,8 +45,25 @@ public class DBManager {
     }
 
     /**
-     * Getter for INSTANCE.
-     * @return INSTANCE of DBManager.
+     * Create connection to Database.
+     * @return connection.
+     */
+    public static Connection getConnection() {
+        Connection conn = null;
+        try {
+            if (dataSource == null) {
+                dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/users");
+            }
+            conn = dataSource.getConnection();
+        } catch (SQLException | NamingException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return conn;
+    }
+
+    /**
+     * Getter for DBManager instance.
+     * @return instance.
      */
     public static DBManager getInstance() {
         return INSTANCE;

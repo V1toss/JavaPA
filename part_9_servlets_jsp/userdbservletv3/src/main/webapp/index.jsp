@@ -23,12 +23,10 @@
         <th>Create date</th>
     </tr>
         <%
-        try {
-            DataSource ds = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/users");
-                for (User user : DBManager.getInstance().getAll(ds.getConnection())) {
-                    String urlDel = String.format("%s/delete.jsp?login=%s", request.getContextPath(), user.getLogin());
-                    String urlUpd = String.format("%s/update.jsp?login=%s&name=%s&email=%s",
-                            request.getContextPath(), user.getLogin(), user.getName(), user.getEmail());
+            for (User user : DBManager.getInstance().getAll(DBManager.getConnection())) {
+                String urlDel = String.format("%s/delete.jsp?login=%s", request.getContextPath(), user.getLogin());
+                String urlUpd = String.format("%s/update.jsp?login=%s&name=%s&email=%s",
+                        request.getContextPath(), user.getLogin(), user.getName(), user.getEmail());
     %>
     <tr>
         <td><%=user.getName()%> </td>
@@ -38,13 +36,8 @@
         <td><a href="<%=urlDel%>">Delete</a></td>
         <td><a href="<%=urlUpd%>">Update</a></td>
     </tr>
-
-        <%    }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (NamingException ne) {
-                ne.printStackTrace();
-}%>
+        <%}
+        %>
 </table>
 <br/>
     <a href='<%=request.getContextPath()%>/create.jsp'>Add new user</a>
