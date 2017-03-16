@@ -1,9 +1,6 @@
 <%@ page import="vkaretko.models.User" %>
 <%@ page import="vkaretko.DBManager" %>
-<%@ page import="javax.naming.InitialContext" %>
-<%@ page import="javax.sql.DataSource" %>
-<%@ page import="javax.naming.NamingException" %>
-<%@ page import="java.sql.SQLException" %><%--
+<%--
   User: Karetko Victor
   Date: 12.03.2017
   Time: 15:13
