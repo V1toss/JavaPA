@@ -20,12 +20,12 @@
     </tr>
         <c:forEach items="${users}" var="user">
     <tr>
-        <td><c:out value="${user.name}"> </c:out></td>
-        <td><c:out value="${user.login}"> </c:out></td>
-        <td><c:out value="${user.email}"> </c:out> </td>
-        <td><c:out value="${user.createDate}"> </c:out></td>
+        <td><c:out value="${user.name}"/></td>
+        <td><c:out value="${user.login}"/></td>
+        <td><c:out value="${user.email}"/></td>
+        <td><c:out value="${user.createDate}"/></td>
         <td><a href="${pageContext.servletContext.contextPath}/delete?login=${user.login}">Delete</a></td>
-        <td><a href="${pageContext.servletContext.contextPath}/update?login=${user.login}&name=${user.name}&email=${user.email}&">Update</a></td>
+        <td><a href="${pageContext.servletContext.contextPath}/update?login=${user.login}">Update</a></td>
     </tr>
    </c:forEach>
 </table>

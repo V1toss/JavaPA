@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Class DBManager. Provding CRUD operations with DB.
@@ -70,7 +71,7 @@ public class DBManager {
     }
 
     /**
-     * Adding offers to database.
+     * Adding users to database.
      * @param user user.
      */
     public void add(User user) {
@@ -86,7 +87,7 @@ public class DBManager {
     }
 
     /**
-     * Adding offers to database.
+     * Updating user in database.
      * @param user user.
      */
     public void update(User user) {
@@ -102,7 +103,7 @@ public class DBManager {
     }
 
     /**
-     * Adding offers to database.
+     * Delete user from DB.
      * @param login login of user to delete.
      */
     public void delete(String login) {
@@ -115,7 +116,7 @@ public class DBManager {
     }
 
     /**
-     * Saving offers to log.
+     * Get all users from DB.
      * @return list of users.
      */
     public List<User> getAll() {
@@ -131,4 +132,26 @@ public class DBManager {
         }
         return result;
     }
+
+    /**
+     * Search user by Login in database.
+     * @return user.
+     * @param login to search.
+     */
+    public User searchByLogin(String login) {
+        try (PreparedStatement st = getConnection().prepareStatement("SELECT * FROM users WHERE login=?")) {
+            st.setString(1, login);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new User(rs.getString("name"), rs.getString("login"),
+                            rs.getString("email"), rs.getTimestamp("create_date"));
+                }
+            }
+
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        throw new NoSuchElementException("login not found");
+    }
+
 }

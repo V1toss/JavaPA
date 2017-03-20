@@ -32,8 +32,16 @@ public class UpdateUser extends HttpServlet {
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 
+    /**
+     * Get old user fields for future update.
+     * @param req request from client to server.
+     * @param resp response from server to client.
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", DBManager.getInstance().searchByLogin(req.getParameter("login")));
         req.getRequestDispatcher("/WEB-INF/views/update.jsp").forward(req, resp);
     }
 }
