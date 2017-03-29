@@ -2,16 +2,13 @@ package vkaretko;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vkaretko.models.Role;
 import vkaretko.models.User;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -75,12 +72,13 @@ public class DBManager {
      * @param user user.
      */
     public void add(User user) {
-        try (PreparedStatement st = getConnection().prepareStatement("INSERT INTO users(name, login, email, create_date, password) values(?,?,?,?,?)")) {
+        try (PreparedStatement st = getConnection().prepareStatement("INSERT INTO users(name, login, email, create_date, password, role_id) values(?,?,?,?,?,?)")) {
             st.setString(1, user.getName());
             st.setString(2, user.getLogin());
             st.setString(3, user.getEmail());
             st.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             st.setString(5, user.getPassword());
+            st.setInt(6, user.getRole().getId());
             st.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -92,11 +90,13 @@ public class DBManager {
      * @param user user.
      */
     public void update(User user) {
-        try (PreparedStatement st = getConnection().prepareStatement("UPDATE users SET name=?,email=?,create_date=? WHERE login=?")) {
+        try (PreparedStatement st = getConnection().prepareStatement("UPDATE users SET name=?,email=?,create_date=?,password=?,role_id=? WHERE login=?")) {
             st.setString(1, user.getName());
             st.setString(2, user.getEmail());
             st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            st.setString(4, user.getLogin());
+            st.setString(4, user.getPassword());
+            st.setInt(5, user.getRole().getId());
+            st.setString(6, user.getLogin());
             st.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -122,11 +122,12 @@ public class DBManager {
      */
     public List<User> getAll() {
         List<User> result = new ArrayList<>();
-        try (PreparedStatement st = getConnection().prepareStatement("SELECT * FROM users");
+        try (PreparedStatement st = getConnection().prepareStatement("SELECT u.name, u.login, u.email, u.create_date, u.password, r.role_id, r.role FROM users as u inner join roles as r on u.role_id = r.role_id");
              ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
                 result.add(new User(rs.getString("name"), rs.getString("login"),
-                        rs.getString("email"), rs.getTimestamp("create_date"), rs.getString("password")));
+                        rs.getString("email"), rs.getTimestamp("create_date"),
+                        rs.getString("password"), new Role(rs.getInt("role_id"),rs.getString("role"))));
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -140,21 +141,27 @@ public class DBManager {
      * @param login to search.
      */
     public User searchByLogin(String login) {
-        try (PreparedStatement st = getConnection().prepareStatement("SELECT * FROM users WHERE login=?")) {
+        try (PreparedStatement st = getConnection().prepareStatement("SELECT u.name, u.login, u.email, u.create_date, u.password, r.role_id, r.role FROM users as u inner join roles as r on u.role_id = r.role_id where u.login=?")) {
             st.setString(1, login);
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     return new User(rs.getString("name"), rs.getString("login"),
-                            rs.getString("email"), rs.getTimestamp("create_date"), rs.getString("password"));
+                            rs.getString("email"), rs.getTimestamp("create_date"),
+                            rs.getString("password"), new Role(rs.getInt("role_id"),rs.getString("role")));
                 }
             }
-
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
         }
         throw new NoSuchElementException("login not found");
     }
 
+    /**
+     * Get user from db.
+     * @param login login of user.
+     * @param password password of user.
+     * @return user.
+     */
     public User getUser(String login, String password) {
         User result = null;
         for (User user : getAll()) {
@@ -162,6 +169,23 @@ public class DBManager {
                 result = user;
                 break;
             }
+        }
+        return result;
+    }
+
+    /**
+     * Get all users from DB.
+     * @return list of users.
+     */
+    public List<Role> getRoles() {
+        List<Role> result = new ArrayList<>();
+        try (PreparedStatement st = getConnection().prepareStatement("SELECT * FROM roles");
+             ResultSet rs = st.executeQuery()) {
+            while (rs.next()) {
+                result.add(new Role(rs.getInt("role_id"),rs.getString("role")));
+            }
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
         }
         return result;
     }

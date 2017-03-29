@@ -1,6 +1,7 @@
 package vkaretko.servlets;
 
 import vkaretko.DBManager;
+import vkaretko.models.Role;
 import vkaretko.models.User;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,8 @@ public class UpdateUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager.getInstance().update(new User(req.getParameter("name"), req.getParameter("login"),
-                req.getParameter("email"), new Timestamp(System.currentTimeMillis()), req.getParameter("password")));
+                req.getParameter("email"), new Timestamp(System.currentTimeMillis()),
+                req.getParameter("password"), new Role(Integer.parseInt(req.getParameter("role_id")),req.getParameter("role"))));
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 

@@ -15,6 +15,7 @@ Login: <input type='text' name='login'><br/>
 Name: <input type='text' name='name'><br/>
 Email: <input type='text' name='email'><br/>
 Password: <input type='text' name='password'><br/>
+Role (id): <input type='text' name='role_id'><br/>
 <input type='submit' value='Create'/>
 </form>
 </body>

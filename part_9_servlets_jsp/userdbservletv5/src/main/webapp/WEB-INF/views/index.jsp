@@ -17,6 +17,9 @@
         <th>Login</th>
         <th>Email</th>
         <th>Create date</th>
+
+        <th>Roles</th>
+        <th></th>
     </tr>
         <c:forEach items="${users}" var="user">
     <tr>

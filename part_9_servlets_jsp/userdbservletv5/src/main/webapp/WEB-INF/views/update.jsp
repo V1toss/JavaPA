@@ -17,6 +17,7 @@ Login: <input type='text' name='login' value='${user.login}'>    <br/>
 Name: <input type='text' name='name' value='${user.name}'>    <br/>
 Email: <input type='text' name='email' value='${user.email}'>    <br/>
 Password: <input type='text' name='password' value='${user.password}'>    <br/>
+Role (id): <input type='text' name='role_id' value='${user.role.id}'>    <br/>
 <input type='submit' value='Update'/>
     <br/>
  </form>
