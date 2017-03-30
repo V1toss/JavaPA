@@ -17,23 +17,34 @@
         <th>Login</th>
         <th>Email</th>
         <th>Create date</th>
-
-        <th>Roles</th>
+        <c:if test="${user.role.name=='admin'}">
+            <th>Roles</th>
+        </c:if>
         <th></th>
     </tr>
-        <c:forEach items="${users}" var="user">
+        <c:forEach items="${users}" var="el">
     <tr>
-        <td><c:out value="${user.name}"/></td>
-        <td><c:out value="${user.login}"/></td>
-        <td><c:out value="${user.email}"/></td>
-        <td><c:out value="${user.createDate}"/></td>
-        <td><a href="${pageContext.servletContext.contextPath}/delete?login=${user.login}">Delete</a></td>
-        <td><a href="${pageContext.servletContext.contextPath}/update?login=${user.login}">Update</a></td>
+        <td><c:out value="${el.name}"/></td>
+        <td><c:out value="${el.login}"/></td>
+        <td><c:out value="${el.email}"/></td>
+        <td><c:out value="${el.createDate}"/></td>
+        <c:if test="${user.role.name=='admin'}">
+            <td><c:out value="${el.role.name}"/></td>
+            <td><a href="${pageContext.servletContext.contextPath}/delete?login=${el.login}">Delete</a></td>
+            <td><a href="${pageContext.servletContext.contextPath}/update?login=${el.login}">Update</a></td>
+        </c:if>
+        <c:if test="${user.role.name!='admin'}">
+            <c:if test="${el.login == user.login}">
+                <td><a href="${pageContext.servletContext.contextPath}/update?login=${el.login}">Update</a></td>
+            </c:if>
+        </c:if>
     </tr>
    </c:forEach>
 </table>
 <br/>
+<c:if test="${user.role.name=='admin'}">
     <a href="${pageContext.servletContext.contextPath}/create">Add new user</a>
-
+    <a href="${pageContext.servletContext.contextPath}/edit_roles">Edit roles</a>
+</c:if>
 </body>
 </html>
