@@ -5,4 +5,4 @@
 * @version 1.0
 * @since 27.03.2017
 */
-package vkaretko;
+package vkaretko.models;

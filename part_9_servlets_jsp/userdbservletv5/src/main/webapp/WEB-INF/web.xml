@@ -30,6 +30,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EditRole</servlet-name>
+        <servlet-class>vkaretko.servlets.EditRole</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditRole</servlet-name>
+        <url-pattern>/edit_roles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>UpdateUser</servlet-name>
         <servlet-class>vkaretko.servlets.UpdateUser</servlet-class>
     </servlet>

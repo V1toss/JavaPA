@@ -39,6 +39,6 @@ public class DeleteUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user", DBManager.getInstance().searchByLogin(req.getParameter("login")));
-        req.getRequestDispatcher("/WEB-INF/views/delete.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/Delete.jsp").forward(req, resp);
     }
 }

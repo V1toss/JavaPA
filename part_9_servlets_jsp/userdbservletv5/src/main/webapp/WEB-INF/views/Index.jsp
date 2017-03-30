@@ -20,7 +20,6 @@
         <c:if test="${user.role.name=='admin'}">
             <th>Roles</th>
         </c:if>
-        <th></th>
     </tr>
         <c:forEach items="${users}" var="el">
     <tr>
