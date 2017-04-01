@@ -10,8 +10,6 @@
 *.iml
 *.class
 *.lst
-*Test.xml
-*Test.txt
 *.idea
 target/
 
