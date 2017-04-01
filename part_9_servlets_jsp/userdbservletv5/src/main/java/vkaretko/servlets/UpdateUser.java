@@ -30,7 +30,7 @@ public class UpdateUser extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager.getInstance().update(new User(req.getParameter("name"), req.getParameter("login"),
                 req.getParameter("email"), new Timestamp(System.currentTimeMillis()),
-                req.getParameter("password"), new Role(Integer.parseInt(req.getParameter("role_id")),req.getParameter("role"))));
+                req.getParameter("password"), new Role(Integer.parseInt(req.getParameter("role_id")), req.getParameter("role"))));
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 

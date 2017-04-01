@@ -32,7 +32,7 @@ public class User {
     private final Timestamp createDate;
 
     /**
-     * Password for user;
+     * Password for user.
      */
     private String password;
 
@@ -47,6 +47,8 @@ public class User {
      * @param login user login.
      * @param email user mail.
      * @param createDate create date of user.
+     * @param password password of user.
+     * @param role role of user.
      */
     public User(String name, String login, String email, Timestamp createDate, String password, Role role) {
         this.name = name;
@@ -123,15 +125,19 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return Objects.equals(name, user.name) &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(createDate, user.createDate) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(role, user.role);
+        return Objects.equals(name, user.name)
+                && Objects.equals(login, user.login)
+                && Objects.equals(email, user.email)
+                && Objects.equals(createDate, user.createDate)
+                && Objects.equals(password, user.password)
+                && Objects.equals(role, user.role);
     }
 
     @Override

@@ -8,7 +8,11 @@ import vkaretko.models.User;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -86,6 +90,20 @@ public class DBManager {
     }
 
     /**
+     * Adding roles to database.
+     * @param role role.
+     */
+    public void addRole(String role) {
+        try (PreparedStatement st = getConnection().prepareStatement("INSERT INTO roles(role) values(?)")) {
+            st.setString(1, role);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+
+    /**
      * Updating user in database.
      * @param user user.
      */
@@ -117,6 +135,19 @@ public class DBManager {
     }
 
     /**
+     * Delete role from DB.
+     * @param id id of role.
+     */
+    public void deleteRole(int id) {
+        try (PreparedStatement st = getConnection().prepareStatement("DELETE FROM roles WHERE role_id=?")) {
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Get all users from DB.
      * @return list of users.
      */
@@ -127,7 +158,7 @@ public class DBManager {
             while (rs.next()) {
                 result.add(new User(rs.getString("name"), rs.getString("login"),
                         rs.getString("email"), rs.getTimestamp("create_date"),
-                        rs.getString("password"), new Role(rs.getInt("role_id"),rs.getString("role"))));
+                        rs.getString("password"), new Role(rs.getInt("role_id"), rs.getString("role"))));
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -147,7 +178,7 @@ public class DBManager {
                 if (rs.next()) {
                     return new User(rs.getString("name"), rs.getString("login"),
                             rs.getString("email"), rs.getTimestamp("create_date"),
-                            rs.getString("password"), new Role(rs.getInt("role_id"),rs.getString("role")));
+                            rs.getString("password"), new Role(rs.getInt("role_id"), rs.getString("role")));
                 }
             }
         } catch (SQLException e) {
@@ -174,15 +205,31 @@ public class DBManager {
     }
 
     /**
-     * Get all users from DB.
-     * @return list of users.
+     * Get role from db.
+     * @param id role.
+     * @return user.
+     */
+    public Role getRoleById(int id) {
+        Role result = null;
+        for (Role role : getRoles()) {
+            if (role.getId() == id) {
+                result = role;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get all roles from DB.
+     * @return list of roles.
      */
     public List<Role> getRoles() {
         List<Role> result = new ArrayList<>();
         try (PreparedStatement st = getConnection().prepareStatement("SELECT * FROM roles");
              ResultSet rs = st.executeQuery()) {
             while (rs.next()) {
-                result.add(new Role(rs.getInt("role_id"),rs.getString("role")));
+                result.add(new Role(rs.getInt("role_id"), rs.getString("role")));
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);

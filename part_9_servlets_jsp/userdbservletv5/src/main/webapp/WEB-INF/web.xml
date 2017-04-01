@@ -33,10 +33,27 @@
         <servlet-name>EditRole</servlet-name>
         <servlet-class>vkaretko.servlets.EditRole</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>EditRole</servlet-name>
         <url-pattern>/edit_roles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteRole</servlet-name>
+        <servlet-class>vkaretko.servlets.DeleteRole</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteRole</servlet-name>
+        <url-pattern>/delrole</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddRole</servlet-name>
+        <servlet-class>vkaretko.servlets.AddRole</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddRole</servlet-name>
+        <url-pattern>/addrole</url-pattern>
     </servlet-mapping>
 
     <servlet>

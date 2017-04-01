@@ -3,7 +3,7 @@ package vkaretko.models;
 import java.util.Objects;
 
 /**
- * Class
+ * Class Role.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -21,7 +21,7 @@ public class Role {
     private String name;
 
     /**
-     * Constructor of role
+     * Constructor of role.
      * @param id role id.
      * @param name name of role.
      */
@@ -48,11 +48,15 @@ public class Role {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Role role = (Role) o;
-        return id == role.id &&
-                Objects.equals(name, role.name);
+        return id == role.id
+                && Objects.equals(name, role.name);
     }
 
     @Override

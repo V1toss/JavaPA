@@ -31,10 +31,17 @@ public class CreateUser extends HttpServlet {
         DBManager.getInstance().add(new User(req.getParameter("name"), req.getParameter("login"),
                 req.getParameter("email"), new Timestamp(System.currentTimeMillis()),
                 req.getParameter("password"),
-                new Role(Integer.parseInt(req.getParameter("role_id")),req.getParameter("role"))));
+                new Role(Integer.parseInt(req.getParameter("role_id")), req.getParameter("role"))));
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 
+    /**
+     * Forward to Create.jsp.
+     * @param req request from client to server.
+     * @param resp response from server to client.
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/Create.jsp").forward(req, resp);

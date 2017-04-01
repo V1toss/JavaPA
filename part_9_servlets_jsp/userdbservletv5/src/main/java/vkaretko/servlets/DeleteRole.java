@@ -15,22 +15,22 @@ import java.io.IOException;
  * @version 1.00.
  * @since 07.03.2017.
  */
-public class DeleteUser extends HttpServlet {
+public class DeleteRole extends HttpServlet {
     /**
-     * Passes the request for deleting user to DBManager.
+     * Passes the request for deleting role to DBManager.
      * @param req request from client to server.
      * @param resp response from server to client.
      * @throws ServletException ServletException
-     * @throws IOException IOException
+     * @throws IOException IOException.
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager.getInstance().delete(req.getParameter("login"));
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        DBManager.getInstance().deleteRole(Integer.parseInt(req.getParameter("id")));
+        resp.sendRedirect(String.format("%s/edit_roles", req.getContextPath()));
     }
 
     /**
-     * Return user by login from db.
+     * Return role (id and role name) from db.
      * @param req request from client to server.
      * @param resp response from server to client.
      * @throws ServletException ServletException
@@ -38,7 +38,7 @@ public class DeleteUser extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("user", DBManager.getInstance().searchByLogin(req.getParameter("login")));
-        req.getRequestDispatcher("/WEB-INF/views/Delete.jsp").forward(req, resp);
+        req.setAttribute("role", DBManager.getInstance().getRoleById(Integer.parseInt(req.getParameter("id"))));
+        req.getRequestDispatcher("/WEB-INF/views/DeleteRole.jsp").forward(req, resp);
     }
 }

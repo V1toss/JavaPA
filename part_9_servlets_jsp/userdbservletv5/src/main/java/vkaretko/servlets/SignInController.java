@@ -20,8 +20,18 @@ import java.io.IOException;
  * @since 27.03.2017.
  */
 public class SignInController extends HttpServlet {
-    private static final Logger log = LoggerFactory.getLogger(SignInController.class);
+    /**
+     * Logger.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(SignInController.class);
 
+    /**
+     * Forward to Login.jsp.
+     * @param req request from client to server.
+     * @param resp response from server to client.
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(req, resp);

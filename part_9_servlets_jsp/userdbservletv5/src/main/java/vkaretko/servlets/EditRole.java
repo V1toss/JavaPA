@@ -15,8 +15,15 @@ import java.io.IOException;
  * @version 1.00.
  * @since 31.03.2017.
  */
-public class EditRole extends HttpServlet{
+public class EditRole extends HttpServlet {
 
+    /**
+     * Get roles from DB and foward to EditRole.jsp.
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("roles", DBManager.getInstance().getRoles());
