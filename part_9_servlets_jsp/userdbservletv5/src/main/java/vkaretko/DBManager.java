@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 import vkaretko.models.Role;
 import vkaretko.models.User;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Class DBManager. Provding CRUD operations with DB.
+ * Class DBManager. Providing CRUD operations with DB.
  *
  * @author Karetko Victor.
  * @version 1.00.
@@ -50,17 +51,49 @@ public class DBManager {
      * Create connection to Database.
      * @return connection.
      */
-    public static Connection getConnection() {
+    private static Connection getConnection() {
         Connection conn = null;
         try {
             if (dataSource == null) {
-                dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/users");
+                createDataSource();
             }
             conn = dataSource.getConnection();
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
         }
         return conn;
+    }
+
+    /**
+     * Init data source.
+     */
+    private static void createDataSource() {
+        try {
+            if (dataSource == null) {
+                Class.forName("org.postgresql.Driver");
+                System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
+                        "org.apache.naming.java.javaURLContextFactory");
+                System.setProperty(Context.URL_PKG_PREFIXES,
+                        "org.apache.naming");
+                InitialContext ctx = new InitialContext();
+
+                ctx.createSubcontext("java:");
+                ctx.createSubcontext("java:/comp");
+                ctx.createSubcontext("java:/comp/env");
+                ctx.createSubcontext("java:/comp/env/jdbc");
+
+                DataSource ds = new DataSource();
+                ds.setUrl("jdbc:postgresql://localhost:5432/store");
+                ds.setUsername("postgres");
+                ds.setPassword("123");
+
+                ctx.bind("java:/comp/env/jdbc/users", ds);
+
+                dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/users");
+            }
+        } catch (NamingException | ClassNotFoundException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
     /**
