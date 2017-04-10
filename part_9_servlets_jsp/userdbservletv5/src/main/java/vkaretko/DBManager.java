@@ -5,18 +5,20 @@ import org.slf4j.LoggerFactory;
 import vkaretko.models.Role;
 import vkaretko.models.User;
 
+//import javax.naming.Context;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.Name;
 import javax.naming.NamingException;
-import org.apache.tomcat.jdbc.pool.DataSource;
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
+//import org.apache.tomcat.jdbc.pool.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Class DBManager. Providing CRUD operations with DB.
@@ -71,25 +73,10 @@ public class DBManager {
         try {
             if (dataSource == null) {
                 Class.forName("org.postgresql.Driver");
-                System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-                        "org.apache.naming.java.javaURLContextFactory");
-                System.setProperty(Context.URL_PKG_PREFIXES,
-                        "org.apache.naming");
-                InitialContext ctx = new InitialContext();
-
-                ctx.createSubcontext("java:");
-                ctx.createSubcontext("java:/comp");
-                ctx.createSubcontext("java:/comp/env");
-                ctx.createSubcontext("java:/comp/env/jdbc");
-
-                DataSource ds = new DataSource();
-                ds.setUrl("jdbc:postgresql://localhost:5432/store");
-                ds.setUsername("postgres");
-                ds.setPassword("123");
-
-                ctx.bind("java:/comp/env/jdbc/users", ds);
-
-                dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/users");
+                Properties prop = new Properties();
+                prop.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
+                prop.put(Context.URL_PKG_PREFIXES, "org.apache.naming");
+                dataSource = (DataSource) new InitialContext(prop).lookup("java:comp/env/jdbc/store");
             }
         } catch (NamingException | ClassNotFoundException e) {
             LOG.error(e.getMessage(), e);
