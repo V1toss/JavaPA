@@ -5,20 +5,21 @@ import org.slf4j.LoggerFactory;
 import vkaretko.models.Role;
 import vkaretko.models.User;
 
-//import javax.naming.Context;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.Name;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-//import org.apache.tomcat.jdbc.pool.DataSource;
+import java.beans.PropertyVetoException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.util.*;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
  * Class DBManager. Providing CRUD operations with DB.
@@ -31,7 +32,7 @@ public class DBManager {
     /**
      * DataSource for generating connections.
      */
-    private static DataSource dataSource;
+    private static ComboPooledDataSource dataSource;
 
     /**
      * Logger for database errors.
@@ -70,17 +71,23 @@ public class DBManager {
      * Init data source.
      */
     private static void createDataSource() {
+        Properties prop = new Properties();
+        dataSource = new ComboPooledDataSource();
         try {
-            if (dataSource == null) {
-                Class.forName("org.postgresql.Driver");
-                Properties prop = new Properties();
-                prop.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-                prop.put(Context.URL_PKG_PREFIXES, "org.apache.naming");
-                dataSource = (DataSource) new InitialContext(prop).lookup("java:comp/env/jdbc/store");
-            }
-        } catch (NamingException | ClassNotFoundException e) {
-            LOG.error(e.getMessage(), e);
+            prop.load(new FileInputStream(DBManager.class.getClassLoader().getResource("db.properties").getPath()));
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
         }
+        try {
+            dataSource.setDriverClass(prop.getProperty("driverClass"));
+        } catch (PropertyVetoException e) {
+            LOG.error(e.getMessage());
+        }
+        dataSource.setJdbcUrl(prop.getProperty("url"));
+        dataSource.setUser(prop.getProperty("user"));
+        dataSource.setPassword(prop.getProperty("password"));
+        dataSource.setMaxPoolSize(Integer.valueOf(prop.getProperty("maxActive")));
+        dataSource.setMaxIdleTime(Integer.valueOf(prop.getProperty("maxIdle")));
     }
 
     /**

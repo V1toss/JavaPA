@@ -6,6 +6,7 @@ CREATE TABLE users (
     name VARCHAR(255),
     email VARCHAR(255),
     create_date TIMESTAMP,
+    password VARCHAR(255),
     role_id INTEGER REFERENCES roles(role_id)
 );
 

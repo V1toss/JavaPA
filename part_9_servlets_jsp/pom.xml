@@ -53,17 +53,10 @@
             <version>1.1.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
         <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-            <version>8.5.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-catalina</artifactId>
-            <version>8.5.5</version>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
         </dependency>
 
     </dependencies>
