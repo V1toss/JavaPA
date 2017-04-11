@@ -5,20 +5,19 @@ import org.slf4j.LoggerFactory;
 import vkaretko.models.Role;
 import vkaretko.models.User;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.NoSuchElementException;
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
