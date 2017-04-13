@@ -1,0 +1,95 @@
+<web-app>
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>vkaretko.servlets.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>UsersController</servlet-name>
+        <servlet-class>vkaretko.servlets.UsersController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UsersController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>vkaretko.servlets.DeleteUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditRole</servlet-name>
+        <servlet-class>vkaretko.servlets.EditRole</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditRole</servlet-name>
+        <url-pattern>/edit_roles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteRole</servlet-name>
+        <servlet-class>vkaretko.servlets.DeleteRole</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteRole</servlet-name>
+        <url-pattern>/delrole</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddRole</servlet-name>
+        <servlet-class>vkaretko.servlets.AddRole</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddRole</servlet-name>
+        <url-pattern>/addrole</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateUser</servlet-name>
+        <servlet-class>vkaretko.servlets.UpdateUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateUser</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateUser</servlet-name>
+        <servlet-class>vkaretko.servlets.CreateUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CreateUser</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignInController</servlet-name>
+        <servlet-class>vkaretko.servlets.SignInController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignInController</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+    <resource-ref>
+        <description>DB Connection</description>
+        <res-ref-name>jdbc/users</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+</web-app>

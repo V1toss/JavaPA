@@ -19,6 +19,7 @@
       <module>userdbservletv3</module>
       <module>userdbservletv4</module>
       <module>userdbservletv5</module>
+      <module>userdbservletv6</module>
   </modules>
 
     <dependencies>
