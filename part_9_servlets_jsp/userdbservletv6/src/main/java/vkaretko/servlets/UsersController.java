@@ -1,12 +1,16 @@
 package vkaretko.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import vkaretko.DBManager;
+import vkaretko.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Class UsersController. Provid default JSP.
@@ -25,7 +29,12 @@ public class UsersController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", DBManager.getInstance().getAll());
-        req.getRequestDispatcher("/index.html").forward(req, resp);
+        resp.setContentType("text/json");
+        List<User> users = DBManager.getInstance().getAll();
+        PrintWriter writer = resp.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        writer.append(mapper.writeValueAsString(users));
+        writer.flush();
     }
+
 }

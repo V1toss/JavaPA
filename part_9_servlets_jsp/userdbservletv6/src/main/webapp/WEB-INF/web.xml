@@ -9,15 +9,6 @@
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
-    <!--<servlet>-->
-        <!--<servlet-name>UsersController</servlet-name>-->
-        <!--<servlet-class>vkaretko.servlets.UsersController</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>UsersController</servlet-name>-->
-        <!--<url-pattern>/</url-pattern>-->
-    <!--</servlet-mapping>-->
-
     <servlet>
         <servlet-name>JsonController</servlet-name>
         <servlet-class>vkaretko.servlets.JsonController</servlet-class>
@@ -25,6 +16,15 @@
     <servlet-mapping>
         <servlet-name>JsonController</servlet-name>
         <url-pattern>/json</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UsersController</servlet-name>
+        <servlet-class>vkaretko.servlets.UsersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersController</servlet-name>
+        <url-pattern>/get</url-pattern>
     </servlet-mapping>
 
     <servlet>
