@@ -1,21 +1,22 @@
 <web-app>
-    <!--<filter>-->
-        <!--<filter-name>AuthFilter</filter-name>-->
-        <!--<filter-class>vkaretko.servlets.AuthFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>AuthFilter</filter-name>-->
-        <!--<url-pattern>*</url-pattern>-->
-    <!--</filter-mapping>-->
 
-    <servlet>
-        <servlet-name>UsersController</servlet-name>
-        <servlet-class>vkaretko.servlets.UsersController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UsersController</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>vkaretko.servlets.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <!--<servlet>-->
+        <!--<servlet-name>UsersController</servlet-name>-->
+        <!--<servlet-class>vkaretko.servlets.UsersController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>UsersController</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>JsonController</servlet-name>
@@ -78,14 +79,5 @@
     <servlet-mapping>
         <servlet-name>CreateUser</servlet-name>
         <url-pattern>/create</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>SignInController</servlet-name>
-        <servlet-class>vkaretko.servlets.SignInController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SignInController</servlet-name>
-        <url-pattern>/signin</url-pattern>
     </servlet-mapping>
 </web-app>

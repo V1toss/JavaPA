@@ -1,13 +1,9 @@
 package vkaretko.servlets;
 
+import vkaretko.DBManager;
 import vkaretko.models.User;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.FilterChain;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,14 +26,16 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        if (request.getRequestURI().contains("/signin")) {
+        HttpSession session = request.getSession();
+        if (request.getRequestURI().contains("/login.html") || session.getAttribute("user") != null) {
             chain.doFilter(req, resp);
+        } else if (session.getAttribute("user") == null && req.getParameter("login") == null) {
+            ((HttpServletResponse) resp).sendRedirect(String.format("%s/login.html", request.getContextPath()));
         } else {
-            HttpSession session = request.getSession();
-            if (session.getAttribute("user") == null) {
-                ((HttpServletResponse) resp).sendRedirect(String.format("%s/signin", request.getContextPath()));
-                return;
-            }
+            User user = DBManager.getInstance().getUser(req.getParameter("login"), req.getParameter("password"));
+            session.setAttribute("user", user);
+            session.setAttribute("login", req.getParameter("login"));
+            session.setAttribute("password", req.getParameter("password"));
             chain.doFilter(req, resp);
         }
     }

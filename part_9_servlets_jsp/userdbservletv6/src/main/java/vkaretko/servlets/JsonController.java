@@ -27,14 +27,10 @@ public class JsonController extends HttpServlet {
      * @throws IOException IOException
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/json");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("login", req.getParameter("login"));
-        session.setAttribute("password", req.getParameter("password"));
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
-
-        writer.append("[test]");
+        writer.append(String.valueOf(session.getAttribute("user") != null));
         writer.flush();
     }
 }
