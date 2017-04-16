@@ -71,7 +71,7 @@ public class ControllersTest {
 
         when(request.getParameter("login")).thenReturn("test");
 
-        controller.doPost(request, response);
+        controller.doGet(request, response);
         User user = DBManager.getInstance().getUser("test", "111");
 
         assertNull(user);

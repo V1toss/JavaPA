@@ -17,19 +17,6 @@ import java.io.IOException;
  */
 public class DeleteUser extends HttpServlet {
     /**
-     * Passes the request for deleting user to DBManager.
-     * @param req request from client to server.
-     * @param resp response from server to client.
-     * @throws ServletException ServletException
-     * @throws IOException IOException
-     */
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager.getInstance().delete(req.getParameter("login"));
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
-    }
-
-    /**
      * Return user by login from db.
      * @param req request from client to server.
      * @param resp response from server to client.
@@ -38,7 +25,7 @@ public class DeleteUser extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("user", DBManager.getInstance().searchByLogin(req.getParameter("login")));
-        req.getRequestDispatcher("/Delete.html").forward(req, resp);
+        DBManager.getInstance().delete(req.getParameter("login"));
+        resp.sendRedirect(String.format("%s/index.html", req.getContextPath()));
     }
 }

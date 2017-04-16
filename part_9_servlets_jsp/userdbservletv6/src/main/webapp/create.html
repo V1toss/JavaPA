@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Database</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https:////netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<script>
+    function addNewUser() {
+        $.ajax('./create', {
+            method: 'post',
+            data: {login: $('#login').val(), name: $('#name').val(), email: $('#email').val(), password: $('#password').val(),
+                role_id: $('#role_id').val()}
+        });
+        location.href = "./index.html";
+        return false;
+    }
+</script>
+<body>
+<div class="container">
+    <h3 style="padding-bottom: 30px">Create new user</h3>
+    <div class="row">
+        <div class="col-md-6">
+                Login: <input type="text" class="form-control" id="login" placeholder="Enter login">
+                Name: <input type="text" class="form-control" id="name" placeholder="Enter name">
+                Email: <input type="email" class="form-control" id="email" placeholder="Enter email">
+                Role_id: <input type="number" class="form-control" id="role_id" placeholder="Enter role_id">
+                Password: <input type="password" class="form-control" id="password" placeholder="Enter password">
+        </div>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-success" onclick="return addNewUser();">Add new user</button>
+
+        <!-- Modal -->
+</div>
+</body>
+
+</html>

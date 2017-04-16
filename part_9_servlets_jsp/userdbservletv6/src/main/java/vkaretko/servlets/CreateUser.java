@@ -32,7 +32,7 @@ public class CreateUser extends HttpServlet {
                 req.getParameter("email"), new Timestamp(System.currentTimeMillis()),
                 req.getParameter("password"),
                 new Role(Integer.parseInt(req.getParameter("role_id")), req.getParameter("role"))));
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/index.html", req.getContextPath()));
     }
 
     /**
@@ -44,6 +44,6 @@ public class CreateUser extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/Create.html").forward(req, resp);
+        resp.sendRedirect(String.format("%s/create.html", req.getContextPath()));
     }
 }

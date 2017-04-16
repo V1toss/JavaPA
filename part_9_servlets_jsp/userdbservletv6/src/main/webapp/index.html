@@ -15,42 +15,41 @@
             dataType : "json",
             success: function(data) {
                 $.each(data, function(i, el) {
-                    var line = "<tbody><tr>"
+                    document.getElementById("users").innerHTML += "<tbody><tr>"
                     + "<td>" + el.login + "</td>"
                     + "<td>" + el.name + "</td>"
                     + "<td>" + el.email + "</td>"
-                    + "<td>" + el.role.name + "</td>";
-                    line += "<td><a href='./update?="+el.login +"'> <i class=\"glyphicon glyphicon-edit\"></i></a></td>"
-                    + "<td><a href='./delete?="+el.login +"'><i style='color: red' class=\"glyphicon glyphicon-remove\"></i></td>"
+                    + "<td>" + el.role.name + "</td>"
+                    + "<td><a href='./update?login="+el.login +"'> <i class=\"glyphicon glyphicon-edit\"></i></a></td>"
+                    + "<td><a href='./delete?login="+el.login +"'><i style='color: red' class=\"glyphicon glyphicon-remove\"></i></td>"
                     + "</tbody></tr>";
-                    document.getElementById("users").innerHTML += line;
                 });
             }
         });
-    })
+    });
 </script>
-<style>
-</style>
 <body>
 <div class="container">
     <h3 style="padding-bottom: 30px">Users Database</h3>
     <div class="row">
         <div class="col-md-6">
-                <table class="table table-bordered" id="users">
-                    <thead style="background: blue">
-                    <tr style="color: white">
-                        <th>Login</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                </table>
+            <table class="table table-bordered" id="users">
+                <thead style="background: blue">
+                <tr style="color: white">
+                    <th>Login</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
         </div>
     </div>
-    <a href="./create"><input type="button" class="btn btn-success" value="Add new user"/></a>
+    <a href="./create.html"><input type="button" class="btn btn-success" value="Add new user"/>
+
+        <!-- Modal -->
 </div>
 </body>
 
