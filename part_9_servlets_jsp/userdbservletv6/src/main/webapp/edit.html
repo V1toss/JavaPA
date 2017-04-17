@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https:////netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<script>
+    $(document).ready(function updateUser() {
+        $.ajax('./update', {
+            method : 'get',
+            dataType : "json",
+            success: function(data) {
+               document.getElementById("login").value = data.login;
+               document.getElementById("name").value = data.name;
+               document.getElementById("email").value = data.email;
+               document.getElementById("password").value = data.password;
+               document.getElementById("role_id").value = data.role.id;
+            }
+        });
+    });
+
+    function updateUser() {
+        $.ajax('./update', {
+            method: 'post',
+            data: {login: $('#login').val(), name: $('#name').val(), email: $('#email').val(), password: $('#password').val(),
+                role_id: $('#role_id').val()}
+        });
+        location.href = "./index.html";
+        return false;
+    }
+</script>
+<body>
+<div class="container">
+    <h3 style="padding-bottom: 30px">Update user</h3>
+    <div class="row">
+        <div class="col-md-6">
+                <label for="login">Login: </label><input type="text" class="form-control" id="login" readonly="readonly">
+                <label for="name">Name: </label><input type="text" class="form-control" id="name">
+                <label for="email">Email: </label><input type="email" class="form-control" id="email">
+                <label for="role_id">Role_id: </label><input type="number" class="form-control" id="role_id">
+                <label for="password">Password: </label><input type="password" class="form-control" id="password">
+        </div>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-success" onclick="return updateUser();">Update</button>
+</div>
+</body>
+
+</html>
