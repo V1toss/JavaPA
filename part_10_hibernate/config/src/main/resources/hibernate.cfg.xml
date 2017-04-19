@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<hibernate-configuration xmlns="http://www.hibernate.org/xsd/hibernate-configuration">
+<hibernate-configuration>
     <session-factory>
         <property name="connection.url">jdbc:postgresql://localhost:5432/tracker</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="connection.username">postgres</property>
-        <property name="connection.password">123</property>
+        <property name="connection.done">123</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
 
         <mapping resource="vkaretko/models/Item.hbm.xml"/>

@@ -1,11 +1,11 @@
 <web-app>
     <servlet>
-        <servlet-name>Servlet</servlet-name>
-        <servlet-class>vkaretko.servlets.Servlet</servlet-class>
+        <servlet-name>TrackerController</servlet-name>
+        <servlet-class>vkaretko.servlets.TrackerController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Servlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>TrackerController</servlet-name>
+        <url-pattern>/getItems</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https:////netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<script>
+    $(document).ready(function getItems() {
+        $.ajax('./getItems', {
+            method : 'get',
+            dataType : "json",
+            success: function(data) {
+                $.each(data, function(i, el) {
+                    document.getElementById("items").innerHTML += "<tbody><tr>"
+                    + "<td>" + el.id + "</td>"
+                    + "<td>" + el.desc + "</td>"
+                    + "<td>" + new Date(el.created) + "</td>"
+                    + "<td>" + el.done + "</td>"
+                    + "</tbody></tr>";
+                });
+            }
+        });
+    });
+</script>
+
+<body>
+<div class="container">
+    <h3 style="padding-bottom: 30px">Tracker</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered" id="items">
+                <thead style="background: blue">
+                <tr style="color: white">
+                    <th>Task id</th>
+                    <th>Description</th>
+                    <th>Create date</th>
+                    <th>Finished</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
