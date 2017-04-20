@@ -3,9 +3,36 @@
         <servlet-name>TrackerController</servlet-name>
         <servlet-class>vkaretko.servlets.TrackerController</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>TrackerController</servlet-name>
         <url-pattern>/getItems</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddItemController</servlet-name>
+        <servlet-class>vkaretko.servlets.AddItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddItemController</servlet-name>
+        <url-pattern>/addItem</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteItemController</servlet-name>
+        <servlet-class>vkaretko.servlets.DeleteItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteItemController</servlet-name>
+        <url-pattern>/deleteItem</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateStatusController</servlet-name>
+        <servlet-class>vkaretko.servlets.UpdateStatusController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusController</servlet-name>
+        <url-pattern>/updateStatus</url-pattern>
+    </servlet-mapping>
+
 </web-app>

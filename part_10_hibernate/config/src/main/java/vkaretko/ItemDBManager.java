@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import vkaretko.models.Item;
 import vkaretko.service.HibernateUtil;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +46,57 @@ public class ItemDBManager {
 
     /**
      * Add item in database.
-     * @param item item to update.
+     * @param desc description of item.
      */
-    public void addItem(Item item) {
+    public void addItem(String desc) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(item);
+            Item item = new Item();
+            item.setDesc(desc);
+            item.setCreated(new Timestamp(System.currentTimeMillis()));
+            session.save(item);
+            transaction.commit();
+        } catch (HibernateException he) {
+            LOG.error(he.getMessage(), he);
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
+    /**
+     * Update item status in db by id.
+     * @param isDone status of item.
+     * @param id id of item.
+     */
+    public void updateStatus(int id, boolean isDone) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Item item = session.get(Item.class, id);
+            item.setDone(isDone);
+            session.update(item);
+            transaction.commit();
+        } catch (HibernateException he) {
+            LOG.error(he.getMessage(), he);
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
+    /**
+     * Delete item from db.
+     * @param id of item.
+     */
+    public void deleteItem(int id) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Item item = new Item();
+            item.setId(id);
+            session.delete(item);
             transaction.commit();
         } catch (HibernateException he) {
             LOG.error(he.getMessage(), he);
