@@ -1,6 +1,6 @@
 package vkaretko.servlets;
 
-import vkaretko.ItemDBManager;
+import vkaretko.ItemDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +25,7 @@ public class UpdateStatusController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDBManager.getInstance().updateStatus(Integer.valueOf(req.getParameter("id")),
+        ItemDAOImpl.getInstance().updateStatus(Integer.valueOf(req.getParameter("id")),
                 !Boolean.valueOf(req.getParameter("isDone")));
     }
 }

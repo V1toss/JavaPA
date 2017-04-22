@@ -1,6 +1,6 @@
 package vkaretko.servlets;
 
-import vkaretko.ItemDBManager;
+import vkaretko.ItemDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +25,6 @@ public class AddItemController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDBManager.getInstance().addItem(req.getParameter("desc"));
+        ItemDAOImpl.getInstance().addItem(req.getParameter("desc"));
     }
 }
