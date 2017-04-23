@@ -1,0 +1,10 @@
+<web-app>
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>vkaretko.servlets.Controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

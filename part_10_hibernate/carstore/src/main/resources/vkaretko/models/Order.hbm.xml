@@ -1,0 +1,27 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="vkaretko.models">
+    <class name="Order" table="orders">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="description" column="description"/>
+        <property name="price" column="price"/>
+        <property name="sold" column="sold"/>
+        <property name="date" column="date"/>
+
+        <many-to-one name="user"
+                     column="id_user"
+                     class="vkaretko.models.User"/>
+        <many-to-one name="car"
+                     column="id_car"
+                     class="vkaretko.models.Car"/>
+
+        <bag name="images" table="images" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_order" not-null="true"/>
+            </key>
+            <one-to-many class="vkaretko.models.Image"/>
+        </bag>
+    </class>
+</hibernate-mapping>

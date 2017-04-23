@@ -1,0 +1,30 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="vkaretko.models">
+    <class name="Car" table="cars">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="enginePower" column="engine_power"/>
+        <property name="year" column="year"/>
+        <property name="color" column="color"/>
+        <property name="mileage" column="mileage"/>
+
+        <many-to-one name="body"
+                     column="id_body"
+                     class="vkaretko.models.Body"/>
+        <many-to-one name="drive"
+                     column="id_drive"
+                     class="vkaretko.models.Drive"/>
+        <many-to-one name="engine"
+                     column="id_engine"
+                     class="vkaretko.models.Engine"/>
+        <many-to-one name="transmission"
+                     column="id_transmission"
+                     class="vkaretko.models.Transmission"/>
+        <many-to-one name="model"
+                     column="id_model"
+                     class="vkaretko.models.Model"/>
+
+    </class>
+</hibernate-mapping>
