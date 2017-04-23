@@ -1,0 +1,13 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="vkaretko.models">
+    <class name="Image" table="images">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="url" column="login"/>
+        <many-to-one name="order"
+                     column="id_order"
+                     class="vkaretko.models.Order"/>
+    </class>
+</hibernate-mapping>

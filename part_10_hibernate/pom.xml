@@ -15,6 +15,7 @@
   <modules>
       <module>config</module>
       <module>carstore</module>
+      <module>carstorev2</module>
   </modules>
 
     <dependencies>

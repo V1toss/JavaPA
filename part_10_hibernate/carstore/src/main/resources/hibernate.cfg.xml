@@ -7,6 +7,15 @@
         <property name="connection.password">123</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
 
+        <mapping resource="vkaretko/models/Body.hbm.xml"/>
+        <mapping resource="vkaretko/models/Brand.hbm.xml"/>
+        <mapping resource="vkaretko/models/Car.hbm.xml"/>
+        <mapping resource="vkaretko/models/Drive.hbm.xml"/>
+        <mapping resource="vkaretko/models/Engine.hbm.xml"/>
+        <mapping resource="vkaretko/models/Image.hbm.xml"/>
+        <mapping resource="vkaretko/models/Model.hbm.xml"/>
+        <mapping resource="vkaretko/models/Order.hbm.xml"/>
+        <mapping resource="vkaretko/models/Transmission.hbm.xml"/>
         <mapping resource="vkaretko/models/User.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
