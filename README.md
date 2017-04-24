@@ -10,4 +10,5 @@
  part_6 - GC <br />
  part_7 - Multitheading <br />
  part_8 - SQL, JDBC <br />
- part_9 - Servlets/JSP
+ part_9 - Servlets/JSP <br />
+ part_10 - Hibernate
