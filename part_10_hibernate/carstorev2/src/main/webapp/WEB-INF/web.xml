@@ -1,10 +1,10 @@
 <web-app>
     <servlet>
-        <servlet-name>Controller</servlet-name>
-        <servlet-class>vkaretko.servlets.Controller</servlet-class>
+        <servlet-name>GetOrdersController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetOrdersController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Controller</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>GetOrdersController</servlet-name>
+        <url-pattern>/getOrders</url-pattern>
     </servlet-mapping>
 </web-app>

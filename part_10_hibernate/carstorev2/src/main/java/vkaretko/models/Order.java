@@ -1,5 +1,6 @@
 package vkaretko.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -45,6 +46,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     private List<Image> images;
 
     public Order() { }
