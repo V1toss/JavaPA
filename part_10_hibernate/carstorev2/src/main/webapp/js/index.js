@@ -25,3 +25,20 @@ function getOrders() {
         }
     })
 }
+
+/**
+ * Load user info.
+ */
+function loadUser() {
+    $.ajax('./getUser', {
+        method: 'get',
+        dataType: "json",
+        success: function (data) {
+            if (data == null) {
+                document.getElementById("login").innerHTML = "<a href='login.html' style='float: right; padding-top: 10px'>Войти</a>";
+            } else {
+                document.getElementById("login").innerHTML = "<a href='login.html' style='float: right; padding-top: 10px'>" + data.login + "  Выйти</a>";
+            }
+        }
+    })
+}

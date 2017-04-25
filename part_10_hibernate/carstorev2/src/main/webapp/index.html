@@ -11,14 +11,16 @@
 </head>
 <script>
     $(document).ready(function () {
+        loadUser();
         getOrders();
     });
 </script>
 
 <body>
 <div class="container">
+    <p id="login"></p>
     <div class="row">
-        <h3 style="text-align: center">Orders</h3>
+        <h3 style="text-align: center; padding-bottom: 20px">Orders</h3>
         <div class="col-md-12">
             <table class="table table-bordered">
                 <thead style="background: blue">

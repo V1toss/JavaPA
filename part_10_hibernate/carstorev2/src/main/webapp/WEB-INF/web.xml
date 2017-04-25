@@ -7,4 +7,23 @@
         <servlet-name>GetOrdersController</servlet-name>
         <url-pattern>/getOrders</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserController</servlet-name>
+        <url-pattern>/getUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SetUserController</servlet-name>
+        <servlet-class>vkaretko.servlets.SetUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetUserController</servlet-name>
+        <url-pattern>/setUser</url-pattern>
+    </servlet-mapping>
+
 </web-app>
