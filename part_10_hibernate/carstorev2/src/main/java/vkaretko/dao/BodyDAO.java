@@ -20,13 +20,4 @@ public class BodyDAO extends AbstractDAO<Body>{
         return INSTANCE;
     }
 
-    @Override
-    public Body get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Body.class, id))).get(0);
-    }
-
-    @Override
-    public List<Body> getAll() {
-        return persistGetAll(session -> session.createQuery("from Body").list());
-    }
 }

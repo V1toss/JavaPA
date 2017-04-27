@@ -20,13 +20,4 @@ public class ModelDAO extends AbstractDAO<Model>{
         return INSTANCE;
     }
 
-    @Override
-    public Model get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Model.class, id))).get(0);
-    }
-
-    @Override
-    public List<Model> getAll() {
-        return persistGetAll(session -> session.createQuery("from Model").list());
-    }
 }

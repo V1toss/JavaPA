@@ -20,13 +20,4 @@ public class ImageDAO extends AbstractDAO<Image>{
         return INSTANCE;
     }
 
-    @Override
-    public Image get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Image.class, id))).get(0);
-    }
-
-    @Override
-    public List<Image> getAll() {
-        return persistGetAll(session -> session.createQuery("from Image").list());
-    }
 }

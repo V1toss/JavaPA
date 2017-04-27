@@ -20,13 +20,4 @@ public class UserDAO extends AbstractDAO<User>{
         return INSTANCE;
     }
 
-    @Override
-    public User get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(User.class, id))).get(0);
-    }
-
-    @Override
-    public List<User> getAll() {
-        return persistGetAll(session -> session.createQuery("from User").list());
-    }
 }

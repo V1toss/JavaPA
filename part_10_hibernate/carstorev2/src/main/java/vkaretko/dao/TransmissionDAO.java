@@ -20,13 +20,4 @@ public class TransmissionDAO extends AbstractDAO<Transmission>{
         return INSTANCE;
     }
 
-    @Override
-    public Transmission get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Transmission.class, id))).get(0);
-    }
-
-    @Override
-    public List<Transmission> getAll() {
-        return persistGetAll(session -> session.createQuery("from Transmission").list());
-    }
 }

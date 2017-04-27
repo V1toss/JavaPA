@@ -20,13 +20,4 @@ public class DriveDAO extends AbstractDAO<Drive>{
         return INSTANCE;
     }
 
-    @Override
-    public Drive get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Drive.class, id))).get(0);
-    }
-
-    @Override
-    public List<Drive> getAll() {
-        return persistGetAll(session -> session.createQuery("from Drive").list());
-    }
 }

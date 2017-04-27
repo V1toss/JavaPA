@@ -20,13 +20,4 @@ public class EngineDAO extends AbstractDAO<Engine>{
         return INSTANCE;
     }
 
-    @Override
-    public Engine get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Engine.class, id))).get(0);
-    }
-
-    @Override
-    public List<Engine> getAll() {
-        return persistGetAll(session -> session.createQuery("from Engine").list());
-    }
 }

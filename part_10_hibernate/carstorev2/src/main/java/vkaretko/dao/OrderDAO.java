@@ -20,13 +20,4 @@ public class OrderDAO extends AbstractDAO<Order>{
         return INSTANCE;
     }
 
-    @Override
-    public Order get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Order.class, id))).get(0);
-    }
-
-    @Override
-    public List<Order> getAll() {
-        return persistGetAll(session -> session.createQuery("from Order").list());
-    }
 }

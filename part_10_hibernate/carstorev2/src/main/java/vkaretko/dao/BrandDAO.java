@@ -20,13 +20,4 @@ public class BrandDAO extends AbstractDAO<Brand>{
         return INSTANCE;
     }
 
-    @Override
-    public Brand get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Brand.class, id))).get(0);
-    }
-
-    @Override
-    public List<Brand> getAll() {
-        return persistGetAll(session -> session.createQuery("from Brand").list());
-    }
 }

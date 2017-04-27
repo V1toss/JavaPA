@@ -7,9 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vkaretko.interfaces.Action;
 import vkaretko.interfaces.ActionGet;
+import vkaretko.models.Order;
 import vkaretko.service.HibernateUtil;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,11 +28,14 @@ public abstract class AbstractDAO<T> {
      */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDAO.class);
 
+    @SuppressWarnings("unchecked")
+    private Class<T> persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
     /**
      * Template method w/o return.
      * @param action action to do.
      */
-    protected void persist(Action action) {
+    private void persist(Action action) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -48,7 +54,7 @@ public abstract class AbstractDAO<T> {
      * @param action action to do.
      */
     @SuppressWarnings("unchecked")
-    protected List<T> persistGetAll(ActionGet action) {
+    private List<T> persistGetAll(ActionGet action) {
         Transaction transaction = null;
         List<T> list = new ArrayList<>();
         try (Session session = HibernateUtil.getFactory().openSession()) {
@@ -70,7 +76,7 @@ public abstract class AbstractDAO<T> {
      */
     public void delete(T t) {
         persist(session -> session.delete(t));
-    };
+    }
 
     /**
      * Update entry in db.
@@ -86,17 +92,21 @@ public abstract class AbstractDAO<T> {
      */
     public void save(T t) {
         persist(session -> session.save(t));
-    };
+    }
 
     /**
      * Get entry from db by id.
      * @param id if of entry to get.
      */
-    public abstract T get(int id);
+    public T get(int id) {
+        return persistGetAll(session -> Collections.singletonList(session.get(persistentClass, id))).get(0);
+    }
 
     /**
      * Get list of entries from database.
      * @return list of entries.
      */
-    public abstract List<T> getAll();
+    public List<T> getAll() {
+        return persistGetAll(session -> session.createQuery("from " + persistentClass.getSimpleName()).list());
+    }
 }

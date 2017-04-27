@@ -20,13 +20,4 @@ public class CarDAO extends AbstractDAO<Car>{
         return INSTANCE;
     }
 
-    @Override
-    public Car get(int id) {
-        return persistGetAll(session -> Collections.singletonList(session.get(Car.class, id))).get(0);
-    }
-
-    @Override
-    public List<Car> getAll() {
-        return persistGetAll(session -> session.createQuery("from Car").list());
-    }
 }
