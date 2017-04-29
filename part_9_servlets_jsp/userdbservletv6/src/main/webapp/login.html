@@ -17,7 +17,7 @@
             },
             complete : function(data){
                 var result = JSON.parse(data.responseText);
-                if (result == true) {
+                if (result) {
                     location.href = "./index.html";
                 } else {
                     alert("Please input correct login");

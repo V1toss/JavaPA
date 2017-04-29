@@ -26,4 +26,67 @@
         <url-pattern>/setUser</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>GetBrandController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetBrandController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetBrandController</servlet-name>
+        <url-pattern>/getBrands</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetModelController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetModelController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetModelController</servlet-name>
+        <url-pattern>/getModels</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetCarBodyController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetCarBodyController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCarBodyController</servlet-name>
+        <url-pattern>/getBodies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetEngineController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetEngineController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetEngineController</servlet-name>
+        <url-pattern>/getEngines</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetTransmissionController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetTransmissionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetTransmissionController</servlet-name>
+        <url-pattern>/getTransmissions</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddOrderController</servlet-name>
+        <servlet-class>vkaretko.servlets.AddOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddOrderController</servlet-name>
+        <url-pattern>/addOrder</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetDriveController</servlet-name>
+        <servlet-class>vkaretko.servlets.GetDriveController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetDriveController</servlet-name>
+        <url-pattern>/getDrives</url-pattern>
+    </servlet-mapping>
+
 </web-app>

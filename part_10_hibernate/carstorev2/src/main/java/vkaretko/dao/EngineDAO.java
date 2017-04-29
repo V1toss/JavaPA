@@ -19,5 +19,4 @@ public class EngineDAO extends AbstractDAO<Engine>{
     public static EngineDAO getInstance() {
         return INSTANCE;
     }
-
 }

@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vkaretko.interfaces.Action;
 import vkaretko.interfaces.ActionGet;
-import vkaretko.models.Order;
 import vkaretko.service.HibernateUtil;
 
 import java.lang.reflect.ParameterizedType;

@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Drive {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
