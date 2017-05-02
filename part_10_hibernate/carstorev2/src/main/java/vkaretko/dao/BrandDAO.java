@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Brand;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Brand DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class BrandDAO extends AbstractDAO<Brand>{
+public class BrandDAO extends AbstractDAO<Brand> {
 
+    /**
+     * Dao instance.
+     */
     private static final BrandDAO INSTANCE = new BrandDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static BrandDAO getInstance() {
         return INSTANCE;
     }

@@ -89,4 +89,13 @@
         <url-pattern>/getDrives</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UpdateSoldStatusController</servlet-name>
+        <servlet-class>vkaretko.servlets.UpdateSoldStatusController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateSoldStatusController</servlet-name>
+        <url-pattern>/updateStatus</url-pattern>
+    </servlet-mapping>
+
 </web-app>

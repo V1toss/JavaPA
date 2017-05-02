@@ -12,13 +12,17 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
     <name>part_10_carstorev2</name>
-    <dependencies>
-        <dependency>
-            <groupId>vkaretko.servlets</groupId>
-            <artifactId>carstore</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
     <artifactId>carstorev2</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

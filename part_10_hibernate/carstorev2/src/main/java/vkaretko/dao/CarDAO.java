@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Car;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Car DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class CarDAO extends AbstractDAO<Car>{
+public class CarDAO extends AbstractDAO<Car> {
 
+    /**
+     * Dao instance.
+     */
     private static final CarDAO INSTANCE = new CarDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static CarDAO getInstance() {
         return INSTANCE;
     }

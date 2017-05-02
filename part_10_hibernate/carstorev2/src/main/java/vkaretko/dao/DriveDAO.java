@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Drive;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Drive DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class DriveDAO extends AbstractDAO<Drive>{
+public class DriveDAO extends AbstractDAO<Drive> {
 
+    /**
+     * Dao instance.
+     */
     private static final DriveDAO INSTANCE = new DriveDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static DriveDAO getInstance() {
         return INSTANCE;
     }

@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Body;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Body DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class BodyDAO extends AbstractDAO<Body>{
+public class BodyDAO extends AbstractDAO<Body> {
 
+    /**
+     * Dao instance.
+     */
     private static final BodyDAO INSTANCE = new BodyDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static BodyDAO getInstance() {
         return INSTANCE;
     }

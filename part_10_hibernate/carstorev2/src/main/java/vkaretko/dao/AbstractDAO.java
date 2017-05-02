@@ -20,6 +20,7 @@ import java.util.List;
  * @author Karetko Victor.
  * @version 1.00.
  * @since 24.04.2017.
+ * @param <T> parametrized type.
  */
 public abstract class AbstractDAO<T> {
     /**
@@ -27,6 +28,9 @@ public abstract class AbstractDAO<T> {
      */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDAO.class);
 
+    /**
+     * Get class using reglection.
+     */
     @SuppressWarnings("unchecked")
     private Class<T> persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
@@ -51,6 +55,7 @@ public abstract class AbstractDAO<T> {
     /**
      * Template method with list return.
      * @param action action to do.
+     * @return list of objects.
      */
     @SuppressWarnings("unchecked")
     private List<T> persistGetAll(ActionGet action) {
@@ -96,6 +101,7 @@ public abstract class AbstractDAO<T> {
     /**
      * Get entry from db by id.
      * @param id if of entry to get.
+     * @return T object.
      */
     public T get(int id) {
         return persistGetAll(session -> Collections.singletonList(session.get(persistentClass, id))).get(0);

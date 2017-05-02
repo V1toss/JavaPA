@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Image;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Image DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class ImageDAO extends AbstractDAO<Image>{
+public class ImageDAO extends AbstractDAO<Image> {
 
+    /**
+     * Dao instance.
+     */
     private static final ImageDAO INSTANCE = new ImageDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static ImageDAO getInstance() {
         return INSTANCE;
     }

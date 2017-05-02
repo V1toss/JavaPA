@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Transmission;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Transmission DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class TransmissionDAO extends AbstractDAO<Transmission>{
+public class TransmissionDAO extends AbstractDAO<Transmission> {
 
+    /**
+     * Dao instance.
+     */
     private static final TransmissionDAO INSTANCE = new TransmissionDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static TransmissionDAO getInstance() {
         return INSTANCE;
     }

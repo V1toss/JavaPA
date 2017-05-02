@@ -2,9 +2,6 @@ package vkaretko.dao;
 
 import vkaretko.models.Model;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Model DAO class.
  *
@@ -12,10 +9,17 @@ import java.util.List;
  * @version 1.00.
  * @since 24.04.2017.
  */
-public class ModelDAO extends AbstractDAO<Model>{
+public class ModelDAO extends AbstractDAO<Model> {
 
+    /**
+     * Dao instance.
+     */
     private static final ModelDAO INSTANCE = new ModelDAO();
 
+    /**
+     * Getter for instance.
+     * @return instance.
+     */
     public static ModelDAO getInstance() {
         return INSTANCE;
     }

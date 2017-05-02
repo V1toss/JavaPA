@@ -6,6 +6,7 @@
  * Load orders to page.
  */
 function getOrders() {
+    var userId = getUserId();
     $.ajax('./getOrders', {
         method: 'get',
         dataType: "json",
@@ -15,15 +16,49 @@ function getOrders() {
                 var line = "<tr>"
                     + "<td>" + el.car.model.brand.name + "</td>"
                     + "<td>" + el.car.model.name + "</td>"
+                    + "<td>" + el.car.color + "</td>"
+                    + "<td>" + el.car.year + "</td>"
                     + "<td>" + el.description + "</td>"
                     + "<td>" + el.price + "</td>"
-                    + "<td>" + el.sold + "</td>"
                     + "<td>" + new Date(el.date) + "</td>"
                     + "<td>" + el.user.login + "</td>";
+                if (userId != null && userId == el.user.id) {
+                    if (el.sold === true) {
+                        line += "<td style='text-align: center'>" +
+                            "<input type='checkbox' checked onchange='return updateStatus("+el.id+","+ el.sold+")'/></td></tr>";
+                    } else {
+                        line += "<td style='text-align: center'>" +
+                            "<input type='checkbox' onchange='return updateStatus("+el.id+","+ el.sold+")'/></td></tr>";
+                    }
+                } else {
+                    if (el.sold === true) {
+                        line += "<td>sold</td></tr>";
+                    } else {
+                        line += "<td>for sale</td></tr>";
+                    }
+                }
                 document.getElementById("orders").innerHTML += line;
             });
         }
     })
+}
+
+/**
+ * Return id of current user from session.
+ */
+function getUserId() {
+    var result = null;
+    $.ajax('./getUser', {
+        method: 'get',
+        async: false,
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                result = data.id;
+            }
+        }
+    });
+    return result;
 }
 
 /**
@@ -61,6 +96,21 @@ function loadUser() {
 }
 
 /**
+ * Update status of order.
+ * @param id id of item to update.
+ * @param status new status.
+ */
+function updateStatus(id, status) {
+    $.ajax('./updateStatus', {
+        method: 'post',
+        data: {
+            'id': id,
+            'isSold': status
+        }
+    })
+}
+
+/**
  * Validate user login and password.
  */
 function validate() {
@@ -81,6 +131,9 @@ function validate() {
     });
 }
 
+/**
+ * Form selector for brands.
+ */
 function brandSelector() {
     $.ajax('./getBrands', {
         method: 'get',
@@ -93,6 +146,9 @@ function brandSelector() {
     })
 }
 
+/**
+ * Form selector for models.
+ */
 function modelSelector() {
     var sel = document.getElementById("brand");
     $.ajax('./getModels', {
@@ -110,6 +166,9 @@ function modelSelector() {
     })
 }
 
+/**
+ * Form selector for engines.
+ */
 function engineSelector() {
     $.ajax('./getEngines', {
         method: 'get',
@@ -122,6 +181,9 @@ function engineSelector() {
     })
 }
 
+/**
+ * Form selector for transmissions.
+ */
 function transmissionSelector() {
     $.ajax('./getTransmissions', {
         method: 'get',
@@ -134,6 +196,9 @@ function transmissionSelector() {
     })
 }
 
+/**
+ * Form selector for car bodies.
+ */
 function carBodiesSelector() {
     $.ajax('./getBodies', {
         method: 'get',
@@ -146,6 +211,9 @@ function carBodiesSelector() {
     })
 }
 
+/**
+ * Form selector for drive types.
+ */
 function drivesSelector() {
     $.ajax('./getDrives', {
         method: 'get',

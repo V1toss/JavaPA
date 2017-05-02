@@ -1,6 +1,11 @@
 package vkaretko.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
 
 /**
  * Model Engine. Car engine types like "diesel, petrol".

@@ -1,7 +1,15 @@
 package vkaretko.servlets;
 
-import vkaretko.dao.*;
-import vkaretko.models.*;
+import vkaretko.dao.BodyDAO;
+import vkaretko.dao.CarDAO;
+import vkaretko.dao.ModelDAO;
+import vkaretko.dao.DriveDAO;
+import vkaretko.dao.EngineDAO;
+import vkaretko.dao.OrderDAO;
+import vkaretko.dao.TransmissionDAO;
+import vkaretko.models.Car;
+import vkaretko.models.Order;
+import vkaretko.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +46,7 @@ public class AddOrderController extends HttpServlet {
         car.setDrive(DriveDAO.getInstance().get(Integer.valueOf(req.getParameter("driveId"))));
         car.setEngine(EngineDAO.getInstance().get(Integer.valueOf(req.getParameter("engineId"))));
         car.setEnginePower(Integer.valueOf(req.getParameter("enginePower")));
+        car.setColor(req.getParameter("color"));
         car.setYear(Integer.valueOf(req.getParameter("year")));
         car.setMileage(Integer.valueOf(req.getParameter("mileage")));
         CarDAO.getInstance().save(car);
@@ -49,7 +58,7 @@ public class AddOrderController extends HttpServlet {
         order.setDescription(req.getParameter("description"));
         order.setPrice(Integer.valueOf(req.getParameter("price")));
         order.setSold(false);
-        order.setUser((User)session.getAttribute("user"));
+        order.setUser((User) session.getAttribute("user"));
 
         OrderDAO.getInstance().save(order);
     }
