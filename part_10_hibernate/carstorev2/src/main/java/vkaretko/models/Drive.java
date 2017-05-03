@@ -28,6 +28,10 @@ public class Drive {
 
     public Drive() { }
 
+    public Drive(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

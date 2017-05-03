@@ -1,13 +1,13 @@
 package vkaretko.servlets;
 
-import vkaretko.dao.BodyDAO;
 import vkaretko.dao.CarDAO;
-import vkaretko.dao.ModelDAO;
-import vkaretko.dao.DriveDAO;
-import vkaretko.dao.EngineDAO;
 import vkaretko.dao.OrderDAO;
-import vkaretko.dao.TransmissionDAO;
+import vkaretko.models.Body;
 import vkaretko.models.Car;
+import vkaretko.models.Model;
+import vkaretko.models.Transmission;
+import vkaretko.models.Drive;
+import vkaretko.models.Engine;
 import vkaretko.models.Order;
 import vkaretko.models.User;
 
@@ -40,11 +40,11 @@ public class AddOrderController extends HttpServlet {
 
         //creating car
         Car car = new Car();
-        car.setBody(BodyDAO.getInstance().get(Integer.valueOf(req.getParameter("bodyId"))));
-        car.setTransmission(TransmissionDAO.getInstance().get(Integer.valueOf(req.getParameter("transmissionId"))));
-        car.setModel(ModelDAO.getInstance().get(Integer.valueOf(req.getParameter("modelId"))));
-        car.setDrive(DriveDAO.getInstance().get(Integer.valueOf(req.getParameter("driveId"))));
-        car.setEngine(EngineDAO.getInstance().get(Integer.valueOf(req.getParameter("engineId"))));
+        car.setBody(new Body(Integer.valueOf(req.getParameter("bodyId"))));
+        car.setTransmission(new Transmission(Integer.valueOf(req.getParameter("transmissionId"))));
+        car.setModel(new Model(Integer.valueOf(req.getParameter("modelId"))));
+        car.setDrive(new Drive(Integer.valueOf(req.getParameter("driveId"))));
+        car.setEngine(new Engine(Integer.valueOf(req.getParameter("engineId"))));
         car.setEnginePower(Integer.valueOf(req.getParameter("enginePower")));
         car.setColor(req.getParameter("color"));
         car.setYear(Integer.valueOf(req.getParameter("year")));

@@ -34,6 +34,10 @@ public class Image {
 
     public Image() { }
 
+    public Image(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

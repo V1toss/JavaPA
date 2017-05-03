@@ -60,6 +60,10 @@ public class Car {
     public Car() {
     }
 
+    public Car(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

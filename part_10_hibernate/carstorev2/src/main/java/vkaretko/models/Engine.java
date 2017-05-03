@@ -29,6 +29,10 @@ public class Engine {
 
     public Engine() { }
 
+    public Engine(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

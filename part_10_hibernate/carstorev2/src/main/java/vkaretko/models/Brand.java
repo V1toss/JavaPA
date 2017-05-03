@@ -28,6 +28,10 @@ public class Brand {
 
     public Brand() { }
 
+    public Brand(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
