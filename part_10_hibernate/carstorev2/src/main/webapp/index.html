@@ -39,7 +39,12 @@
             </table>
         </div>
     </div>
-    <input type="button" class="btn btn-success" value="Add new order" onclick="return checkUser()"/>
+    <input type="button" class="btn btn-success" value="Add new order" onclick="return checkUser()"/> <br/><br/>
+
+    <input type="number" id="priceToSet" placeholder="Enter max price"/>
+    <input type="button" class="btn btn-info" value="Set maximum price" onclick="return setPriceFilter()"/>
+    <input type="button" class="btn btn-info" value="Reset filter" onclick="return resetPriceFilter()"/>
+
 </div>
 </body>
 

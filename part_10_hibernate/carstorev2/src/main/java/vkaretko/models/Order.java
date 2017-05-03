@@ -1,8 +1,7 @@
 package vkaretko.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,6 +26,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
+@FilterDef(name="priceFilter", parameters=@ParamDef( name="maxPrice", type="integer" ) )
+@Filters( {
+        @Filter(name="priceFilter", condition=":maxPrice >= price")
+} )
 public class Order {
 
     @Id

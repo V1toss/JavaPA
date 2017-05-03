@@ -58,7 +58,7 @@ public abstract class AbstractDAO<T> {
      * @return list of objects.
      */
     @SuppressWarnings("unchecked")
-    private List<T> persistGetAll(ActionGet action) {
+    public List<T> persistGetAll(ActionGet action) {
         Transaction transaction = null;
         List<T> list = new ArrayList<>();
         try (Session session = HibernateUtil.getFactory().openSession()) {

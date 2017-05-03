@@ -268,3 +268,31 @@ function addNewOrder() {
         }
     });
 }
+
+/**
+ * Set filter for price.
+ */
+function setPriceFilter() {
+    $.ajax('./setPriceFilter', {
+        method: 'post',
+        data: {
+            'filter': 'true',
+            'price': $('#priceToSet').val()
+        },
+        success: location.reload()
+    })
+}
+
+/**
+ * Reset price filter.
+ */
+function resetPriceFilter() {
+    $.ajax('./setPriceFilter', {
+        method: 'post',
+        data: {
+            'filter': 'false',
+            'price': 0
+        },
+        success: location.reload()
+    })
+}
