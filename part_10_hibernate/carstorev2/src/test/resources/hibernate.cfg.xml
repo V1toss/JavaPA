@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:hsqldb:mem:carstore;sql.enforce_size=false</property>
+        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password"></property>
+        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <mapping class="vkaretko.models.Body"/>
+        <mapping class="vkaretko.models.Brand"/>
+        <mapping class="vkaretko.models.Car"/>
+        <mapping class="vkaretko.models.Drive"/>
+        <mapping class="vkaretko.models.Engine"/>
+        <mapping class="vkaretko.models.Image"/>
+        <mapping class="vkaretko.models.Model"/>
+        <mapping class="vkaretko.models.Order"/>
+        <mapping class="vkaretko.models.Transmission"/>
+        <mapping class="vkaretko.models.User"/>
+    </session-factory>
+</hibernate-configuration>

@@ -25,4 +25,13 @@
         </plugins>
     </build>
 
+    <!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
+    <dependencies>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+    </dependencies>
+
 </project>
