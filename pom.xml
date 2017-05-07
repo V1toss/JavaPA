@@ -76,5 +76,6 @@
         <module>part_8_sql</module>
         <module>part_9_servlets_jsp</module>
         <module>part_10_hibernate</module>
+        <module>spring</module>
     </modules>
 </project>
