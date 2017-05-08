@@ -16,11 +16,9 @@ import java.util.List;
  * @version 1.00.
  * @since 06.05.17 12:53.
  */
-@Component
 public class UserStorage implements Storage {
     private final Storage storage;
 
-    @Autowired
     public UserStorage(final Storage storage) {
         this.storage = storage;
     }

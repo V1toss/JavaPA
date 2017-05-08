@@ -1,40 +1,53 @@
 package vkaretko.models;
 
-import javax.persistence.*;
-
 /**
- * Class User.
- * Description TODO.
+ * Model User.
  * Created by vitoss.
  *
  * @author Karetko Victor.
  * @version 1.00.
  * @since 06.05.17 12:53.
  */
-@Entity
-@Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    /**
+     * User id.
+     */
     private int id;
 
-    @Column(name = "name", nullable = false)
+    /**
+     * User name.
+     */
     private String name;
 
+    /**
+     * Getter for id.
+     * @return id of user.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setter for id.
+     * @param id id to set.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Getter for user name.
+     * @return users name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setter for user name.
+     * @param name name of user.
+     */
     public void setName(String name) {
         this.name = name;
     }

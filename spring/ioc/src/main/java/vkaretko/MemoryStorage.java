@@ -16,7 +16,6 @@ import java.util.List;
  * @version 1.00.
  * @since 06.05.17 12:56.
  */
-@Component
 public class MemoryStorage implements Storage {
 
     private List<User> storage = new ArrayList<>();

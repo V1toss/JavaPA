@@ -14,4 +14,14 @@
     <name>spring_ioc</name>
     <artifactId>ioc</artifactId>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.8.RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
 </project>
