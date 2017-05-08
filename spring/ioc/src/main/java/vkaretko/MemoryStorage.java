@@ -36,29 +36,4 @@ public class MemoryStorage implements Storage {
         }
         return result;
     }
-
-    @Override
-    public void remove(User user) {
-        for (int i = 0; i < this.storage.size(); i++) {
-            if (this.storage.get(i).equals(user)) {
-                this.storage.remove(i);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public List<User> getAll() {
-        return this.storage;
-    }
-
-    @Override
-    public void update(User user) {
-        for (int i = 0; i < this.storage.size(); i++) {
-            if (this.storage.get(i).getId() == user.getId()) {
-                this.storage.set(i, user);
-                break;
-            }
-        }
-    }
 }
