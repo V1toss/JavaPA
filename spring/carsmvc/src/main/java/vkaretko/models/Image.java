@@ -61,4 +61,22 @@ public class Image {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Image image = (Image) o;
+
+        if (id != image.id) return false;
+        return url != null ? url.equals(image.url) : image.url == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        return result;
+    }
 }

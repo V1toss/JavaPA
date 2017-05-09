@@ -24,11 +24,6 @@
         </property>
     </bean>
 
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
     <bean id="template" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
@@ -36,7 +31,4 @@
     <bean id="abstractRepository" class="vkaretko.repository.AbstractDAO" abstract="true">
         <property name="template" ref="template"/>
     </bean>
-
-    <context:component-scan base-package="vkaretko"/>
-
 </beans>

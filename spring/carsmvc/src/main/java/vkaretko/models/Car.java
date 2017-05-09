@@ -143,4 +143,26 @@ public class Car {
     public void setTransmission(Transmission transmission) {
         this.transmission = transmission;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if (id != car.id) return false;
+        if (enginePower != car.enginePower) return false;
+        if (year != car.year) return false;
+        return mileage == car.mileage;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + enginePower;
+        result = 31 * result + year;
+        result = 31 * result + mileage;
+        return result;
+    }
 }

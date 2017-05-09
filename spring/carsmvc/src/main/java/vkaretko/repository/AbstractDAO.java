@@ -81,6 +81,6 @@ public abstract class AbstractDAO<T> {
      */
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        return (List<T>) this.template.find("from " + persistentClass);
+        return (List<T>) this.template.loadAll(persistentClass);
     }
 }

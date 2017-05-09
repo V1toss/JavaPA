@@ -129,4 +129,30 @@ public class Order {
     public void setImages(List<Image> images) {
         this.images = images;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (id != order.id) return false;
+        if (price != order.price) return false;
+        if (sold != order.sold) return false;
+        if (description != null ? !description.equals(order.description) : order.description != null) return false;
+        if (date != null ? !date.equals(order.date) : order.date != null) return false;
+        return user != null ? user.equals(order.user) : order.user == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + price;
+        result = 31 * result + (sold ? 1 : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
+    }
 }
