@@ -33,7 +33,6 @@ public abstract class AbstractDAO<T> {
     @Autowired
     public void setTemplate(HibernateTemplate template) {
         this.template = template;
-        this.template.setCheckWriteOperations(false);
     }
 
     /**
