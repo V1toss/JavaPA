@@ -1,5 +1,6 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Drive;
 
@@ -11,6 +12,6 @@ import vkaretko.models.Drive;
  * @since 08.05.2017.
  */
 @Repository
-public class DriveDAO extends AbstractDAO<Drive> {
+public interface DriveDAO extends CrudRepository<Drive,Integer> {
 
 }

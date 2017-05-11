@@ -1,5 +1,6 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Car;
 
@@ -11,5 +12,5 @@ import vkaretko.models.Car;
  * @since 08.05.2017.
  */
 @Repository
-public class CarDAO extends AbstractDAO<Car> {
+public interface CarDAO extends CrudRepository<Car,Integer> {
 }

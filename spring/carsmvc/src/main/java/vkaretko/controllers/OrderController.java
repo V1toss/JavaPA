@@ -31,7 +31,7 @@ public class OrderController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showUsers(ModelMap model) {
-        List<Order> orderList = orderDAO.getAll();
+        List<Order> orderList = (List<Order>) orderDAO.findAll();
         model.addAttribute("orders",orderList);
         return "Index";
     }

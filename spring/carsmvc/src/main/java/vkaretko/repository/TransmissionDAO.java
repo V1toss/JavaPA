@@ -1,5 +1,6 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Transmission;
 
@@ -11,6 +12,6 @@ import vkaretko.models.Transmission;
  * @since 08.05.2017.
  */
 @Repository
-public class TransmissionDAO extends AbstractDAO<Transmission> {
+public interface TransmissionDAO extends CrudRepository<Transmission,Integer> {
 
 }

@@ -1,5 +1,6 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Image;
 
@@ -11,18 +12,6 @@ import vkaretko.models.Image;
  * @since 08.05.2017.
  */
 @Repository
-public class ImageDAO extends AbstractDAO<Image> {
-    /**
-     * Dao instance.
-     */
-    private static final ImageDAO INSTANCE = new ImageDAO();
-
-    /**
-     * Getter for instance.
-     * @return instance.
-     */
-    public static ImageDAO getInstance() {
-        return INSTANCE;
-    }
+public interface ImageDAO extends CrudRepository<Image,Integer> {
 
 }

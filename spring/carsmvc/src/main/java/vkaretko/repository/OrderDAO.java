@@ -1,5 +1,6 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Order;
 
@@ -11,7 +12,7 @@ import vkaretko.models.Order;
  * @since 08.05.2017.
  */
 @Repository
-public class OrderDAO extends AbstractDAO<Order> {
+public interface OrderDAO extends CrudRepository<Order,Integer> {
 
 
 }

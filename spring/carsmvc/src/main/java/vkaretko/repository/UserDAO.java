@@ -1,5 +1,6 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.User;
 
@@ -11,6 +12,6 @@ import vkaretko.models.User;
  * @since 08.05.2017.
  */
 @Repository
-public class UserDAO extends AbstractDAO<User> {
+public interface UserDAO extends CrudRepository<User,Integer> {
 
 }

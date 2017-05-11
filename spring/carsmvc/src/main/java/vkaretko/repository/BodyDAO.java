@@ -1,7 +1,9 @@
 package vkaretko.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Body;
+import vkaretko.models.Order;
 
 /**
  * Body DAO class.
@@ -11,6 +13,6 @@ import vkaretko.models.Body;
  * @since 08.05.2017.
  */
 @Repository
-public class BodyDAO extends AbstractDAO<Body> {
+public interface BodyDAO extends CrudRepository<Body,Integer> {
 
 }
