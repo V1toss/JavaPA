@@ -27,20 +27,7 @@ public class UserStorage implements Storage {
         this.storage.add(user);
     }
 
-    public List<User> getAll() {
-        return this.storage.getAll();
-    }
-
-    public void update(User user) {
-        this.storage.update(user);
-    }
-
     public User get(int id) {
         return this.storage.get(id);
-    }
-
-    @Override
-    public void remove(User user) {
-        this.storage.remove(user);
     }
 }

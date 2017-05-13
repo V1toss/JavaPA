@@ -36,7 +36,13 @@ CREATE TABLE users (
     login VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
-    email VARCHAR(255)
+    email VARCHAR(255),
+    role_id INTEGER REFERENCES roles(id) NOT NULL
+);
+
+CREATE TABLE roles (
+    id serial PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE cars (
@@ -102,3 +108,6 @@ INSERT INTO transmission(name) VALUES ('robot');
 INSERT INTO drive(name) VALUES ('front');
 INSERT INTO drive(name) VALUES ('back');
 INSERT INTO drive(name) VALUES ('full');
+
+INSERT INTO roles(name) VALUES ('admin');
+INSERT INTO roles(name) VALUES ('user');
