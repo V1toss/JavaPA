@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  * Class MVCConfig.
- * Description TODO.
+ * MVC configuration.
  * Created by vitoss.
  *
  * @author Karetko Victor.
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class MVCConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-     //   registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/index").setViewName("index");
     }
 }

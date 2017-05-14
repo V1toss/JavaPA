@@ -33,6 +33,6 @@ public class OrderController {
     public String showUsers(ModelMap model) {
         List<Order> orderList = (List<Order>) orderDao.findAll();
         model.addAttribute("orders",orderList);
-        return "index.html";
+        return "index";
     }
 }

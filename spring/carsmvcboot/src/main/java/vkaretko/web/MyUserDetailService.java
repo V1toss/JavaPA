@@ -1,7 +1,6 @@
 package vkaretko.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,9 +26,13 @@ import java.util.Collections;
  */
 @Service
 public class MyUserDetailService implements UserDetailsService {
-    @Autowired
-    private UserDAO userDAO;
 
+    private final UserDAO userDAO;
+
+    @Autowired
+    public MyUserDetailService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
