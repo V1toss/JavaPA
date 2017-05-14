@@ -19,6 +19,7 @@
   <modules>
       <module>ioc</module>
       <module>carsmvc</module>
+      <module>carsmvcboot</module>
   </modules>
 
     <dependencies>
