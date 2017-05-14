@@ -28,27 +28,24 @@ public class MyUserDetailService implements UserDetailsService {
     @Autowired
     private UserDAO userDAO;
 
-    @Autowired
-    private RoleDAO roleDAO;
-
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User client = userDAO.findByLogin(s);
-        List<GrantedAuthority> authorities = buildUserAuthority((List<Role>) roleDAO.findAll());
-        UserDetails loadedUser = new org.springframework.security.core.userdetails.User(client.getLogin(),
+        List<GrantedAuthority> authorities = buildUserAuthority(Collections.singletonList(client.getRole()));
+        return new org.springframework.security.core.userdetails.User(client.getLogin(),
                 client.getPassword(),
                 true,
                 true,
                 true,
                 true,
                 authorities);
-        return loadedUser;
     }
 
     private List<GrantedAuthority> buildUserAuthority(List<Role> roles) {
         List<GrantedAuthority> setAuths = new ArrayList<>();
 
         for (Role role : roles) {
+            System.out.println(role.getName());
             setAuths.add(new SimpleGrantedAuthority(role.getName()));
         }
         return setAuths;
