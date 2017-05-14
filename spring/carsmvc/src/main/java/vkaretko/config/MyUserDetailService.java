@@ -9,14 +9,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vkaretko.models.Role;
 import vkaretko.models.User;
-import vkaretko.repository.RoleDAO;
 import vkaretko.repository.UserDAO;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class UserDetailService.
- * Description TODO.
+ * Define custom UserDetailService to only allow certain users access if they have particular role.
  * Created by vitoss.
  *
  * @author Karetko Victor.
@@ -41,6 +42,11 @@ public class MyUserDetailService implements UserDetailsService {
                 authorities);
     }
 
+    /**
+     * Filling list of authorities with roles.
+     * @param roles roles to fill.
+     * @return list of authorities.
+     */
     private List<GrantedAuthority> buildUserAuthority(List<Role> roles) {
         List<GrantedAuthority> setAuths = new ArrayList<>();
 

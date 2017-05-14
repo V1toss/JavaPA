@@ -4,7 +4,8 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 
 /**
  * Class MessageSecurityWebApplicationInitializer.
- * Description TODO.
+ * Automatically register the springSecurityFilterChain Filter for every URL
+ * and add a ContextLoaderListener that loads the WebSecurityConfig.
  * Created by vitoss.
  *
  * @author Karetko Victor.

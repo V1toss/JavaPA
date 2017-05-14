@@ -6,14 +6,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import vkaretko.repository.UserDAO;
-
-import javax.sql.DataSource;
 
 /**
  * Class WebSecurityConfig.
- * Description TODO.
+ * Spring security Java-based configuration using UserDetailsService
+ * for managing user authentication and authorization.
  * Created by vitoss.
  *
  * @author Karetko Victor.

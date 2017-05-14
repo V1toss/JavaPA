@@ -4,8 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.User;
 
-import java.util.List;
-
 /**
  * User DAO class.
  *

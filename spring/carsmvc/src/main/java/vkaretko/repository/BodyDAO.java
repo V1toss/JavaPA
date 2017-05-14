@@ -3,7 +3,6 @@ package vkaretko.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vkaretko.models.Body;
-import vkaretko.models.Order;
 
 /**
  * Body DAO class.

@@ -109,5 +109,5 @@ INSERT INTO drive(name) VALUES ('front');
 INSERT INTO drive(name) VALUES ('back');
 INSERT INTO drive(name) VALUES ('full');
 
-INSERT INTO roles(name) VALUES ('admin');
-INSERT INTO roles(name) VALUES ('user');
+INSERT INTO roles(name) VALUES ('ROLE_ADMIN');
+INSERT INTO roles(name) VALUES ('ROLE_USER');
