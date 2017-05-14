@@ -1,11 +1,48 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Hello World</title>
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
-<h1>Hello world</h1>
+<div class="container">
+    <div class="row">
+        <h3 style="text-align: center">List of orders</h3> <br/>
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead style="background: blue">
+                <tr style="color: white">
+                    <th>Car brand</th>
+                    <th>Car model</th>
+                    <th>Color</th>
+                    <th>Year</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Create date</th>
+                    <th>User</th>
+                    <th>Sold</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="order : ${orders}" th:remove="tag">
+                    <tr>
+                        <td th:text="${order.car.model.brand.name}"></td>
+                        <td th:text="${order.car.model.name}"></td>
+                        <td th:text="${order.car.color}"></td>
+                        <td th:text="${order.car.year}"></td>
+                        <td th:text="${order.description}"></td>
+                        <td th:text="${order.price}"></td>
+                        <td th:text="${order.date}"></td>
+                        <td th:text="${order.user.login}"></td>
+                        <td th:text="${order.sold}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
