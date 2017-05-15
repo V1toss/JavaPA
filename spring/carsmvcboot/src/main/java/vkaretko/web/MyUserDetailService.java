@@ -37,6 +37,9 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User client = userDAO.findByLogin(s);
+        if (client == null) {
+            throw new UsernameNotFoundException("Bad credentials");
+        }
         List<GrantedAuthority> authorities = buildUserAuthority(Collections.singletonList(client.getRole()));
         return new org.springframework.security.core.userdetails.User(client.getLogin(),
                 client.getPassword(),

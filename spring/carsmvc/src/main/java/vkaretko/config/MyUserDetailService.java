@@ -26,12 +26,19 @@ import java.util.Collections;
  */
 @Service
 public class MyUserDetailService implements UserDetailsService {
+    private final UserDAO userDAO;
+
     @Autowired
-    private UserDAO userDAO;
+    public MyUserDetailService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User client = userDAO.findByLogin(s);
+        if (client == null) {
+            throw new UsernameNotFoundException("Bad credentials");
+        }
         List<GrantedAuthority> authorities = buildUserAuthority(Collections.singletonList(client.getRole()));
         return new org.springframework.security.core.userdetails.User(client.getLogin(),
                 client.getPassword(),
