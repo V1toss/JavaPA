@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Car store</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https:////netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .selector {
+        width: 90px;
+        margin-right: 5px;
+        margin-top: 20px;
+    }
+    label{
+        position: absolute;
+    }
+
+</style>
+<body>
+<div class="container">
+    <h3 style="padding-bottom: 30px">Create new order</h3>
+    <div class="row">
+        <div class="col-md-9">
+
+            <label for="brandList">Brands</label>
+            <select id="brandList" multiple="multiple" class="selector">
+                <option th:each="brand : ${brands}"
+                        th:value="${brand.id}"
+                        th:text="${brand.name}"></option>
+            </select>
+
+            <label for="modelList">Models</label>
+            <select id="modelList" multiple="multiple" class="selector">
+                <option th:each="model : ${models}"
+                        th:value="${model.id}"
+                        th:text="${model.name}"></option>
+            </select>
+
+            <label for="engineList">Engines</label>
+            <select id="engineList" multiple="multiple" class="selector">
+                <option th:each="engine : ${engines}"
+                        th:value="${engine.id}"
+                        th:text="${engine.name}"></option>
+            </select>
+
+            <label for="driveList">Drives</label>
+            <select id="driveList" multiple="multiple" class="selector">
+                <option th:each="drive : ${drives}"
+                        th:value="${drive.id}"
+                        th:text="${drive.name}"></option>
+            </select>
+
+            <label for="bodiesList">Bodies</label>
+            <select id="bodiesList" multiple="multiple" class="selector">
+                <option th:each="body : ${bodies}"
+                        th:value="${body.id}"
+                        th:text="${body.name}"></option>
+            </select>
+
+            <label for="transmissionList">Transmissions</label>
+            <select id="transmissionList" multiple="multiple" class="selector">
+                <option th:each="transmission : ${transmissions}"
+                        th:value="${transmission.id}"
+                        th:text="${transmission.name}"></option>
+            </select>
+
+        </div>
+        <div class="col-md-9" style="margin-top: 30px">
+                Price: <input type="number" id="price" placeholder="Enter price"/><br/> <br/>
+                Color: <input type="text" id="color" placeholder="Enter color"/><br/> <br/>
+                Mileage: <input type="number" id="mileage" placeholder="Enter mileage"/><br/> <br/>
+                Engine Power: <input type="number" id="enginePower" placeholder="Enter engine power"/><br/> <br/>
+                Release year: <input type="number" id="year" placeholder="Enter year"/>
+        </div>
+
+    </div>
+    <br/>
+    <form th:action="@{/addOrder}" method="post">
+    <button type="submit" class="btn btn-success">Add new order</button>
+    </form>
+</div>
+</body>
+
+</html>
