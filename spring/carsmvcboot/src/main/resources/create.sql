@@ -36,13 +36,13 @@ CREATE TABLE users (
     login VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
-    email VARCHAR(255),
-    role_id INTEGER REFERENCES roles(id) NOT NULL
+    email VARCHAR(255)
 );
 
 CREATE TABLE roles (
     id serial PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE
+    name VARCHAR(255) NOT NULL,
+    id_user INTEGER REFERENCES users(id)
 );
 
 CREATE TABLE cars (

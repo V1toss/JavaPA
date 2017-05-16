@@ -6,8 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Model User.
@@ -37,22 +40,21 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Role> role = new ArrayList<>();
 
     public User() { }
 
-    public User(int id) {
-        this.id = id;
-    }
-
-    public Role getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(List<Role> role) {
         this.role = role;
+    }
+
+    public User(int id) {
+        this.id = id;
     }
 
     public int getId() {

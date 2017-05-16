@@ -7,13 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import vkaretko.domain.Role;
 import vkaretko.domain.User;
 import vkaretko.repository.UserDAO;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Class UserDetailService.
@@ -40,7 +38,9 @@ public class MyUserDetailService implements UserDetailsService {
         if (client == null) {
             throw new UsernameNotFoundException("Bad credentials");
         }
-        List<GrantedAuthority> authorities = buildUserAuthority(Collections.singletonList(client.getRole()));
+        List<GrantedAuthority> authorities = client.getRole().stream()
+                .map(p -> new SimpleGrantedAuthority(p.getName()))
+                .collect(Collectors.toList());
         return new org.springframework.security.core.userdetails.User(client.getLogin(),
                 client.getPassword(),
                 true,
@@ -49,20 +49,4 @@ public class MyUserDetailService implements UserDetailsService {
                 true,
                 authorities);
     }
-
-    /**
-     * Filling list of authorities with roles.
-     * @param roles roles to fill.
-     * @return list of authorities.
-     */
-    private List<GrantedAuthority> buildUserAuthority(List<Role> roles) {
-        List<GrantedAuthority> setAuths = new ArrayList<>();
-
-        for (Role role : roles) {
-            System.out.println(role.getName());
-            setAuths.add(new SimpleGrantedAuthority(role.getName()));
-        }
-        return setAuths;
-    }
-
 }
