@@ -85,6 +85,13 @@
             <version>4.2.2.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>4.2.2.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <modelVersion>4.0.0</modelVersion>
